@@ -1,0 +1,65 @@
+package com.petrushin.domain;
+
+public class UserCard {
+
+    public static final String GET_BY_ID = "SELECT * FROM user_cards WHERE card_id=?";
+    public static final String GET_ALL = "SELECT * FROM user_cards";
+    public static final String ADD_CARD = "INSERT INTO user_cards (user_id, card_number, card_name)" +
+            " VALUES (?,?,?)";
+    private int id;
+    private int userId;
+    private String cardNumber;
+    private String cardName;
+
+    public UserCard(int id, int userId, String cardNumber, String cardName) {
+        this.id = id;
+        this.userId = userId;
+        this.cardNumber = cardNumber;
+        this.cardName = cardName;
+    }
+
+    public UserCard() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserCard{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", cardName='" + cardName + '\'' +
+                '}';
+    }
+}

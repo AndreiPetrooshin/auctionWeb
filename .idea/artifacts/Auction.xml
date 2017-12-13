@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Auction">
+    <output-path>$PROJECT_DIR$/out/artifacts/Auction</output-path>
+    <root id="archive" name="Auction.war">
+      <element id="javaee-facet-resources" facet="auctionWeb/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="auctionWeb" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: commons-dbcp:commons-dbcp:1.4" />
+          <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.5.4" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.24" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
