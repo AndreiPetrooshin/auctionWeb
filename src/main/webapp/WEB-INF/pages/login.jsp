@@ -3,18 +3,17 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="../assets/css/style-registration.css"/>
+    <link rel="stylesheet" href="../../assets/css/style-registration.css"/>
 </head>
 <body>
-
-<c:if test="${sessionScope.user == null}">
+<c:if test="${sessionScope.user eq null}">
     <div id="login">
         <header> LOGIN</header>
+        <c:if test="${requestScope.error eq true}">
+            <span class="error">Не правильный пароль или логин</span>
+            <hr>
+        </c:if>
         <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
-            <c:if test="${requestScope.error eq true}">
-                <span class="error">Не правильный пароль или логин</span>
-                <hr>
-            </c:if>
             <p><span class="fontawesome-user"></span>
                 <label>
                     <input type="text" value="Логин" name="login"
@@ -28,7 +27,8 @@
                            onBlur="if(this.value == '') this.value = 'Пароль'"
                            onFocus="if(this.value == 'Пароль') this.value = ''"
                            required>
-                </label></p>
+                </label>
+            </p>
             <input type="submit" name="submit" value="LOG_IN">
         </form>
         <p>Нет аккаунта? &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/registration">Регистрация</a><span
@@ -37,6 +37,6 @@
     </div>
 </c:if>
 
-    <jsp:include page="${pageContext.request.contextPath}/pages/fragments/alreadyLogin.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/alreadyLogin"/>
 </body>
 </html>

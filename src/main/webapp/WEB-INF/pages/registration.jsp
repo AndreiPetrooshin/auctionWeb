@@ -48,6 +48,6 @@
     </div>
 </c:if>
 
-    <jsp:include page="${pageContext.request.contextPath}/pages/fragments/alreadyLogin.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}/alreadyLogin"/>
 </body>
 </html>

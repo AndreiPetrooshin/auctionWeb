@@ -1,132 +1,99 @@
 package com.petrushin.dao.impl;
 
+import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.dao.AbstractDAO;
 import com.petrushin.dao.ConnectionPool;
-import com.petrushin.dao.EntityDAO;
+import com.petrushin.dao.exception.AbstractDAOException;
+import com.petrushin.dao.exception.ConnectionPoolException;
 import com.petrushin.dao.exception.UserBetDAOException;
 import com.petrushin.domain.UserBet;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class UserBetDAOImpl implements EntityDAO<UserBet> {
+public class UserBetDAOImpl extends AbstractDAO<UserBet> {
 
-    @Override
-    public UserBet findById(int id) throws UserBetDAOException {
-        ResultSet resultSet = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        UserBet userBet = null;
-        ConnectionPool connectionPool = new ConnectionPool();
-        try {
-            DataSource dataSource = connectionPool.setUpPool();
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(UserBet.GET_BY_ID);
-            statement.setInt(1, id);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                userBet = createUserBet(resultSet);
-            }
-
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new UserBetDAOException(e.getMessage());
-        } finally {
-            closeAll(resultSet, connection, statement);
-        }
-        return userBet;
+    public UserBetDAOImpl(AbstractBuilder<UserBet> builder) {
+        super(builder);
     }
 
-    @Override
-    public List<UserBet> getAll() throws UserBetDAOException {
-        ResultSet resultSet = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        List<UserBet> listUserBets = new ArrayList<>();
-        ConnectionPool connectionPool = new ConnectionPool();
-        try {
-            DataSource dataSource = connectionPool.setUpPool();
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(UserBet.GET_ALL);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                UserBet userBet = createUserBet(resultSet);
-                listUserBets.add(userBet);
-            }
-
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new UserBetDAOException(e.getMessage());
-        } finally {
-            closeAll(resultSet, connection, statement);
-        }
-        return listUserBets;
-    }
-
-    @Override
-    public void add(UserBet userBet) throws UserBetDAOException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ConnectionPool connectionPool = new ConnectionPool();
-        try {
-            DataSource dataSource = connectionPool.setUpPool();
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(UserBet.ADD_BET);
-
-            initStatement(userBet, statement);
-
-            statement.executeUpdate();
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new UserBetDAOException(e.getMessage());
-        } finally {
-            closeAll(null, connection, statement);
-        }
-    }
-
-    private UserBet createUserBet(ResultSet resultSet) throws SQLException {
-        int lotId = resultSet.getInt("fl_id");
-        int userId = resultSet.getInt("user_id");
-        double bet = resultSet.getDouble("user_bet");
-
-        return new UserBet(lotId, userId, bet);
-    }
-
-    private void initStatement(UserBet userBet, PreparedStatement statement) throws SQLException {
-        int lotId = userBet.getLotId();
-        int userId = userBet.getUserId();
-        double bet = userBet.getBet();
-
-        statement.setInt(1,lotId);
-        statement.setInt(2,userId);
-        statement.setDouble(3,bet);
-    }
-
-    private void closeAll(ResultSet resultSet,
-                          Connection connection, PreparedStatement statement)
+    public UserBet findById(int id)
             throws UserBetDAOException {
-        if (resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                throw new UserBetDAOException("Error with resultSetClose", e);
-            }
+        try {
+            return findById(id, UserBet.GET_BY_ID);
+        } catch (AbstractDAOException e) {
+            throw new UserBetDAOException(e.getMessage());
         }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new UserBetDAOException("Error with Connection close", e);
-            }
+    }
+
+    public List<UserBet> getAll()
+            throws UserBetDAOException {
+        try {
+            return getAll(UserBet.GET_ALL);
+        } catch (AbstractDAOException e) {
+            throw new UserBetDAOException(e.getMessage());
         }
-        if (statement != null) {
+    }
+
+
+    public boolean add(UserBet userBet)
+            throws UserBetDAOException {
+        try {
+            return add(userBet, UserBet.ADD_BET);
+        } catch (AbstractDAOException e) {
+            throw new UserBetDAOException(e.getMessage());
+        }
+    }
+
+    public boolean deleteAllByUserId(int id)
+            throws UserBetDAOException {
+        try {
+            return delete(id, UserBet.DELETE_BY_USER_ID);
+        } catch (AbstractDAOException e) {
+            throw new UserBetDAOException(e.getMessage());
+        }
+    }
+
+    public boolean deleteAllByLotId(int id)
+            throws UserBetDAOException {
+        try {
+            return delete(id, UserBet.DELETE_BY_LOT_ID);
+        } catch (AbstractDAOException e) {
+            throw new UserBetDAOException(e.getMessage());
+        }
+    }
+
+    public boolean deleteByLotAndUserId(int lotId, int userId)
+            throws UserBetDAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionPool.getConnection();
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(
+                    UserBet.DELETE_BY_USER_AND_LOT_ID);
+            statement.setInt(1, userId);
+            statement.setInt(2, lotId);
+            int rowCountChanged = statement.executeUpdate();
+            connection.commit();
+            connection.setAutoCommit(true);
+            return rowCountChanged==1;
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new UserBetDAOException(
+                    "Error with delete by lot and user ids method "
+                            + e.getMessage());
+        } finally {
             try {
-                statement.close();
-            } catch (SQLException e) {
-                throw new UserBetDAOException("Error with statement close", e);
+                closeAll(connection, statement);
+            } catch (AbstractDAOException e) {
+                throw new UserBetDAOException(
+                        "Error with delete by lot and user ids method "
+                                + e.getMessage());
             }
         }
     }
+
 
 }

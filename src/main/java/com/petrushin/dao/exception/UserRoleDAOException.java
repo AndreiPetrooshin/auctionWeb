@@ -1,6 +1,6 @@
 package com.petrushin.dao.exception;
 
-public class UserRoleDAOException extends EntityDAOException {
+public class UserRoleDAOException extends AbstractDAOException {
 
     public UserRoleDAOException() {
     }

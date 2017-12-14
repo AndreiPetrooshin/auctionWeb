@@ -1,6 +1,6 @@
 package com.petrushin.dao.exception;
 
-public class UserShippingAddressDAOException extends EntityDAOException {
+public class UserShippingAddressDAOException extends AbstractDAOException {
 
     public UserShippingAddressDAOException() {
     }

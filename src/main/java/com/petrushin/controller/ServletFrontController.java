@@ -1,8 +1,10 @@
 package com.petrushin.controller;
 
+import com.petrushin.service.Command;
 import com.petrushin.service.CommandFactory;
-import com.petrushin.service.CommandService;
+import com.petrushin.service.exception.CommandException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,31 +16,43 @@ public class ServletFrontController extends HttpServlet {
     private static final String COMMAND = "command";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        String command = req.getParameter(COMMAND);
-        if (command != null) {
-            CommandService service = CommandFactory.getCommand(command);
-            if (service != null) {
-                service.execute(req, resp);
-            }
-        }
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        processCommand(req, resp);
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        
-        resp.setContentType("text/html");
+        processCommand(req, resp);
+
+
+    }
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+    }
+
+    private void processCommand(HttpServletRequest req,
+                                HttpServletResponse resp)
+            throws ServletException {
 
         String command = req.getParameter(COMMAND);
         if (command != null) {
-            CommandService service = CommandFactory.getCommand(command);
+            Command service = CommandFactory.getCommand(command);
             if (service != null) {
-                service.execute(req, resp);
+                try {
+                    String link = service.execute(req, resp);
+                    RequestDispatcher dispatcher = req.getRequestDispatcher(link);
+                    dispatcher.forward(req, resp);
+                } catch (ServletException | IOException | CommandException e) {
+                    throw new ServletException(e.getMessage());
+                } finally {
+                    return;
+                }
             }
         }
-
-
     }
 }

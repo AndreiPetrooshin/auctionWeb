@@ -1,137 +1,61 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.dao.ConnectionPool;
-import com.petrushin.dao.EntityDAO;
+import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.dao.AbstractDAO;
+import com.petrushin.dao.exception.AbstractDAOException;
 import com.petrushin.dao.exception.UserCardDAOException;
-import com.petrushin.dao.exception.UserRoleDAOException;
 import com.petrushin.domain.UserCard;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class UserCardDAOImpl implements EntityDAO<UserCard> {
+public class UserCardDAOImpl extends AbstractDAO<UserCard> {
 
-    @Override
-    public UserCard findById(int id) throws UserCardDAOException {
-        ResultSet resultSet = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        UserCard userCard = null;
-        ConnectionPool connectionPool = new ConnectionPool();
-        try {
-            DataSource dataSource = connectionPool.setUpPool();
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(UserCard.GET_BY_ID);
-            statement.setInt(1, id);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                userCard = createUserCard(resultSet);
-            }
-
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new UserCardDAOException(e.getMessage());
-        } finally {
-            closeAll(resultSet, connection, statement);
-        }
-        return userCard;
+    public UserCardDAOImpl(AbstractBuilder<UserCard> builder) {
+        super(builder);
     }
 
-    @Override
-    public List<UserCard> getAll() throws UserCardDAOException {
-        ResultSet resultSet = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        List<UserCard> listUserCards = new ArrayList<>();
-        ConnectionPool connectionPool = new ConnectionPool();
-        try {
-            DataSource dataSource = connectionPool.setUpPool();
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(UserCard.GET_ALL);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                UserCard userCard= createUserCard(resultSet);
-                listUserCards.add(userCard);
-            }
-
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new UserCardDAOException(e.getMessage());
-        } finally {
-            closeAll(resultSet, connection, statement);
-        }
-        return listUserCards;
-    }
-
-    @Override
-    public void add(UserCard card) throws UserCardDAOException {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ConnectionPool connectionPool = new ConnectionPool();
-        try {
-            DataSource dataSource = connectionPool.setUpPool();
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(UserCard.ADD_CARD);
-
-            initStatement(card, statement);
-
-            statement.executeUpdate();
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new UserCardDAOException(e.getMessage());
-        } finally {
-            closeAll(null, connection, statement);
-        }
-
-    }
-
-    private UserCard createUserCard(ResultSet resultSet) throws SQLException {
-        UserCard userCard;
-        int cardId = resultSet.getInt("card_id");
-        int userId = resultSet.getInt("user_id");
-        String cardNumber = resultSet.getString("card_number");
-        String cardName = resultSet.getString("card_name");
-
-        userCard = new UserCard(cardId, userId, cardNumber, cardName);
-        return userCard;
-    }
-
-    private void initStatement(UserCard card, PreparedStatement statement) throws SQLException {
-        int userId = card.getUserId();
-        String cardNumber = card.getCardNumber();
-        String cardName = card.getCardName();
-
-        statement.setInt(1, userId);
-        statement.setString(2,cardNumber);
-        statement.setString(3,cardName);
-    }
-
-    private void closeAll(ResultSet resultSet,
-                          Connection connection, PreparedStatement statement)
+    public UserCard findById(int id)
             throws UserCardDAOException {
+        try {
+            return findById(id, UserCard.GET_BY_ID);
+        } catch (AbstractDAOException e) {
+            throw new UserCardDAOException(e.getMessage());
+        }
+    }
 
-        if (resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                throw new UserCardDAOException("Error with resultSetClose",e);
-            }
+    public List<UserCard> getAll()
+            throws UserCardDAOException {
+        try {
+            return getAll(UserCard.GET_ALL);
+        } catch (AbstractDAOException e) {
+            throw new UserCardDAOException(e.getMessage());
         }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new UserCardDAOException("Error with Connection close", e);
-            }
+    }
+
+    public boolean add(UserCard card)
+            throws UserCardDAOException {
+        try {
+            return add(card, UserCard.ADD_CARD);
+        } catch (AbstractDAOException e) {
+            throw new UserCardDAOException(e.getMessage());
         }
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                throw new UserCardDAOException("Error with statement close", e);
-            }
+    }
+
+    public boolean update(UserCard card)
+            throws UserCardDAOException {
+        try {
+            return update(card, UserCard.UPDATE_USER_CARD);
+        } catch (AbstractDAOException e) {
+            throw new UserCardDAOException(e.getMessage());
+        }
+    }
+
+    public boolean delete(int id)
+            throws UserCardDAOException {
+        try {
+            return delete(id, UserCard.DELETE_USER_CARD);
+        } catch (AbstractDAOException e) {
+            throw new UserCardDAOException(e.getMessage());
         }
     }
 

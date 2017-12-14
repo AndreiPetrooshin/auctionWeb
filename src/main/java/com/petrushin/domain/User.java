@@ -5,10 +5,13 @@ public class User {
     public static final String GET_BY_ID = "SELECT * FROM user WHERE user_id=?";
     public static final String GET_ALL = "SELECT * FROM user";
     public static final String ADD_USER = "INSERT INTO user (role_id, u_login," +
-            "u_password, u_email) VALUES (?,?,MD5(?),?)";
+            "u_password, u_email,user_id) VALUES (?,?,MD5(?),?,?)";
     public static final String GET_BY_LOGIN = "SELECT * FROM user WHERE u_login=?";
     public static final String GET_LOGIN = "SELECT u_login FROM user WHERE u_login=?";
     public static final String GET_EMAIL = "SELECT u_email FROM user WHERE u_email=?";
+    public static final String DELETE_BY_ID = "DELETE FROM user WHERE user_id=?" ;
+    public static final String UPDATE_USER = "UPDATE user SET role_id=?, u_login=?," +
+            " u_password=?, u_email=? WHERE user_id=?";
 
     private int id;
     private int roleId;
@@ -75,9 +78,17 @@ public class User {
 
         User user = (User) o;
 
-        if (roleId != user.roleId) return false;
-        if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (roleId != user.roleId) {
+            return false;
+        }
+        if (login != null ?
+                !login.equals(user.login) : user.login != null) {
+            return false;
+        }
+        if (password != null ?
+                !password.equals(user.password) : user.password != null) {
+            return false;
+        }
         return email != null ? email.equals(user.email) : user.email == null;
     }
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: draqo
@@ -11,7 +12,10 @@
     <title>$Title$</title>
 </head>
 <body>
-      <header><a href="/login">LOGIN</a></header>
-      <header><a href="/registration">REGISTRATION</a></header>
+        <header>
+            <a href="${pageContext.request.contextPath}/login" >LOGIN</a>
+
+            <a href="${pageContext.request.contextPath}/registration">REGISTRATION</a>
+        </header>
 </body>
 </html>

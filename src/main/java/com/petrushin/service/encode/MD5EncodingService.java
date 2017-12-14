@@ -10,8 +10,12 @@ public class MD5EncodingService {
     private static final String MD_5 = "MD5";
 
     public static String encode(String password) throws MD5EncodingServiceException {
-        MessageDigest md = null;
-        String result = null;
+
+        if(password== null){
+            return null;
+        }
+        MessageDigest md ;
+        String result;
         try {
             md = MessageDigest.getInstance(MD_5);
             md.update(password.getBytes());

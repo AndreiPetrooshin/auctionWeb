@@ -12,5 +12,10 @@
 </head>
 <body>
     <h1> MAIN</h1>
+
+    <a href="login">LOGIN</a>
+    <a href="registration">REGISTRATION</a>
+    <a href="home">HOME</a>
+    <a href="${pageContext.request.contextPath}/controller?command=logout">HOME</a>
 </body>
 </html>

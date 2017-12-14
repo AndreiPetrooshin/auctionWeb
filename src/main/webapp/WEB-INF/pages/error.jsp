@@ -12,5 +12,7 @@
 </head>
 <body>
         <h1> ERROR </h1>
+        <p> ${requestScope}</p>
+        <p> ${sessionScope}</p>
 </body>
 </html>

@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class AuthorizationFilter implements Filter {
 
-    private static final String USER = "user";
-    private static final String ADMIN = "admin";
 
 
     @Override
@@ -22,17 +20,17 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        if ("login".equalsIgnoreCase(request.getParameter("command"))) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            filterChain.doFilter(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+            dispatcher.forward(request, response);
         }
         filterChain.doFilter(request, response);
-//
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-//        dispatcher.forward(request, response);
-
-
         }
 
 
