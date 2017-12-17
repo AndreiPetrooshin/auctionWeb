@@ -6,18 +6,37 @@ public class UserShippingAddress implements Serializable {
 
     private static final long serialVersionUID = 6L;
 
-    public static final String GET_BY_ID = "SELECT * FROM user_shipping_address WHERE ship_addr_id=?";
-    public static final String ADD_ADDRESS = "INSERT INTO user_shipping_address" +
-            " (user_id, sa_first_name, sa_second_name, sa_last_name, sa_country," +
-            " sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active, ship_addr_id)" +
-            " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-    public static final String GET_ALL = "SELECT * FROM user_shipping_address";
-    public static final String DELETE_BY_ID = "DELETE FROM user_shipping_address" +
-            " WHERE ship_addr_id=?";
-    public static final String UPDATE_ADDRESS = "UPDATE user_shipping_address SET" +
-            "user_id=?, sa_first_name=?, sa_second_name=?, sa_last_name=?, sa_country=?," +
-            "sa_city=?, sa_street=?, sa_phone=?, sa_postal_code=?, sa_is_active=? " +
-            "WHERE ship_addr_id=?";
+    public static final String GET_BY_ID =
+            "SELECT a.ship_addr_id, a.sa_first_name, a.sa_second_name, " +
+                    "a.sa_last_name, a.sa_country, a.sa_city, a.sa_street," +
+                    " a.sa_phone, a.sa_postal_code, a.sa_is_active, u.user_id," +
+                    " u.u_login, u.u_password, u.u_email, r.role_id, r.user_role" +
+                    " FROM user_shipping_address a JOIN user u, user_role r " +
+                    "WHERE a.user_id=u.user_id AND u.role_id=r.role_id" +
+                    " AND a.ship_addr_id=?";
+
+    public static final String GET_ALL =
+            "SELECT a.ship_addr_id, a.sa_first_name, a.sa_second_name, " +
+                    "a.sa_last_name, a.sa_country, a.sa_city, a.sa_street," +
+                    " a.sa_phone, a.sa_postal_code, a.sa_is_active, u.user_id," +
+                    " u.u_login, u.u_password, u.u_email, r.role_id, r.user_role" +
+                    " FROM user_shipping_address a JOIN user u, user_role r" +
+                    " WHERE a.user_id=u.user_id AND u.role_id=r.role_id";
+
+    public static final String ADD_ADDRESS =
+            "INSERT INTO user_shipping_address (user_id, sa_first_name," +
+                    " sa_second_name, sa_last_name, sa_country, sa_city," +
+                    " sa_street, sa_phone, sa_postal_code, sa_is_active, " +
+                    "ship_addr_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+    public static final String DELETE_BY_ID =
+            "DELETE FROM user_shipping_address WHERE ship_addr_id=?";
+
+    public static final String UPDATE_ADDRESS =
+            "UPDATE user_shipping_address SET user_id=?, sa_first_name=?," +
+                    " sa_second_name=?, sa_last_name=?, sa_country=?, " +
+                    "sa_city=?, sa_street=?, sa_phone=?, sa_postal_code=?," +
+                    " sa_is_active=? WHERE ship_addr_id=?";
 
     private Long id;
     private User user;

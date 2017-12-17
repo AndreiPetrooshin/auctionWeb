@@ -1,6 +1,6 @@
 package com.petrushin.dao;
 
-import com.petrushin.dao.exception.ConnectionPoolException;
+import com.petrushin.exceptions.ConnectionPoolException;
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverManagerConnectionFactory;
 import org.apache.commons.dbcp.PoolableConnectionFactory;
@@ -44,7 +44,8 @@ public class ConnectionPool {
             return connection;
 
         } catch (ClassNotFoundException | SQLException e) {
-            throw new ConnectionPoolException("Error with connection pool " + e.getMessage());
+            throw new ConnectionPoolException(
+                    "Error with connection pool " + e.getMessage(), e);
         }
 
     }

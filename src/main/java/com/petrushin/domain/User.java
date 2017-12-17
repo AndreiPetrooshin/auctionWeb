@@ -4,19 +4,30 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 2L;
-
-    public static final String GET_BY_ID = "SELECT * FROM user WHERE user_id=?";
-    public static final String GET_ALL = "SELECT * FROM user";
+    public static final String GET_BY_ID =
+            "SELECT u.user_id, r.role_id, u.u_login, u.u_password," +
+                    " u.u_email, r.user_role FROM user u JOIN user_role r WHERE" +
+                    " u.role_id=r.role_id AND u.user_id=?";
+    public static final String GET_ALL = "SELECT u.user_id, r.role_id," +
+            " u.u_login, u.u_password, u.u_email,  r.user_role FROM user u " +
+            "JOIN user_role r WHERE u.role_id=r.role_id";
     public static final String ADD_USER = "INSERT INTO user (role_id, u_login," +
-            "u_password, u_email,user_id) VALUES (?,?,MD5(?),?,?)";
-    public static final String GET_BY_LOGIN = "SELECT * FROM user WHERE u_login=?";
-    public static final String GET_LOGIN = "SELECT u_login FROM user WHERE u_login=?";
-    public static final String GET_EMAIL = "SELECT u_email FROM user WHERE u_email=?";
-    public static final String DELETE_BY_ID = "DELETE FROM user WHERE user_id=?" ;
-    public static final String UPDATE_USER = "UPDATE user SET role_id=?, u_login=?," +
-            " u_password=?, u_email=? WHERE user_id=?";
+            "u_password, u_email, user_id) VALUES (?,?,MD5(?),?,?)";
+    public static final String GET_BY_LOGIN = "SELECT u.user_id, r.role_id, u.u_login," +
+            " u.u_password, u.u_email, r.user_role FROM user u JOIN user_role r " +
+            "WHERE u.role_id=r.role_id AND u.u_login=?";
+    public static final String IS_LOGIN_EXIST =
+            "SELECT u_login FROM user WHERE u_login=?";
+    public static final String IS_EMAIL_EXIST =
+            "SELECT u_email FROM user WHERE u_email=?";
+    public static final String DELETE_BY_ID =
+            "DELETE FROM user WHERE user_id=?";
+    public static final String UPDATE_USER =
+            "UPDATE user SET role_id=?, u_login=?," +
+                    " u_password=?, u_email=? WHERE user_id=?";
 
+
+    private static final long serialVersionUID = 2L;
     private Long id;
     private UserRole role;
     private String login;

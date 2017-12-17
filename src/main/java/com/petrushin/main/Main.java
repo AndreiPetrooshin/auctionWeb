@@ -1,21 +1,21 @@
 package com.petrushin.main;
 
-import com.petrushin.builder.UserBuilder;
+import com.petrushin.builder.impl.UserCreator;
 import com.petrushin.dao.GenericDAO;
-import com.petrushin.dao.exception.AbstractDAOException;
-import com.petrushin.dao.exception.UserDAOException;
 import com.petrushin.dao.impl.UserDAOImpl;
-import com.petrushin.domain.*;
-
-import java.util.List;
+import com.petrushin.domain.User;
+import com.petrushin.domain.UserRole;
+import com.petrushin.exceptions.EntityDAOException;
 
 public class Main {
 
     public static void main(String[] args) {
-            GenericDAO<User> userDAO = new UserDAOImpl(new UserBuilder());
+        GenericDAO<User> userDAO = new UserDAOImpl(new UserCreator());
         try {
-            System.out.println(userDAO.getAll());
-        } catch (AbstractDAOException e) {
+            UserRole role = new UserRole(2L, "user");
+            System.out.println(userDAO.save(new User(0L, role,
+                    "zhenia", "privetparol", "@msdials.ru")));
+        } catch (EntityDAOException e) {
             e.printStackTrace();
         }
 //
@@ -34,13 +34,13 @@ public class Main {
 //
 //
 //        try {
-////            entityDAO.add(user);
+////            entityDAO.save(user);
 //            List<User> userList = entityDAO.getAll();
 //            for(User u: userList){
 //                System.out.println(u);
 //            }
 //            System.out.println(entityDAO.ifLoginExist("senias"));
-//        } catch (AbstractDAOException e) {
+//        } catch (EntityDAOException e) {
 //            e.printStackTrace();
 //        }
     }

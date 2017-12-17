@@ -1,4 +1,4 @@
-package com.petrushin.service.exception;
+package com.petrushin.exceptions;
 
 public class CommandException extends Exception {
 

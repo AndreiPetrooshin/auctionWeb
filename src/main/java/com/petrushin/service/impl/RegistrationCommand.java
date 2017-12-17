@@ -1,11 +1,12 @@
 package com.petrushin.service.impl;
 
-import com.petrushin.builder.UserBuilder;
-import com.petrushin.dao.exception.UserDAOException;
+import com.petrushin.builder.impl.UserCreator;
 import com.petrushin.dao.impl.UserDAOImpl;
 import com.petrushin.domain.User;
+import com.petrushin.domain.UserRole;
+import com.petrushin.exceptions.CommandException;
+import com.petrushin.exceptions.EntityDAOException;
 import com.petrushin.service.Command;
-import com.petrushin.service.exception.RegistrationCommandException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,18 +21,19 @@ public class RegistrationCommand implements Command {
     private static final String LOGIN_EXIST = "loginExist";
     private static final String EMAIL_EXIST = "emailExist";
     private static final String GO_TO_LOGIN_PAGE = "login";
+    private static final String USER = "user";
 
     private UserDAOImpl userDAO;
 
     public RegistrationCommand() {
-        UserBuilder builder = new UserBuilder();
+        UserCreator builder = new UserCreator();
         userDAO = new UserDAOImpl(builder);
     }
 
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response)
-            throws RegistrationCommandException {
+            throws CommandException {
 
         HttpSession session = request.getSession();
 
@@ -53,14 +55,15 @@ public class RegistrationCommand implements Command {
                 }
                 session.removeAttribute(LOGIN_EXIST);
                 session.removeAttribute(EMAIL_EXIST);
-                User user = new User(0, 2, login, password, email);
-                userDAO.add(user);
+                UserRole role = new UserRole(2L, USER);
+                User user = new User(0L, role, login, password, email);
+                userDAO.save(user);
 
                 return GO_TO_LOGIN_PAGE;
             }
             return GO_TO_REGISTRATION_PAGE;
-        } catch (UserDAOException e) {
-            throw new RegistrationCommandException(e.getMessage());
+        } catch (EntityDAOException e) {
+            throw new CommandException(e.getMessage());
         }
     }
 }

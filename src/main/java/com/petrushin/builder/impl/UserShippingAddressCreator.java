@@ -1,17 +1,19 @@
-package com.petrushin.builder;
+package com.petrushin.builder.impl;
 
-import com.petrushin.builder.exceptions.UserShippingAddressBuilderException;
+import com.petrushin.builder.AbstractCreator;
+import com.petrushin.builder.Creator;
+import com.petrushin.domain.User;
 import com.petrushin.domain.UserShippingAddress;
+import com.petrushin.exceptions.CreatorException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserShippingAddressBuilder extends AbstractBuilder<UserShippingAddress> {
+public class UserShippingAddressCreator extends AbstractCreator<UserShippingAddress> {
 
 
     private static final String SHIP_ADDR_ID = "ship_addr_id";
-    private static final String USER_ID = "user_id";
     private static final String SA_FIRST_NAME = "sa_first_name";
     private static final String SA_SECOND_NAME = "sa_second_name";
     private static final String SA_LAST_NAME = "sa_last_name";
@@ -22,12 +24,19 @@ public class UserShippingAddressBuilder extends AbstractBuilder<UserShippingAddr
     private static final String SA_POSTAL_CODE = "sa_postal_code";
     private static final String SA_IS_ACTIVE = "sa_is_active";
 
+    private Creator<User> userCreator;
+
+    public UserShippingAddressCreator(Creator<User> userCreator) {
+        this.userCreator = userCreator;
+    }
+
     public void initStatement(UserShippingAddress address,
                               PreparedStatement statement)
-            throws UserShippingAddressBuilderException {
+            throws CreatorException {
         try {
-            int userId = address.getUserId();
-            statement.setInt(1, userId);
+            User user = address.getUser();
+            Long userId = user.getId();
+            statement.setLong(1, userId);
 
             String fName = address.getFirstName();
             statement.setString(2, fName);
@@ -56,19 +65,19 @@ public class UserShippingAddressBuilder extends AbstractBuilder<UserShippingAddr
             boolean isActive = address.isActive();
             statement.setBoolean(10, isActive);
 
-            int addrId = address.getId();
-            statement.setInt(11, addrId);
+            Long addrId = address.getId();
+            statement.setLong(11, addrId);
         } catch (SQLException e) {
-            throw new UserShippingAddressBuilderException(
-                    "Error with init address statement " + e.getMessage());
+            throw new CreatorException(
+                    "Error with init address statement " + e.getMessage(), e);
         }
     }
 
     public UserShippingAddress createEntity(ResultSet resultSet)
-            throws UserShippingAddressBuilderException {
+            throws CreatorException {
         try {
-            int shipAddrId = resultSet.getInt(SHIP_ADDR_ID);
-            int userId = resultSet.getInt(USER_ID);
+            Long shipAddrId = resultSet.getLong(SHIP_ADDR_ID);
+            User user = userCreator.createEntity(resultSet);
             String fName = resultSet.getString(SA_FIRST_NAME);
             String sName = resultSet.getString(SA_SECOND_NAME);
             String lName = resultSet.getString(SA_LAST_NAME);
@@ -80,11 +89,11 @@ public class UserShippingAddressBuilder extends AbstractBuilder<UserShippingAddr
             boolean isActive = resultSet.getBoolean(SA_IS_ACTIVE);
 
             return new UserShippingAddress(
-                    shipAddrId, userId, fName, sName, lName, country,
+                    shipAddrId, user, fName, sName, lName, country,
                     city, street, phone, postalCode, isActive);
-        } catch (SQLException e) {
-            throw new UserShippingAddressBuilderException(
-                    "Error with create address entity" + e.getMessage());
+        } catch (SQLException | CreatorException e) {
+            throw new CreatorException(
+                    "Error with create address entity" + e.getMessage(), e);
         }
     }
 }

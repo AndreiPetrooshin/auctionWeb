@@ -7,23 +7,39 @@ public class UserBet implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
-    public static final String GET_BY_ID = "SELECT * FROM bets_m2m WHERE fl_id=?";
-    public static final String GET_ALL = "SELECT * FROM bets_m2m";
-    public static final String ADD_BET = "INSERT INTO bets_m2m (user_id, user_bet, fl_id    )" +
-            " VALUES(?,?,?)";
-    public static final String DELETE_BY_USER_ID = "DELETE FROM bets_m2m WHERE user_id=?";
-    public static final String DELETE_BY_LOT_ID = "DELETE FROM bets_m2m WHERE fl_id=?";
-    public static final String DELETE_BY_USER_AND_LOT_ID =
-            "DELETE FROM bets_m2m WHERE user_id=? AND fl_id=?";
-    public static final String UPDATE_BET = "UPDATE bets_m2m SET user_id=?, user_bet=? WHERE fl_id=?";
+    public static final String GET_BY_ID =
+            "SELECT b.bet_id, b.user_bet, l.fl_id, l.fl_description, l.fl_name," +
+                    " l.fl_start_price, l.fl_state, l.fl_type, u.user_id," +
+                    " u.u_login, u.u_password, u.u_email, r.role_id, " +
+                    "r.user_role FROM bets_m2m b JOIN user u, flower_lot l," +
+                    " user_role r WHERE b.fl_id=l.fl_id AND b.user_id=u.user_id " +
+                    "AND u.role_id=r.role_id AND b.bet_id=?";
 
+    public static final String GET_ALL =
+            "SELECT b.bet_id, b.user_bet, l.fl_id, l.fl_description, l.fl_name, " +
+                    "l.fl_start_price, l.fl_state, l.fl_type, u.user_id," +
+                    " u.u_login, u.u_password, u.u_email, r.role_id, " +
+                    "r.user_role FROM bets_m2m b JOIN user u, flower_lot l, " +
+                    "user_role r WHERE b.fl_id=l.fl_id AND b.user_id=u.user_id" +
+                    " AND u.role_id=r.role_id";
+
+    public static final String ADD_BET =
+            "INSERT INTO bets_m2m (fl_id, user_id, user_bet, bet_id) VALUES(?,?,?,?)";
+
+    public static final String DELETE_BY_ID =
+            "DELETE FROM bets_m2m WHERE bet_id=?";
+
+    public static final String UPDATE_BET =
+            "UPDATE bets_m2m SET fl_id=?, user_id=?, user_bet=? WHERE bet_id=?";
 
     private Long id;
+    private UserFlowerLot lot;
     private User user;
     private BigDecimal bet;
 
-    public UserBet(Long id, User user, BigDecimal bet) {
+    public UserBet(Long id, UserFlowerLot lot, User user, BigDecimal bet) {
         this.id = id;
+        this.lot = lot;
         this.user = user;
         this.bet = bet;
     }
@@ -37,6 +53,14 @@ public class UserBet implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UserFlowerLot getLot() {
+        return lot;
+    }
+
+    public void setLot(UserFlowerLot lot) {
+        this.lot = lot;
     }
 
     public User getUser() {
@@ -69,6 +93,9 @@ public class UserBet implements Serializable {
         if (id != null ? !id.equals(userBet.id) : userBet.id != null) {
             return false;
         }
+        if (lot != null ? !lot.equals(userBet.lot) : userBet.lot != null) {
+            return false;
+        }
         if (user != null ? !user.equals(userBet.user) : userBet.user != null) {
             return false;
         }
@@ -78,6 +105,7 @@ public class UserBet implements Serializable {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (lot != null ? lot.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (bet != null ? bet.hashCode() : 0);
         return result;
@@ -87,6 +115,7 @@ public class UserBet implements Serializable {
     public String toString() {
         return "UserBet{" +
                 "id=" + id +
+                ", lot=" + lot +
                 ", user=" + user +
                 ", bet=" + bet +
                 '}';

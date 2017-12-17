@@ -1,6 +1,6 @@
 package com.petrushin.service.encode;
 
-import com.petrushin.service.exception.MD5EncodingServiceException;
+import com.petrushin.exceptions.MD5EncodingServiceException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,10 +11,10 @@ public class MD5EncodingService {
 
     public static String encode(String password) throws MD5EncodingServiceException {
 
-        if(password== null){
+        if (password == null) {
             return null;
         }
-        MessageDigest md ;
+        MessageDigest md;
         String result;
         try {
             md = MessageDigest.getInstance(MD_5);

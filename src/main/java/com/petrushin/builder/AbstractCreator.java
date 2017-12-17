@@ -1,6 +1,6 @@
 package com.petrushin.builder;
 
-import com.petrushin.builder.exceptions.AbstractBuilderException;
+import com.petrushin.exceptions.CreatorException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,16 +8,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractBuilder<T> implements Builder<T> {
+public abstract class AbstractCreator<T> implements Creator<T> {
 
     public abstract void initStatement(T t, PreparedStatement statement)
-            throws AbstractBuilderException;
+            throws CreatorException;
 
     public abstract T createEntity(ResultSet resultSet)
-            throws AbstractBuilderException;
+            throws CreatorException;
 
     public List<T> createEntityList(ResultSet resultSet)
-            throws AbstractBuilderException {
+            throws CreatorException {
         List<T> list = new ArrayList<>();
         try {
             while (resultSet.next()) {
@@ -25,9 +25,9 @@ public abstract class AbstractBuilder<T> implements Builder<T> {
                 list.add(t);
             }
             return list;
-        } catch (SQLException | AbstractBuilderException e) {
-            throw new AbstractBuilderException(
-                    "Error with entity list creation " + e.getMessage(),e);
+        } catch (SQLException | CreatorException e) {
+            throw new CreatorException(
+                    "Error with entity list creation " + e.getMessage(), e);
         }
     }
 

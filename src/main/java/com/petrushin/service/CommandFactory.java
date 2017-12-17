@@ -10,7 +10,7 @@ public final class CommandFactory {
     private static final String REGISTRATION = "registration";
     private static final String LOGOUT = "logout";
 
-    private CommandFactory(){
+    private CommandFactory() {
 
     }
 
@@ -20,15 +20,15 @@ public final class CommandFactory {
             return new LoginCommand();
         }
 
-        if(command.equalsIgnoreCase(REGISTRATION)) {
-            return  new RegistrationCommand();
+        if (command.equalsIgnoreCase(REGISTRATION)) {
+            return new RegistrationCommand();
         }
 
-        if(command.equals(LOGOUT)) {
-            return  new LogoutCommand();
+        if (command.equals(LOGOUT)) {
+            return new LogoutCommand();
+        } else {
+            return null;
         }
-
-        else return  null;
 
     }
 

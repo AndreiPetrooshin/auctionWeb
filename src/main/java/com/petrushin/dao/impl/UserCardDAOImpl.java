@@ -1,61 +1,65 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.Builder;
+import com.petrushin.builder.Creator;
 import com.petrushin.dao.AbstractDAO;
-import com.petrushin.dao.exception.AbstractDAOException;
-import com.petrushin.dao.exception.UserCardDAOException;
 import com.petrushin.domain.UserCard;
+import com.petrushin.exceptions.EntityDAOException;
 
 import java.util.List;
 
 public class UserCardDAOImpl extends AbstractDAO<UserCard> {
 
-    public UserCardDAOImpl(Builder<UserCard> builder) {
-        super(builder);
+    public UserCardDAOImpl(Creator<UserCard> creator) {
+        super(creator);
     }
 
     public UserCard findById(Long id)
-            throws UserCardDAOException {
+            throws EntityDAOException {
         try {
             return findById(id, UserCard.GET_BY_ID);
-        } catch (AbstractDAOException e) {
-            throw new UserCardDAOException(e.getMessage());
+        } catch (EntityDAOException e) {
+            throw new EntityDAOException(
+                    "FindByID UserCard Error " + e.getMessage(), e);
         }
     }
 
     public List<UserCard> getAll()
-            throws UserCardDAOException {
+            throws EntityDAOException {
         try {
             return getAll(UserCard.GET_ALL);
-        } catch (AbstractDAOException e) {
-            throw new UserCardDAOException(e.getMessage());
+        } catch (EntityDAOException e) {
+            throw new EntityDAOException(
+                    "GetAll UserCard Error" + e.getMessage(), e);
         }
     }
 
-    public boolean add(UserCard card)
-            throws UserCardDAOException {
+    public boolean save(UserCard card)
+            throws EntityDAOException {
         try {
-            return add(card, UserCard.ADD_CARD);
-        } catch (AbstractDAOException e) {
-            throw new UserCardDAOException(e.getMessage());
+            return save(card, UserCard.ADD_CARD);
+        } catch (EntityDAOException e) {
+            throw new EntityDAOException(
+                    "Save UserCard error. " + e.getMessage(), e);
         }
     }
 
     public boolean update(UserCard card)
-            throws UserCardDAOException {
+            throws EntityDAOException {
         try {
             return update(card, UserCard.UPDATE_USER_CARD);
-        } catch (AbstractDAOException e) {
-            throw new UserCardDAOException(e.getMessage());
+        } catch (EntityDAOException e) {
+            throw new EntityDAOException(
+                    "Update UserCard Error" + e.getMessage(), e);
         }
     }
 
     public boolean delete(Long id)
-            throws UserCardDAOException {
+            throws EntityDAOException {
         try {
             return delete(id, UserCard.DELETE_USER_CARD);
-        } catch (AbstractDAOException e) {
-            throw new UserCardDAOException(e.getMessage());
+        } catch (EntityDAOException e) {
+            throw new EntityDAOException(
+                    "Delete UserCard Error" + e.getMessage(), e);
         }
     }
 

@@ -1,8 +1,8 @@
 package com.petrushin.controller;
 
+import com.petrushin.exceptions.CommandException;
 import com.petrushin.service.Command;
 import com.petrushin.service.CommandFactory;
-import com.petrushin.service.exception.CommandException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,7 +48,7 @@ public class ServletFrontController extends HttpServlet {
                     RequestDispatcher dispatcher = req.getRequestDispatcher(link);
                     dispatcher.forward(req, resp);
                 } catch (ServletException | IOException | CommandException e) {
-                    throw new ServletException(e.getMessage());
+                    throw new ServletException(e.getMessage(), e);
                 } finally {
                     return;
                 }

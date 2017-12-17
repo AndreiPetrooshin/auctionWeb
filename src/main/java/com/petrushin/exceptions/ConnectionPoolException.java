@@ -1,4 +1,4 @@
-package com.petrushin.dao.exception;
+package com.petrushin.exceptions;
 
 public class ConnectionPoolException extends Exception {
 

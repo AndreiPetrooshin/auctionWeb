@@ -123,10 +123,11 @@ COMMENT = 'Лот ( цветок) выставленный юзером, в которой хранится информация о не
 -- Table `flowers_auction_bd`.`bets_m2m`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `flowers_auction_bd`.`bets_m2m` (
+  `bet_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор ставки',
   `fl_id` INT NOT NULL COMMENT 'Идентификатор лота\n',
   `user_id` INT NOT NULL COMMENT 'Идентификатор юзера',
   `user_bet` DECIMAL(10,2) NOT NULL COMMENT 'Ставки которые делают юзеры',
-  PRIMARY KEY (`fl_id`, `user_id`, `user_bet`),
+  PRIMARY KEY (`bet_id`),
   INDEX `fk_flower_lot_has_user_user1_idx` (`user_id` ASC),
   INDEX `fk_flower_lot_has_user_flower_lot1_idx` (`fl_id` ASC),
   CONSTRAINT `fk_flower_lot_has_user_flower_lot1`

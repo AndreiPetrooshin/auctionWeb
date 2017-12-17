@@ -3,17 +3,27 @@ package com.petrushin.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class UserFlowerLot implements Serializable{
+public class UserFlowerLot implements Serializable {
 
     private static final long serialVersionUID = 4L;
 
-    public static final String GET_ALL = "SELECT * FROM flower_lot";
+    public static final String GET_ALL =
+            "SELECT l.fl_id, l.fl_name, l.fl_description, l.fl_start_price, " +
+                    "l.fl_state, l.fl_type, u.user_id, u.u_login, u.u_password," +
+                    " u.u_email, r.role_id, r.user_role FROM flower_lot l " +
+                    "JOIN user u, user_role r WHERE l.user_id=u.user_id " +
+                    "AND u.role_id=r.role_id;";
+    public static String GET_BY_ID =
+            "SELECT l.fl_id, l.fl_name, l.fl_description, l.fl_start_price," +
+                    " l.fl_state, l.fl_type, u.user_id, u.u_login, u.u_password," +
+                    " u.u_email, r.role_id, r.user_role FROM flower_lot l " +
+                    "JOIN user u, user_role r WHERE l.user_id=u.user_id " +
+                    "AND l.fl_id=? AND u.role_id=r.role_id;";
     public static final String ADD_LOT = "INSERT INTO flower_lot (user_id, fl_type, " +
             "fl_name, fl_description, fl_start_price, fl_id) VALUES(?,?,?,?,?,?)";
     public static final String DELETE_BY_ID = "DELETE FROM flower_lot WHERE fl_id=?";
     public static final String UPDATE_FLOWER_LOT = "UPDATE flower_lot SET " +
             "user_id=?";
-    public static String GET_BY_ID = "SELECT * FROM flower_lot WHERE fl_id=?";
 
     private Long id;
     private User user;

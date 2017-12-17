@@ -1,19 +1,22 @@
 package com.petrushin.dao;
 
-import com.petrushin.dao.exception.AbstractDAOException;
+import com.petrushin.exceptions.EntityDAOException;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface GenericDAO<T> {
 
-    T findById(Long id) throws AbstractDAOException;
+    T findById(Long id) throws EntityDAOException;
 
-    List<T> getAll() throws AbstractDAOException;
+    List<T> getAll() throws EntityDAOException;
 
-    boolean add(T t) throws AbstractDAOException;
+    boolean save(T t) throws EntityDAOException;
 
-    boolean delete(Long id) throws AbstractDAOException;
+    boolean delete(Long id) throws EntityDAOException;
 
-    boolean update(T t) throws AbstractDAOException;
+    boolean update(T t) throws EntityDAOException;
+
+    void rollback(Connection connection) throws EntityDAOException;
 
 }

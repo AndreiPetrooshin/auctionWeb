@@ -1,9 +1,9 @@
 package com.petrushin.dao;
 
-import com.petrushin.builder.Builder;
-import com.petrushin.builder.exceptions.AbstractBuilderException;
-import com.petrushin.dao.exception.AbstractDAOException;
-import com.petrushin.dao.exception.ConnectionPoolException;
+import com.petrushin.builder.Creator;
+import com.petrushin.exceptions.ConnectionPoolException;
+import com.petrushin.exceptions.CreatorException;
+import com.petrushin.exceptions.EntityDAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,142 +13,105 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class AbstractDAO<T> implements GenericDAO<T>{
+public abstract class AbstractDAO<T> implements GenericDAO<T> {
 
     private static final Logger LOGGER =
             LogManager.getLogger(AbstractDAO.class);
 
-    protected Builder<T> builder;
+    protected Creator<T> creator;
 
-    public AbstractDAO(Builder<T> builder) {
-        this.builder = builder;
+    public AbstractDAO(Creator<T> creator) {
+        this.creator = creator;
     }
 
     protected T findById(Long id, String query)
-            throws AbstractDAOException {
-        PreparedStatement statement = null;
-        Connection connection = null;
+            throws EntityDAOException {
         T t = null;
-        try {
-            connection = ConnectionPool.getConnection();
-            statement = connection.prepareStatement(query);
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                t = builder.createEntity(resultSet);
+            if (resultSet.next()) {
+                t = creator.createEntity(resultSet);
             }
-        } catch (SQLException | AbstractBuilderException
+        } catch (SQLException | CreatorException
                 | ConnectionPoolException e) {
-            throw new AbstractDAOException(
-                    "Error with findByID operation" + e.getMessage());
-        } finally {
-            closeAll(connection, statement);
+            throw new EntityDAOException(e.getMessage(), e);
         }
         return t;
     }
 
     protected List<T> getAll(String query)
-            throws AbstractDAOException {
-        Connection connection = null;
-        PreparedStatement statement = null;
+            throws EntityDAOException {
         List<T> list;
-        try {
-            connection = ConnectionPool.getConnection();
-            statement = connection.prepareStatement(query);
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
             ResultSet resultSet = statement.executeQuery();
-            list = builder.createEntityList(resultSet);
+            list = creator.createEntityList(resultSet);
         } catch (SQLException | ConnectionPoolException
-                | AbstractBuilderException e) {
-            throw new AbstractDAOException(
-                    "Error with getAll operation" + e.getMessage());
-        } finally {
-            closeAll(connection, statement);
+                | CreatorException e) {
+            throw new EntityDAOException(e.getMessage(), e);
         }
         return list;
     }
 
-    protected boolean add(T t, String query)
-            throws AbstractDAOException {
-       return transactionalOperation(t, query);
+    protected boolean save(T t, String query)
+            throws EntityDAOException {
+        return transactionalOperation(t, query);
 
     }
 
     protected boolean delete(Long id, String query)
-            throws AbstractDAOException {
-        PreparedStatement statement = null;
-        Connection connection = null;
-        try {
-            connection = ConnectionPool.getConnection();
-            connection.setAutoCommit(true);
-            statement = connection.prepareStatement(query);
+            throws EntityDAOException {
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            connection.setAutoCommit(false);
             statement.setLong(1, id);
             int rowCountChanged = statement.executeUpdate();
             connection.commit();
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(true);
             return rowCountChanged == 1;
         } catch (SQLException | ConnectionPoolException e) {
-            throw new AbstractDAOException(
-                    "Error with delete operation " + e.getMessage());
-        } finally {
-            closeAll(connection, statement);
+            throw new EntityDAOException(e.getMessage(), e);
         }
     }
 
     protected boolean update(T t, String query)
-            throws AbstractDAOException {
-       return transactionalOperation(t, query);
+            throws EntityDAOException {
+        return transactionalOperation(t, query);
     }
 
-    protected void closeAll(Connection connection,
-                            PreparedStatement statement)
-            throws AbstractDAOException {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                throw new AbstractDAOException(
-                        "Error with statement close", e);
-            }
-        }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new AbstractDAOException(
-                        "Error with Connection close", e);
-            }
-        }
-    }
 
-    protected void rollback(Connection connection)
-            throws AbstractDAOException {
+    public void rollback(Connection connection)
+            throws EntityDAOException {
         if (connection != null) {
             try {
                 connection.rollback();
                 LOGGER.error("Connection was rollbacked");
-            } catch (SQLException ex) {
-                throw new AbstractDAOException(
-                        "Transaction rollback error " + ex.getMessage());
+            } catch (SQLException e) {
+                throw new EntityDAOException(
+                        "Transaction rollback error " + e.getMessage(), e);
             }
         }
     }
 
 
     private boolean transactionalOperation(T t, String query)
-            throws AbstractDAOException {
-        Connection connection = null;
-        try {
-            connection = ConnectionPool.getConnection();
+            throws EntityDAOException {
+        Connection connectionToRollBack = null;
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            connectionToRollBack = connection;
             connection.setAutoCommit(false);
-            PreparedStatement statement = connection.prepareStatement(query);
-            builder.initStatement(t, statement);
+            creator.initStatement(t, statement);
             int rowCountChanged = statement.executeUpdate();
             connection.commit();
             connection.setAutoCommit(true);
             return rowCountChanged == 1;
-        } catch (ConnectionPoolException | AbstractBuilderException | SQLException e) {
-            rollback(connection);
-            throw new AbstractDAOException("Transaction Operation exception" + e.getMessage());
+        } catch (ConnectionPoolException | CreatorException | SQLException e) {
+            rollback(connectionToRollBack);
+            throw new EntityDAOException(e.getMessage(), e);
         }
     }
 

@@ -1,13 +1,13 @@
 package com.petrushin.service.impl;
 
-import com.petrushin.builder.UserBuilder;
-import com.petrushin.dao.exception.UserDAOException;
+import com.petrushin.builder.impl.UserCreator;
 import com.petrushin.dao.impl.UserDAOImpl;
 import com.petrushin.domain.User;
+import com.petrushin.exceptions.CommandException;
+import com.petrushin.exceptions.EntityDAOException;
+import com.petrushin.exceptions.MD5EncodingServiceException;
 import com.petrushin.service.Command;
 import com.petrushin.service.encode.MD5EncodingService;
-import com.petrushin.service.exception.LoginCommandException;
-import com.petrushin.service.exception.MD5EncodingServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,18 +24,18 @@ public class LoginCommand implements Command {
     private UserDAOImpl userDAO;
 
     public LoginCommand() {
-        UserBuilder builder = new UserBuilder();
+        UserCreator builder = new UserCreator();
         this.userDAO = new UserDAOImpl(builder);
     }
 
     @Override
     public String execute(HttpServletRequest request,
                           HttpServletResponse response)
-            throws LoginCommandException {
+            throws CommandException {
 
         HttpSession session = request.getSession();
 
-        if(session.getAttribute(USER) !=null){
+        if (session.getAttribute(USER) != null) {
             return GO_TO_HOME_PAGE;
         }
 
@@ -56,10 +56,9 @@ public class LoginCommand implements Command {
             request.setAttribute(ERROR, true);
             return GO_TO_LOGIN_PAGE;
 
-        } catch (MD5EncodingServiceException | UserDAOException e) {
-            throw new LoginCommandException(e.getMessage());
+        } catch (MD5EncodingServiceException | EntityDAOException e) {
+            throw new CommandException(e.getMessage());
         }
-
     }
 
 
