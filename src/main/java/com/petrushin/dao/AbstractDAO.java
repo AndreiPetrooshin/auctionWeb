@@ -1,6 +1,6 @@
 package com.petrushin.dao;
 
-import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.builder.Builder;
 import com.petrushin.builder.exceptions.AbstractBuilderException;
 import com.petrushin.dao.exception.AbstractDAOException;
 import com.petrushin.dao.exception.ConnectionPoolException;
@@ -13,18 +13,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class AbstractDAO<T> {
+public abstract class AbstractDAO<T> implements GenericDAO<T>{
 
     private static final Logger LOGGER =
             LogManager.getLogger(AbstractDAO.class);
 
-    protected AbstractBuilder<T> builder;
+    protected Builder<T> builder;
 
-    public AbstractDAO(AbstractBuilder<T> builder) {
+    public AbstractDAO(Builder<T> builder) {
         this.builder = builder;
     }
 
-    protected T findById(int id, String query)
+    protected T findById(Long id, String query)
             throws AbstractDAOException {
         PreparedStatement statement = null;
         Connection connection = null;
@@ -32,7 +32,7 @@ public abstract class AbstractDAO<T> {
         try {
             connection = ConnectionPool.getConnection();
             statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
                 t = builder.createEntity(resultSet);
@@ -73,7 +73,7 @@ public abstract class AbstractDAO<T> {
 
     }
 
-    protected boolean delete(int id, String query)
+    protected boolean delete(Long id, String query)
             throws AbstractDAOException {
         PreparedStatement statement = null;
         Connection connection = null;
@@ -81,7 +81,7 @@ public abstract class AbstractDAO<T> {
             connection = ConnectionPool.getConnection();
             connection.setAutoCommit(true);
             statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             int rowCountChanged = statement.executeUpdate();
             connection.commit();
             connection.setAutoCommit(false);
@@ -97,24 +97,6 @@ public abstract class AbstractDAO<T> {
     protected boolean update(T t, String query)
             throws AbstractDAOException {
        return transactionalOperation(t, query);
-    }
-
-    protected boolean transactionalOperation(T t, String query)
-            throws AbstractDAOException {
-        Connection connection = null;
-        try {
-            connection = ConnectionPool.getConnection();
-            connection.setAutoCommit(false);
-            PreparedStatement statement = connection.prepareStatement(query);
-            builder.initStatement(t, statement);
-            int rowCountChanged = statement.executeUpdate();
-            connection.commit();
-            connection.setAutoCommit(true);
-            return rowCountChanged == 1;
-        } catch (ConnectionPoolException | AbstractBuilderException | SQLException e) {
-            rollback(connection);
-            throw new AbstractDAOException("Transaction Operation exception" + e.getMessage());
-        }
     }
 
     protected void closeAll(Connection connection,
@@ -138,7 +120,6 @@ public abstract class AbstractDAO<T> {
         }
     }
 
-
     protected void rollback(Connection connection)
             throws AbstractDAOException {
         if (connection != null) {
@@ -149,6 +130,25 @@ public abstract class AbstractDAO<T> {
                 throw new AbstractDAOException(
                         "Transaction rollback error " + ex.getMessage());
             }
+        }
+    }
+
+
+    private boolean transactionalOperation(T t, String query)
+            throws AbstractDAOException {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement statement = connection.prepareStatement(query);
+            builder.initStatement(t, statement);
+            int rowCountChanged = statement.executeUpdate();
+            connection.commit();
+            connection.setAutoCommit(true);
+            return rowCountChanged == 1;
+        } catch (ConnectionPoolException | AbstractBuilderException | SQLException e) {
+            rollback(connection);
+            throw new AbstractDAOException("Transaction Operation exception" + e.getMessage());
         }
     }
 

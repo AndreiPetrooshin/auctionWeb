@@ -1,6 +1,6 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.builder.Builder;
 import com.petrushin.dao.AbstractDAO;
 import com.petrushin.dao.exception.AbstractDAOException;
 import com.petrushin.dao.exception.UserShippingAddressDAOException;
@@ -12,11 +12,11 @@ public class UserShippingAddressDAOImpl extends AbstractDAO<UserShippingAddress>
 
 
     public UserShippingAddressDAOImpl(
-            AbstractBuilder<UserShippingAddress> builder) {
+            Builder<UserShippingAddress> builder) {
         super(builder);
     }
 
-    public UserShippingAddress findById(int id)
+    public UserShippingAddress findById(Long id)
             throws UserShippingAddressDAOException {
         try {
             return findById(id, UserShippingAddress.GET_BY_ID);
@@ -43,7 +43,7 @@ public class UserShippingAddressDAOImpl extends AbstractDAO<UserShippingAddress>
         }
     }
 
-    public boolean delete(int id)
+    public boolean delete(Long id)
             throws UserShippingAddressDAOException {
         try {
             return delete(id, UserShippingAddress.DELETE_BY_ID);

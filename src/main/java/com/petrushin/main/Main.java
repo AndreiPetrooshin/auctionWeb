@@ -1,6 +1,7 @@
 package com.petrushin.main;
 
 import com.petrushin.builder.UserBuilder;
+import com.petrushin.dao.GenericDAO;
 import com.petrushin.dao.exception.AbstractDAOException;
 import com.petrushin.dao.exception.UserDAOException;
 import com.petrushin.dao.impl.UserDAOImpl;
@@ -11,10 +12,10 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-            UserDAOImpl userDAO = new UserDAOImpl(new UserBuilder());
+            GenericDAO<User> userDAO = new UserDAOImpl(new UserBuilder());
         try {
-            System.out.println(userDAO.findById(3));
-        } catch (UserDAOException e) {
+            System.out.println(userDAO.getAll());
+        } catch (AbstractDAOException e) {
             e.printStackTrace();
         }
 //

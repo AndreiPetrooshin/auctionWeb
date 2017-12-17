@@ -1,6 +1,6 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.builder.Builder;
 import com.petrushin.dao.AbstractDAO;
 import com.petrushin.dao.exception.AbstractDAOException;
 import com.petrushin.dao.exception.UserRoleDAOException;
@@ -9,11 +9,11 @@ import java.util.List;
 
 public class UserRoleDAOImpl extends AbstractDAO<UserRole> {
 
-    public UserRoleDAOImpl(AbstractBuilder<UserRole> builder) {
+    public UserRoleDAOImpl(Builder<UserRole> builder) {
         super(builder);
     }
 
-    public UserRole findById(int id)
+    public UserRole findById(Long id)
             throws UserRoleDAOException {
         try {
           return findById(id, UserRole.GET_BY_ID);
@@ -49,7 +49,7 @@ public class UserRoleDAOImpl extends AbstractDAO<UserRole> {
         }
     }
 
-    public boolean delete(int id)
+    public boolean delete(Long id)
             throws UserRoleDAOException {
         try {
             return delete(id, UserRole.DELETE_BY_ID);

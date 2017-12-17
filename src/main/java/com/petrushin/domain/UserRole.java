@@ -1,6 +1,10 @@
 package com.petrushin.domain;
 
-public class UserRole {
+import java.io.Serializable;
+
+public class UserRole implements Serializable{
+
+    private static final long serialVersionUID = 5L;
 
     public static final String GET_ALL = "SELECT * FROM user_role";
     public static final String GET_BY_ID = "SELECT * FROM user_role WHERE role_id=?";
@@ -8,7 +12,10 @@ public class UserRole {
     public static final String UPDATE_ROLE = "UPDATE user_role SET user_role=? WHERE role_id=?";
     public static final String DELETE_BY_ID = "DELETE FROM user_role WHERE role_id=?";
 
-    public UserRole(int id, String role) {
+    private Long id;
+    private String role;
+
+    public UserRole(Long id, String role) {
         this.id = id;
         this.role = role;
     }
@@ -16,14 +23,11 @@ public class UserRole {
     public UserRole() {
     }
 
-    private int id;
-    private String role;
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,7 +50,7 @@ public class UserRole {
 
         UserRole userRole = (UserRole) o;
 
-        if (id != userRole.id) {
+        if (id != null ? !id.equals(userRole.id) : userRole.id != null) {
             return false;
         }
         return role != null ? role.equals(userRole.role) : userRole.role == null;
@@ -54,7 +58,7 @@ public class UserRole {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }

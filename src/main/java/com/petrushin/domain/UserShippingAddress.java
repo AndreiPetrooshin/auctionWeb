@@ -1,6 +1,10 @@
 package com.petrushin.domain;
 
-public class UserShippingAddress {
+import java.io.Serializable;
+
+public class UserShippingAddress implements Serializable {
+
+    private static final long serialVersionUID = 6L;
 
     public static final String GET_BY_ID = "SELECT * FROM user_shipping_address WHERE ship_addr_id=?";
     public static final String ADD_ADDRESS = "INSERT INTO user_shipping_address" +
@@ -15,8 +19,8 @@ public class UserShippingAddress {
             "sa_city=?, sa_street=?, sa_phone=?, sa_postal_code=?, sa_is_active=? " +
             "WHERE ship_addr_id=?";
 
-    private int id;
-    private int userId;
+    private Long id;
+    private User user;
     private String firstName;
     private String secondName;
     private String lastName;
@@ -27,12 +31,13 @@ public class UserShippingAddress {
     private String postalCode;
     private boolean isActive;
 
-    public UserShippingAddress(int id, int userId, String firstName,
-                               String secondName, String lastName, String country,
-                               String city, String street, String phone,
-                               String postalCode, boolean isActive) {
+
+    public UserShippingAddress(Long id, User user, String firstName,
+                               String secondName, String lastName,
+                               String country, String city, String street,
+                               String phone, String postalCode, boolean isActive) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
@@ -44,23 +49,20 @@ public class UserShippingAddress {
         this.isActive = isActive;
     }
 
-    public UserShippingAddress() {
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getFirstName() {
@@ -146,51 +148,53 @@ public class UserShippingAddress {
 
         UserShippingAddress address = (UserShippingAddress) o;
 
-        if (id != address.id) {
-            return false;
-        }
-        if (userId != address.userId) {
-            return false;
-        }
         if (isActive != address.isActive) {
             return false;
         }
-        if (firstName != null ?
-                !firstName.equals(address.firstName) : address.firstName != null) {
+        if (id != null ? !id.equals(address.id)
+                : address.id != null) {
             return false;
         }
-        if (secondName != null ?
-                !secondName.equals(address.secondName) : address.secondName != null) {
+        if (user != null ? !user.equals(address.user)
+                : address.user != null) {
             return false;
         }
-        if (lastName != null ?
-                !lastName.equals(address.lastName) : address.lastName != null) {
+        if (firstName != null ? !firstName.equals(address.firstName)
+                : address.firstName != null) {
             return false;
         }
-        if (country != null ?
-                !country.equals(address.country) : address.country != null) {
+        if (secondName != null ? !secondName.equals(address.secondName)
+                : address.secondName != null) {
             return false;
         }
-        if (city != null ?
-                !city.equals(address.city) : address.city != null) {
+        if (lastName != null ? !lastName.equals(address.lastName)
+                : address.lastName != null) {
             return false;
         }
-        if (street != null ?
-                !street.equals(address.street) : address.street != null) {
+        if (country != null ? !country.equals(address.country)
+                : address.country != null) {
             return false;
         }
-        if (phone != null ?
-                !phone.equals(address.phone) : address.phone != null) {
+        if (city != null ? !city.equals(address.city)
+                : address.city != null) {
             return false;
         }
-        return postalCode != null ?
-                postalCode.equals(address.postalCode) : address.postalCode == null;
+        if (street != null ? !street.equals(address.street)
+                : address.street != null) {
+            return false;
+        }
+        if (phone != null ? !phone.equals(address.phone)
+                : address.phone != null) {
+            return false;
+        }
+        return postalCode != null ? postalCode.equals(address.postalCode)
+                : address.postalCode == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + userId;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (secondName != null ? secondName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
@@ -207,7 +211,7 @@ public class UserShippingAddress {
     public String toString() {
         return "UserShippingAddress{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", user=" + user +
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -219,4 +223,6 @@ public class UserShippingAddress {
                 ", isActive=" + isActive +
                 '}';
     }
+
+
 }

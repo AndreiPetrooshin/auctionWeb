@@ -1,7 +1,12 @@
 package com.petrushin.builder;
 
 import com.petrushin.builder.exceptions.UserBuilderException;
+import com.petrushin.dao.GenericDAO;
+import com.petrushin.dao.exception.AbstractDAOException;
+import com.petrushin.dao.exception.UserRoleDAOException;
+import com.petrushin.dao.impl.UserRoleDAOImpl;
 import com.petrushin.domain.User;
+import com.petrushin.domain.UserRole;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,12 +20,20 @@ public class UserBuilder extends AbstractBuilder<User> {
     private static final String U_PASSWORD = "u_password";
     private static final String U_EMAIL = "u_email";
 
+    private static Builder<UserRole> builder;
+    private static GenericDAO<UserRole> userRoleDAO;
+
+    public UserBuilder() {
+        builder = new UserRoleBuilder();
+        userRoleDAO = new UserRoleDAOImpl(builder);
+    }
 
     public void initStatement(User user, PreparedStatement statement)
             throws UserBuilderException {
         try {
-            int roleId = user.getRoleId();
-            statement.setInt(1, roleId);
+            UserRole role = user.getRole();
+            Long roleId = role.getId();
+            statement.setLong(1, roleId);
 
             String login = user.getLogin();
             statement.setString(2, login);
@@ -31,26 +44,28 @@ public class UserBuilder extends AbstractBuilder<User> {
             String email = user.getEmail();
             statement.setString(4, email);
 
-            int id = user.getId();
-            statement.setInt(5, id);
+            Long id = user.getId();
+            statement.setLong(5, id);
         } catch (SQLException e) {
-            throw new UserBuilderException("Error with init user statement " + e.getMessage());
+            throw new UserBuilderException(
+                    "Error with init user statement " + e.getMessage(),e);
         }
     }
 
     public User createEntity(ResultSet resultSet)
             throws UserBuilderException {
         try {
-            int id = resultSet.getInt(USER_ID);
-            int roleId = resultSet.getInt(ROLE_ID);
+            Long id = resultSet.getLong(USER_ID);
+            Long roleId = resultSet.getLong(ROLE_ID);
+            UserRole role = userRoleDAO.findById(roleId);
             String login = resultSet.getString(U_LOGIN);
             String password = resultSet.getString(U_PASSWORD);
             String email = resultSet.getString(U_EMAIL);
-            return new User(id, roleId, login, password, email);
-        } catch (SQLException e) {
-            throw new UserBuilderException("Error with create user entity " + e.getMessage());
+            return new User(id, role, login, password, email);
+        } catch (SQLException | AbstractDAOException e) {
+            throw new UserBuilderException(
+                    "Error with create user entity " + e.getMessage(), e);
         }
-
 
     }
 

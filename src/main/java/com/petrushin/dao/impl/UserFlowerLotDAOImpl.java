@@ -1,6 +1,6 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.builder.Builder;
 import com.petrushin.dao.AbstractDAO;
 import com.petrushin.dao.exception.AbstractDAOException;
 import com.petrushin.dao.exception.UserFlowerLotDAOException;
@@ -11,11 +11,11 @@ import java.util.List;
 public class UserFlowerLotDAOImpl extends AbstractDAO<UserFlowerLot> {
 
 
-    public UserFlowerLotDAOImpl(AbstractBuilder<UserFlowerLot> builder) {
+    public UserFlowerLotDAOImpl(Builder<UserFlowerLot> builder) {
         super(builder);
     }
 
-    public UserFlowerLot findById(int id)
+    public UserFlowerLot findById(Long id)
             throws UserFlowerLotDAOException {
         try {
             return findById(id, UserFlowerLot.GET_BY_ID);
@@ -42,7 +42,7 @@ public class UserFlowerLotDAOImpl extends AbstractDAO<UserFlowerLot> {
         }
     }
 
-    public boolean delete(int id)
+    public boolean delete(Long id)
             throws UserFlowerLotDAOException {
         try {
             return delete(id, UserFlowerLot.DELETE_BY_ID);

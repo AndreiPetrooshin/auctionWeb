@@ -1,6 +1,11 @@
 package com.petrushin.domain;
 
-public class UserBet {
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+public class UserBet implements Serializable {
+
+    private static final long serialVersionUID = 2L;
 
     public static final String GET_BY_ID = "SELECT * FROM bets_m2m WHERE fl_id=?";
     public static final String GET_ALL = "SELECT * FROM bets_m2m";
@@ -10,42 +15,43 @@ public class UserBet {
     public static final String DELETE_BY_LOT_ID = "DELETE FROM bets_m2m WHERE fl_id=?";
     public static final String DELETE_BY_USER_AND_LOT_ID =
             "DELETE FROM bets_m2m WHERE user_id=? AND fl_id=?";
+    public static final String UPDATE_BET = "UPDATE bets_m2m SET user_id=?, user_bet=? WHERE fl_id=?";
 
 
-    private int lotId;
-    private int userId;
-    private double bet;
+    private Long id;
+    private User user;
+    private BigDecimal bet;
 
-    public UserBet(int lotId, int userId, double bet) {
-        this.lotId = lotId;
-        this.userId = userId;
+    public UserBet(Long id, User user, BigDecimal bet) {
+        this.id = id;
+        this.user = user;
         this.bet = bet;
     }
 
     public UserBet() {
     }
 
-    public int getLotId() {
-        return lotId;
+    public Long getId() {
+        return id;
     }
 
-    public void setLotId(int lotId) {
-        this.lotId = lotId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public double getBet() {
+    public BigDecimal getBet() {
         return bet;
     }
 
-    public void setBet(double bet) {
+    public void setBet(BigDecimal bet) {
         this.bet = bet;
     }
 
@@ -60,31 +66,28 @@ public class UserBet {
 
         UserBet userBet = (UserBet) o;
 
-        if (lotId != userBet.lotId) {
+        if (id != null ? !id.equals(userBet.id) : userBet.id != null) {
             return false;
         }
-        if (userId != userBet.userId) {
+        if (user != null ? !user.equals(userBet.user) : userBet.user != null) {
             return false;
         }
-        return Double.compare(userBet.bet, bet) == 0;
+        return bet != null ? bet.equals(userBet.bet) : userBet.bet == null;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = lotId;
-        result = 31 * result + userId;
-        temp = Double.doubleToLongBits(bet);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (bet != null ? bet.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "UserBet{" +
-                "lotId=" + lotId +
-                ", userId=" + userId +
+                "id=" + id +
+                ", user=" + user +
                 ", bet=" + bet +
                 '}';
     }

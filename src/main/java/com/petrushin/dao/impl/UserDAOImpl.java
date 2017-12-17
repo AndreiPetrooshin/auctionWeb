@@ -1,6 +1,6 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.builder.Builder;
 import com.petrushin.builder.exceptions.AbstractBuilderException;
 import com.petrushin.dao.AbstractDAO;
 import com.petrushin.dao.ConnectionPool;
@@ -21,12 +21,12 @@ public class UserDAOImpl extends AbstractDAO<User> {
     private static final String U_LOGIN = "u_login";
     private static final String U_EMAIL = "u_email";
 
-    public UserDAOImpl(AbstractBuilder<User> builder) {
+    public UserDAOImpl(Builder<User> builder) {
         super(builder);
     }
 
 
-    public User findById(int id)
+    public User findById(Long id)
             throws UserDAOException {
         try {
             return findById(id, User.GET_BY_ID);
@@ -35,7 +35,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
         }
     }
 
-    public boolean delete(int id)
+    public boolean delete(Long id)
             throws UserDAOException {
         try {
             return delete(id, User.DELETE_BY_ID);

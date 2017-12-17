@@ -1,6 +1,6 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.builder.Builder;
 import com.petrushin.dao.AbstractDAO;
 import com.petrushin.dao.exception.AbstractDAOException;
 import com.petrushin.dao.exception.UserCardDAOException;
@@ -10,11 +10,11 @@ import java.util.List;
 
 public class UserCardDAOImpl extends AbstractDAO<UserCard> {
 
-    public UserCardDAOImpl(AbstractBuilder<UserCard> builder) {
+    public UserCardDAOImpl(Builder<UserCard> builder) {
         super(builder);
     }
 
-    public UserCard findById(int id)
+    public UserCard findById(Long id)
             throws UserCardDAOException {
         try {
             return findById(id, UserCard.GET_BY_ID);
@@ -50,7 +50,7 @@ public class UserCardDAOImpl extends AbstractDAO<UserCard> {
         }
     }
 
-    public boolean delete(int id)
+    public boolean delete(Long id)
             throws UserCardDAOException {
         try {
             return delete(id, UserCard.DELETE_USER_CARD);

@@ -8,14 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractBuilder<T> {
+public abstract class AbstractBuilder<T> implements Builder<T> {
 
-    public abstract void initStatement(T t, PreparedStatement statement) throws AbstractBuilderException;
+    public abstract void initStatement(T t, PreparedStatement statement)
+            throws AbstractBuilderException;
 
-    public abstract T createEntity(ResultSet resultSet) throws AbstractBuilderException;
+    public abstract T createEntity(ResultSet resultSet)
+            throws AbstractBuilderException;
 
-    public List<T> createEntityList(ResultSet resultSet) throws AbstractBuilderException {
-        List<T> list = new ArrayList<T>();
+    public List<T> createEntityList(ResultSet resultSet)
+            throws AbstractBuilderException {
+        List<T> list = new ArrayList<>();
         try {
             while (resultSet.next()) {
                 T t = createEntity(resultSet);
@@ -23,7 +26,8 @@ public abstract class AbstractBuilder<T> {
             }
             return list;
         } catch (SQLException | AbstractBuilderException e) {
-            throw new AbstractBuilderException("Error with entity list creation " + e.getMessage());
+            throw new AbstractBuilderException(
+                    "Error with entity list creation " + e.getMessage(),e);
         }
     }
 

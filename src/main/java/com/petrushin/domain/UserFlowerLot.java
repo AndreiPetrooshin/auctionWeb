@@ -1,6 +1,11 @@
 package com.petrushin.domain;
 
-public class UserFlowerLot {
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+public class UserFlowerLot implements Serializable{
+
+    private static final long serialVersionUID = 4L;
 
     public static final String GET_ALL = "SELECT * FROM flower_lot";
     public static final String ADD_LOT = "INSERT INTO flower_lot (user_id, fl_type, " +
@@ -10,19 +15,19 @@ public class UserFlowerLot {
             "user_id=?";
     public static String GET_BY_ID = "SELECT * FROM flower_lot WHERE fl_id=?";
 
-    private int id;
-    private int userId;
+    private Long id;
+    private User user;
     private String type;
     private String name;
     private String description;
-    private double startPrice;
+    private BigDecimal startPrice;
     private String state;
 
-    public UserFlowerLot(int id, int userId, String type,
+    public UserFlowerLot(Long id, User user, String type,
                          String name, String description,
-                         double startPrice, String state) {
+                         BigDecimal startPrice, String state) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.type = type;
         this.name = name;
         this.description = description;
@@ -33,20 +38,20 @@ public class UserFlowerLot {
     public UserFlowerLot() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getType() {
@@ -73,11 +78,11 @@ public class UserFlowerLot {
         this.description = description;
     }
 
-    public double getStartPrice() {
+    public BigDecimal getStartPrice() {
         return startPrice;
     }
 
-    public void setStartPrice(double startPrice) {
+    public void setStartPrice(BigDecimal startPrice) {
         this.startPrice = startPrice;
     }
 
@@ -100,25 +105,22 @@ public class UserFlowerLot {
 
         UserFlowerLot flowerLot = (UserFlowerLot) o;
 
-        if (id != flowerLot.id) {
+        if (id != null ? !id.equals(flowerLot.id) : flowerLot.id != null) {
             return false;
         }
-        if (userId != flowerLot.userId) {
+        if (user != null ? !user.equals(flowerLot.user) : flowerLot.user != null) {
             return false;
         }
-        if (Double.compare(flowerLot.startPrice, startPrice) != 0) {
+        if (type != null ? !type.equals(flowerLot.type) : flowerLot.type != null) {
             return false;
         }
-        if (type != null ?
-                !type.equals(flowerLot.type) : flowerLot.type != null) {
+        if (name != null ? !name.equals(flowerLot.name) : flowerLot.name != null) {
             return false;
         }
-        if (name != null ?
-                !name.equals(flowerLot.name) : flowerLot.name != null) {
+        if (description != null ? !description.equals(flowerLot.description) : flowerLot.description != null) {
             return false;
         }
-        if (description != null ?
-                !description.equals(flowerLot.description) : flowerLot.description != null) {
+        if (startPrice != null ? !startPrice.equals(flowerLot.startPrice) : flowerLot.startPrice != null) {
             return false;
         }
         return state != null ? state.equals(flowerLot.state) : flowerLot.state == null;
@@ -126,24 +128,22 @@ public class UserFlowerLot {
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id;
-        result = 31 * result + userId;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        temp = Double.doubleToLongBits(startPrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (startPrice != null ? startPrice.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
+
 
     @Override
     public String toString() {
         return "UserFlowerLot{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", user=" + user +
                 ", type='" + type + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

@@ -1,6 +1,6 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.AbstractBuilder;
+import com.petrushin.builder.Builder;
 import com.petrushin.dao.AbstractDAO;
 import com.petrushin.dao.ConnectionPool;
 import com.petrushin.dao.exception.AbstractDAOException;
@@ -15,11 +15,11 @@ import java.util.List;
 
 public class UserBetDAOImpl extends AbstractDAO<UserBet> {
 
-    public UserBetDAOImpl(AbstractBuilder<UserBet> builder) {
+    public UserBetDAOImpl(Builder<UserBet> builder) {
         super(builder);
     }
 
-    public UserBet findById(int id)
+    public UserBet findById(Long id)
             throws UserBetDAOException {
         try {
             return findById(id, UserBet.GET_BY_ID);
@@ -47,7 +47,7 @@ public class UserBetDAOImpl extends AbstractDAO<UserBet> {
         }
     }
 
-    public boolean deleteAllByUserId(int id)
+    public boolean deleteAllByUserId(Long id)
             throws UserBetDAOException {
         try {
             return delete(id, UserBet.DELETE_BY_USER_ID);
@@ -56,7 +56,7 @@ public class UserBetDAOImpl extends AbstractDAO<UserBet> {
         }
     }
 
-    public boolean deleteAllByLotId(int id)
+    public boolean delete(Long id)
             throws UserBetDAOException {
         try {
             return delete(id, UserBet.DELETE_BY_LOT_ID);
@@ -65,7 +65,17 @@ public class UserBetDAOImpl extends AbstractDAO<UserBet> {
         }
     }
 
-    public boolean deleteByLotAndUserId(int lotId, int userId)
+    @Override
+    public boolean update(UserBet userBet)
+            throws UserBetDAOException {
+        try {
+            return update(userBet,UserBet.UPDATE_BET);
+        } catch (AbstractDAOException e) {
+            throw new UserBetDAOException("Error with update at userBet. ", e);
+        }
+    }
+
+    public boolean deleteByLotAndUserId(Long lotId, Long userId)
             throws UserBetDAOException {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -74,8 +84,8 @@ public class UserBetDAOImpl extends AbstractDAO<UserBet> {
             connection.setAutoCommit(false);
             statement = connection.prepareStatement(
                     UserBet.DELETE_BY_USER_AND_LOT_ID);
-            statement.setInt(1, userId);
-            statement.setInt(2, lotId);
+            statement.setLong(1, userId);
+            statement.setLong(2, lotId);
             int rowCountChanged = statement.executeUpdate();
             connection.commit();
             connection.setAutoCommit(true);
