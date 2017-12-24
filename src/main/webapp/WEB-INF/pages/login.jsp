@@ -9,8 +9,8 @@
 <c:if test="${sessionScope.user eq null}">
     <div id="login">
         <header> LOGIN</header>
-        <c:if test="${requestScope.error eq true}">
-            <span class="error">Не правильный пароль или логин</span>
+        <c:if test="${requestScope.error != null}">
+            <span class="error">${requestScope.error}</span>
             <hr>
         </c:if>
         <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
@@ -36,7 +36,5 @@
 
     </div>
 </c:if>
-
-<jsp:include page="${pageContext.request.contextPath}/alreadyLogin"/>
 </body>
 </html>

@@ -1,9 +1,10 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.Creator;
+import com.petrushin.creator.Creator;
 import com.petrushin.dao.AbstractDAO;
 import com.petrushin.dao.ConnectionPool;
 import com.petrushin.domain.User;
+import com.petrushin.domain.UserRole;
 import com.petrushin.exceptions.ConnectionPoolException;
 import com.petrushin.exceptions.CreatorException;
 import com.petrushin.exceptions.EntityDAOException;
@@ -17,62 +18,31 @@ import java.util.List;
 public class UserDAOImpl extends AbstractDAO<User> {
 
 
-    private static final String U_LOGIN = "u_login";
-    private static final String U_EMAIL = "u_email";
+    private static final String PARAM_U_LOGIN = "u_login";
+    private static final String PARAM_U_EMAIL = "u_email";
 
     public UserDAOImpl(Creator<User> creator) {
         super(creator);
     }
 
-
-    public User findById(Long id)
-            throws EntityDAOException {
-        try {
-            return findById(id, User.GET_BY_ID);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "FindByID User Error. " + e.getMessage(), e);
-        }
+    public User findById(Long id) throws EntityDAOException {
+            return getByPK(id, User.GET_BY_ID);
     }
 
-    public boolean delete(Long id)
-            throws EntityDAOException {
-        try {
-            return delete(id, User.DELETE_BY_ID);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "Delete User Error. " + e.getMessage(), e);
-        }
+    public boolean delete(Long id) throws EntityDAOException {
+        return delete(id, User.DELETE_BY_ID);
     }
 
-    public boolean update(User user)
-            throws EntityDAOException {
-        try {
-            return update(user, User.UPDATE_USER);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "Update User Error. " + e.getMessage(), e);
-        }
+    public boolean update(User user) throws EntityDAOException {
+        return update(user, User.UPDATE_USER);
     }
 
-    public List<User> getAll()
-            throws EntityDAOException {
-        try {
-            return getAll(User.GET_ALL);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "GetAll Users Error. " + e.getMessage(), e);
-        }
+    public List<User> getAll() throws EntityDAOException {
+        return getAll(User.GET_ALL);
     }
 
-    public boolean save(User user)
-            throws EntityDAOException {
-        try {
-            return save(user, User.ADD_USER);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "Save User Error. " + e.getMessage(), e);
-        }
+    public boolean save(User user) throws EntityDAOException {
+        return save(user, User.ADD_USER);
     }
 
 
@@ -97,38 +67,58 @@ public class UserDAOImpl extends AbstractDAO<User> {
     }
 
 
-    public boolean ifLoginExist(String login)
-            throws EntityDAOException {
+    public boolean ifLoginExist(String login) throws EntityDAOException {
         try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement statement =
-                     connection.prepareStatement(User.IS_LOGIN_EXIST)) {
-            statement.setString(1, login);
-            ResultSet resultSet = statement.executeQuery();
-            String userLogin = null;
-            if (resultSet.next()) {
-                userLogin = resultSet.getString(U_LOGIN);
-            }
-            return userLogin != null;
+             PreparedStatement statement = connection.prepareStatement(User.IS_LOGIN_EXIST)) {
+            return ifUniqueExist(login, statement, PARAM_U_LOGIN);
         } catch (SQLException | ConnectionPoolException e) {
             throw new EntityDAOException(e.getMessage(), e);
         }
+    }
+
+    private boolean ifUniqueExist(String uniqueKey, PreparedStatement statement, String attr)
+            throws SQLException {
+        statement.setString(1, uniqueKey);
+        ResultSet resultSet = statement.executeQuery();
+        String userLogin = null;
+        if (resultSet.next()) {
+            userLogin = resultSet.getString(attr);
+        }
+        return userLogin != null;
     }
 
     public boolean ifEmailExist(String email)
             throws EntityDAOException {
 
         try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement statement =
-                     connection.prepareStatement(User.IS_EMAIL_EXIST)) {
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            String userEmail = null;
-            if (resultSet.next()) {
-                userEmail = resultSet.getString(U_EMAIL);
-            }
-            return userEmail != null;
+             PreparedStatement statement = connection.prepareStatement(User.IS_EMAIL_EXIST)) {
+            return ifUniqueExist(email, statement, PARAM_U_EMAIL);
         } catch (SQLException | ConnectionPoolException e) {
             throw new EntityDAOException(e.getMessage(), e);
+        }
+    }
+
+    public void prepareStatement(User user, PreparedStatement statement)
+            throws CreatorException {
+        try {
+            UserRole role = user.getRole();
+            Long roleId = role.getId();
+            statement.setLong(1, roleId);
+
+            String login = user.getLogin();
+            statement.setString(2, login);
+
+            String password = user.getPassword();
+            statement.setString(3, password);
+
+            String email = user.getEmail();
+            statement.setString(4, email);
+
+            Long id = user.getId();
+            statement.setLong(5, id);
+        } catch (SQLException e) {
+            throw new CreatorException(
+                    "Error with init user statement " + e.getMessage(), e);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.petrushin.controller;
 
-import com.petrushin.exceptions.CommandException;
+import com.petrushin.constants.Pages;
 import com.petrushin.service.Command;
 import com.petrushin.service.CommandFactory;
 
@@ -35,10 +35,8 @@ public class ServletFrontController extends HttpServlet {
         super.init();
     }
 
-    private void processCommand(HttpServletRequest req,
-                                HttpServletResponse resp)
+    private void processCommand(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException {
-
         String command = req.getParameter(COMMAND);
         if (command != null) {
             Command service = CommandFactory.getCommand(command);
@@ -47,10 +45,8 @@ public class ServletFrontController extends HttpServlet {
                     String link = service.execute(req, resp);
                     RequestDispatcher dispatcher = req.getRequestDispatcher(link);
                     dispatcher.forward(req, resp);
-                } catch (ServletException | IOException | CommandException e) {
+                } catch (ServletException | IOException e) {
                     throw new ServletException(e.getMessage(), e);
-                } finally {
-                    return;
                 }
             }
         }

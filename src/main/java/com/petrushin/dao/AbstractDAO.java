@@ -1,6 +1,6 @@
 package com.petrushin.dao;
 
-import com.petrushin.builder.Creator;
+import com.petrushin.creator.Creator;
 import com.petrushin.exceptions.ConnectionPoolException;
 import com.petrushin.exceptions.CreatorException;
 import com.petrushin.exceptions.EntityDAOException;
@@ -24,7 +24,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
         this.creator = creator;
     }
 
-    protected T findById(Long id, String query)
+    protected T getByPK(Long id, String query)
             throws EntityDAOException {
         T t = null;
         try (Connection connection = ConnectionPool.getConnection();
@@ -36,7 +36,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             }
         } catch (SQLException | CreatorException
                 | ConnectionPoolException e) {
-            throw new EntityDAOException(e.getMessage(), e);
+            throw new EntityDAOException("Get by PK - " + id + " error. " + e.getMessage(), e);
         }
         return t;
     }
@@ -51,7 +51,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             list = creator.createEntityList(resultSet);
         } catch (SQLException | ConnectionPoolException
                 | CreatorException e) {
-            throw new EntityDAOException(e.getMessage(), e);
+            throw new EntityDAOException("Get ALL error. " + e.getMessage(), e);
         }
         return list;
     }
@@ -73,7 +73,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             connection.setAutoCommit(true);
             return rowCountChanged == 1;
         } catch (SQLException | ConnectionPoolException e) {
-            throw new EntityDAOException(e.getMessage(), e);
+            throw new EntityDAOException("Delete operation error. " + e.getMessage(), e);
         }
     }
 
@@ -91,7 +91,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
                 LOGGER.error("Connection was rollbacked");
             } catch (SQLException e) {
                 throw new EntityDAOException(
-                        "Transaction rollback error " + e.getMessage(), e);
+                        "Transaction rollback error. " + e.getMessage(), e);
             }
         }
     }
@@ -104,7 +104,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
              PreparedStatement statement = connection.prepareStatement(query)) {
             connectionToRollBack = connection;
             connection.setAutoCommit(false);
-            creator.initStatement(t, statement);
+            prepareStatement(t, statement);
             int rowCountChanged = statement.executeUpdate();
             connection.commit();
             connection.setAutoCommit(true);
@@ -114,5 +114,8 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             throw new EntityDAOException(e.getMessage(), e);
         }
     }
+
+    public abstract void prepareStatement(T t, PreparedStatement statement)
+            throws CreatorException;
 
 }

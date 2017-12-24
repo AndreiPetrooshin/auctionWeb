@@ -1,6 +1,6 @@
 package com.petrushin.main;
 
-import com.petrushin.builder.impl.UserCreator;
+import com.petrushin.creator.impl.UserCreator;
 import com.petrushin.dao.GenericDAO;
 import com.petrushin.dao.impl.UserDAOImpl;
 import com.petrushin.domain.User;

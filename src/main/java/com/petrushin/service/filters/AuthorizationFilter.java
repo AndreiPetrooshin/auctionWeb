@@ -12,6 +12,12 @@ import java.io.IOException;
 public class AuthorizationFilter implements Filter {
 
 
+    private static final String PARAM_LOGIN = "login";
+    private static final String PARAM_COMMAND = "command";
+    private static final String PARAM_USER = "user";
+    private static final String PARAM_HOME = "home";
+    private static final String PARAM_LOGOUT = "logout";
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
@@ -19,18 +25,19 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        if ("login".equalsIgnoreCase(request.getParameter("command"))) {
+        String command = request.getParameter(PARAM_COMMAND);
+        if (PARAM_LOGIN.equalsIgnoreCase(command)) {
             filterChain.doFilter(request, response);
-            return;
+
+        } else {
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute(PARAM_USER);
+            if (user != null && !PARAM_LOGOUT.equalsIgnoreCase(command)) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher(PARAM_HOME);
+                dispatcher.forward(request, response);
+            }
+            filterChain.doFilter(request, response);
         }
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        if (user != null) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home");
-            dispatcher.forward(request, response);
-        }
-        filterChain.doFilter(request, response);
+
     }
-
-
 }

@@ -6,10 +6,6 @@
 
     <welcome-file-list>
         <welcome-file>/index.jsp</welcome-file>
-        <welcome-file>/pages/login.jsp</welcome-file>
-        <welcome-file>pages/login.jsp</welcome-file>
-        <welcome-file>/pages/error.jsp</welcome-file>
-        <welcome-file>/pages/login.jsp</welcome-file>
     </welcome-file-list>
 
 
@@ -41,6 +37,19 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>charsetEncode</filter-name>
+        <filter-class>com.petrushin.service.filters.CharsetEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>charsetEncode</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>login</servlet-name>

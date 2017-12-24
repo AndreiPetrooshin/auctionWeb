@@ -1,6 +1,6 @@
 package com.petrushin.exceptions;
 
-public class CreatorException extends Exception {
+public class CreatorException extends AuctionBuisnessException {
 
     public CreatorException() {
     }

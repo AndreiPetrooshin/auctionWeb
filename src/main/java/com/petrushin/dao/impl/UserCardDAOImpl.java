@@ -1,10 +1,14 @@
 package com.petrushin.dao.impl;
 
-import com.petrushin.builder.Creator;
+import com.petrushin.creator.Creator;
 import com.petrushin.dao.AbstractDAO;
+import com.petrushin.domain.User;
 import com.petrushin.domain.UserCard;
+import com.petrushin.exceptions.CreatorException;
 import com.petrushin.exceptions.EntityDAOException;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserCardDAOImpl extends AbstractDAO<UserCard> {
@@ -13,53 +17,44 @@ public class UserCardDAOImpl extends AbstractDAO<UserCard> {
         super(creator);
     }
 
-    public UserCard findById(Long id)
-            throws EntityDAOException {
-        try {
-            return findById(id, UserCard.GET_BY_ID);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "FindByID UserCard Error " + e.getMessage(), e);
-        }
+    public UserCard findById(Long id) throws EntityDAOException {
+        return getByPK(id, UserCard.GET_BY_ID);
     }
 
-    public List<UserCard> getAll()
-            throws EntityDAOException {
-        try {
-            return getAll(UserCard.GET_ALL);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "GetAll UserCard Error" + e.getMessage(), e);
-        }
+    public List<UserCard> getAll() throws EntityDAOException {
+        return getAll(UserCard.GET_ALL);
     }
 
-    public boolean save(UserCard card)
-            throws EntityDAOException {
-        try {
-            return save(card, UserCard.ADD_CARD);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "Save UserCard error. " + e.getMessage(), e);
-        }
+    public boolean save(UserCard card) throws EntityDAOException {
+        return save(card, UserCard.ADD_CARD);
     }
 
-    public boolean update(UserCard card)
-            throws EntityDAOException {
-        try {
-            return update(card, UserCard.UPDATE_USER_CARD);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "Update UserCard Error" + e.getMessage(), e);
-        }
+    public boolean update(UserCard card) throws EntityDAOException {
+        return update(card, UserCard.UPDATE_USER_CARD);
     }
 
-    public boolean delete(Long id)
-            throws EntityDAOException {
+    public boolean delete(Long id) throws EntityDAOException {
+       return delete(id, UserCard.DELETE_USER_CARD);
+    }
+
+    public void prepareStatement(UserCard card, PreparedStatement statement)
+            throws CreatorException {
         try {
-            return delete(id, UserCard.DELETE_USER_CARD);
-        } catch (EntityDAOException e) {
-            throw new EntityDAOException(
-                    "Delete UserCard Error" + e.getMessage(), e);
+            User user = card.getUser();
+            Long userId = user.getId();
+            statement.setLong(1, userId);
+
+            String cardNumber = card.getCardNumber();
+            statement.setString(2, cardNumber);
+
+            String cardName = card.getCardName();
+            statement.setString(3, cardName);
+
+            Long cardId = card.getId();
+            statement.setLong(4, cardId);
+        } catch (SQLException e) {
+            throw new CreatorException(
+                    "Error with init userCard statement " + e.getMessage(), e);
         }
     }
 

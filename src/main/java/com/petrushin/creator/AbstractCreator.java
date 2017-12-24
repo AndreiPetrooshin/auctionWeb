@@ -1,8 +1,7 @@
-package com.petrushin.builder;
+package com.petrushin.creator;
 
 import com.petrushin.exceptions.CreatorException;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,8 +9,6 @@ import java.util.List;
 
 public abstract class AbstractCreator<T> implements Creator<T> {
 
-    public abstract void initStatement(T t, PreparedStatement statement)
-            throws CreatorException;
 
     public abstract T createEntity(ResultSet resultSet)
             throws CreatorException;

@@ -1,6 +1,6 @@
 package com.petrushin.exceptions;
 
-public class ConnectionPoolException extends Exception {
+public class ConnectionPoolException extends AuctionBuisnessException {
 
     public ConnectionPoolException() {
     }

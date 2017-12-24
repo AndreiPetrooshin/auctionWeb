@@ -1,4 +1,3 @@
--- user_role initizalization
 
 
 DELETE FROM flowers_auction_bd.user  ;
@@ -9,7 +8,7 @@ DELETE FROM flowers_auction_bd.flower_lot;
 DELETE FROM flowers_auction_bd.bets_m2m;
 
 
-
+-- user_role initizalization
 INSERT INTO `flowers_auction_bd`.`user_role` (`role_id`, `user_role`) VALUES (1, 'admin');
 INSERT INTO `flowers_auction_bd`.`user_role` (`role_id`, `user_role`) VALUES (2, 'user');
 
