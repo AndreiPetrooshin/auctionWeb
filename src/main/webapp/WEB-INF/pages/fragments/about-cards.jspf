@@ -1,0 +1,29 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:forEach items="${requestScope.cards}" var="card">
+    <section class="row profile-addresses">
+        <div class="col-2">${card.id}</div>
+        <div class="col-2">${card.cardName}</div>
+        <div class="col-3">${card.cardNumber}</div>
+        <div class="col-3 " onclick=openForm("card_id")>&#9998;</div>
+        <div id="card_id" class="dialog">
+            <h1>Редактировать Карту</h1>
+            <form method="post" action="">
+                <label>
+                    <span>Название карточки</span>
+                    <input type="text" name="cardName">
+                    <br>
+                </label>
+                <label>
+                    <span>Номер карточки</span>
+                    <input type="number" name="cardNumber">
+                    <br>
+                </label>
+                <input type="button" value="Закрыть" class="close-btn" onclick=closeForm("card_id")>
+                <input type="submit" name="send" value="Сохранить" class="send-message">
+            </form>
+        </div>
+    </section>
+</c:forEach>
+
+

@@ -3,38 +3,37 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="../../assets/css/style-registration.css"/>
+    <link rel="stylesheet" href="../../assets/css/style.css"/>
 </head>
 <body>
 <c:if test="${sessionScope.user eq null}">
-    <div id="login">
-        <header> LOGIN</header>
+    <div class="col-4 col-m-1"></div>
+    <div id="login" class="col-4 col-m-10">
+        <span> LOGIN</span>
         <c:if test="${requestScope.error != null}">
             <span class="error">${requestScope.error}</span>
             <hr>
         </c:if>
         <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
-            <p><span class="fontawesome-user"></span>
-                <label>
-                    <input type="text" value="Логин" name="login"
-                           onBlur="if(this.value == '') this.value = 'Логин'"
-                           onFocus="if(this.value == 'Логин') this.value = ''"
-                           required>
-                </label></p>
-            <p><span class="fontawesome-lock"></span>
-                <label>
-                    <input type="password" value="Пароль" name="password"
-                           onBlur="if(this.value == '') this.value = 'Пароль'"
-                           onFocus="if(this.value == 'Пароль') this.value = ''"
-                           required>
-                </label>
-            </p>
+            <label>
+                <input type="text" value="Логин" name="login"
+                       onBlur="if(this.value == '') this.value = 'Логин'"
+                       onFocus="if(this.value == 'Логин') this.value = ''"
+                       required>
+            </label>
+            <label>
+                <input type="password" value="Пароль" name="password"
+                       onBlur="if(this.value == '') this.value = 'Пароль'"
+                       onFocus="if(this.value == 'Пароль') this.value = ''"
+                       required>
+            </label>
             <input type="submit" name="submit" value="LOG_IN">
         </form>
         <p>Нет аккаунта? &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/registration">Регистрация</a><span
                 class="fontawesome-arrow-right"></span></p>
 
     </div>
+    <div class="col-4 col-m-1 "></div>
 </c:if>
 </body>
 </html>

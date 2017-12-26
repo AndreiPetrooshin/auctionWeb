@@ -1,8 +1,7 @@
 package com.petrushin.controller;
 
-import com.petrushin.constants.Pages;
-import com.petrushin.service.Command;
-import com.petrushin.service.CommandFactory;
+import com.petrushin.model.command.Command;
+import com.petrushin.model.command.CommandFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

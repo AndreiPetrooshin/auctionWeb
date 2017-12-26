@@ -1,0 +1,14 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<c:forEach items="${requestScope.lots}" var="lot">
+    <a href="${pageContext.request.contextPath}/controller?command=showLot&id=${lot.id}">
+        <section class="row profile-lot">
+            <div class="col-3">${lot.type}</div>
+            <div class="col-3">${lot.name}</div>
+            <div class="col-3">Начальная цена: ${lot.startPrice}</div>
+            <div class="col-3">${lot.state}</div>
+        </section>
+    </a>
+</c:forEach>

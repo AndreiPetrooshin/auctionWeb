@@ -29,7 +29,7 @@
 
     <filter>
         <filter-name>login</filter-name>
-        <filter-class>com.petrushin.service.filters.AuthorizationFilter</filter-class>
+        <filter-class>com.petrushin.model.filters.AuthorizationFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -39,7 +39,7 @@
 
     <filter>
         <filter-name>charsetEncode</filter-name>
-        <filter-class>com.petrushin.service.filters.CharsetEncodingFilter</filter-class>
+        <filter-class>com.petrushin.model.filters.CharsetEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
@@ -99,6 +99,24 @@
     <servlet-mapping>
         <servlet-name>alreadyLogin</servlet-name>
         <url-pattern>/alreadyLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>profile</servlet-name>
+        <jsp-file>/WEB-INF/pages/profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>lot</servlet-name>
+        <jsp-file>/WEB-INF/pages/lot.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>lot</servlet-name>
+        <url-pattern>/lot</url-pattern>
     </servlet-mapping>
 
 </web-app>

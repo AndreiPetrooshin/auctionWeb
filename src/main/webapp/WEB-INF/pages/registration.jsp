@@ -3,21 +3,21 @@
 <html>
 <head>
     <title>Registration</title>
-    <link rel="stylesheet" href="../../assets/css/style-registration.css"/>
+    <link rel="stylesheet" href="../../assets/css/style.css"/>
 </head>
 <body>
 <c:if test="${sessionScope.user == null}">
-    <div id="login">
+    <div class="col-4 col-m-1"></div>
+    <div id="login" class="col-4 col-m-10">
         <form action="${pageContext.request.contextPath}/controller?command=registration" method="post">
-            <fieldset class="clearfix">
-                <header> REGISTRATION</header>
+                <span> REGISTRATION</span>
                 <c:if test="${sessionScope.loginError != null}">
                     <p class="error"><c:out value="${sessionScope.loginError}"/></p>
                 </c:if>
                 <c:if test="${sessionScope.incorrect_login != null}">
                     <p class="error"><c:out value="${sessionScope.incorrect_login}"/></p>
                 </c:if>
-                <p><span class="fontawesome-user"></span>
+                <p>
                     <label>
                         <input type="text" value="Логин" name="login"
                                onBlur="if(this.value == '') this.value = 'Логин'"
@@ -28,7 +28,7 @@
                 <c:if test="${sessionScope.incorrect_email != null}">
                     <p class="error"><c:out value="${sessionScope.incorrect_email}"/></p>
                 </c:if>
-                <p><span class="fontawesome-lock"></span>
+                <p>
                     <label>
                         <input type="text" value="email" name="email"
                                onBlur="if(this.value == '') this.value = 'email'"
@@ -39,7 +39,7 @@
                 <c:if test="${sessionScope.incorrect_password != null}">
                     <p class="error"><c:out value="${sessionScope.incorrect_password}"/></p>
                 </c:if>
-                <p><span class="fontawesome-lock"></span>
+                <p>
                     <label>
                         <input type="password" value="Пароль" name="password"
                                onBlur="if(this.value == '') this.value = 'Пароль'"
@@ -47,12 +47,10 @@
                                required pattern="[a-zA-Z0-9]{5,30}"
                                title="Password should consist 5 or more characters">
                     </label></p>
-
-                <p><input type="submit" value="ВОЙТИ"></p>
-
-            </fieldset>
+                <p><input type="submit" value="Зарегистрироваться"></p>
         </form>
     </div>
+    <div class="col-4 col-m-1 "></div>
 </c:if>
 </body>
 </html>

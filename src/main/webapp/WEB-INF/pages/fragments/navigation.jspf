@@ -1,0 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<nav class="col-3 col-m-3 menu">
+    <ul>
+        <li><a href="${pageContext.request.contextPath}/controller?command=showLots&type=луговые">Луговые</a></li>
+        <li><a href="${pageContext.request.contextPath}/controller?command=showLots&type=комнатные">Комнатные</a></li>
+        <li><a href="${pageContext.request.contextPath}/controller?command=showLots&type=лесные">Лесные</a></li>
+        <li><a href="${pageContext.request.contextPath}/controller?command=showLots&type=садовые">Садовые</a></li>
+        <li><a href="${pageContext.request.contextPath}/controller?command=showLots&type=кактусы">Кактусы</a></li>
+    </ul>
+</nav>

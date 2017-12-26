@@ -9,13 +9,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>MAIN</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <link rel="stylesheet" href="../../assets/css/normalize.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
-    <h1> MAIN</h1>
+        <%@include file="fragments/header.jspf"%>
+        <%@include file="fragments/navigation.jspf"%>
 
-    <a href="login">LOGIN</a>
-    <a href="registration">REGISTRATION</a>
-    <%@ include file="fragments/alreadyLogin.jsp" %>
+
+        <main class="col-6 col-m-9">
+            <c:forEach items="${requestScope.lotList}" var="lot">
+                <a href="${pageContext.request.contextPath}/controller?command=showLot&id=${lot.id}">
+                    <section class="lot row">
+                    <h2>${lot.name}</h2>
+                    <div class="col-2">
+                        ФОТОГРАФИЯ
+                    </div>
+                    <div class="col-8">
+                        ${lot.description}
+                    </div>
+                    <div class="col-2">
+                        PRICE: ${lot.startPrice}
+                    </div>
+                </section>
+                </a>
+                <hr>
+            </c:forEach>
+        </main>
+
+        <%@include file="fragments/banner.jspf"%>
+        <%@include file="fragments/footer.jspf"%>
+
 </body>
 </html>

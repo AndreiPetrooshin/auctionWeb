@@ -1,0 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<header class="clearfix">
+    <ul class="menu head">
+        <li class="col-3 col-m-12 menu"><a href="${pageContext.request.contextPath}controller?command=showLots">Главная</a></li>
+        <li class="col-3 col-m-12 menu">Аукцион</li>
+        <li class="col-3 col-m-12 menu">Категории</li>
+        <li class="col-1 col-m-12 right menu"><a href="/profile">${sessionScope.user.login}</a></li>
+        <c:if test="${sessionScope.user == null}" >
+            <li class="col-1 col-m-12 right menu"><a href="${pageContext.request.contextPath}/login ">Login</a></li>
+        </c:if>
+        <c:if test="${sessionScope.user != null}">
+            <li class="col-1 col-m-12 right menu"><a href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
+        </c:if>
+    </ul>
+</header>
