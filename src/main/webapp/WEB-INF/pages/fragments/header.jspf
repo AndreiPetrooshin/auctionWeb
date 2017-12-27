@@ -3,15 +3,22 @@
 
 <header class="clearfix">
     <ul class="menu head">
-        <li class="col-3 col-m-12 menu"><a href="${pageContext.request.contextPath}controller?command=showLots">Главная</a></li>
+        <li class="col-3 col-m-12 menu"><a
+                href="${pageContext.request.contextPath}controller?command=showLots">Главная</a></li>
         <li class="col-3 col-m-12 menu">Аукцион</li>
         <li class="col-3 col-m-12 menu">Категории</li>
-        <li class="col-1 col-m-12 right menu"><a href="/profile">${sessionScope.user.login}</a></li>
-        <c:if test="${sessionScope.user == null}" >
-            <li class="col-1 col-m-12 right menu"><a href="${pageContext.request.contextPath}/login ">Login</a></li>
-        </c:if>
+        <c:choose>
+            <c:when test="${sessionScope.user != null}">
+                <li class="col-1 col-m-12 right menu"><a
+                        href="${pageContext.request.contextPath}/profile">${sessionScope.user.login}</a></li>
+            </c:when>
+            <c:otherwise>
+                <li class="col-1 col-m-12 right menu"><a href="${pageContext.request.contextPath}/login">Login</a></li>
+            </c:otherwise>
+        </c:choose>
         <c:if test="${sessionScope.user != null}">
-            <li class="col-1 col-m-12 right menu"><a href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
+            <li class="col-1 col-m-12 right menu"><a
+                    href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
         </c:if>
     </ul>
 </header>

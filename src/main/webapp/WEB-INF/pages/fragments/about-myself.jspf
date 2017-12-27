@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h2> Привет Андрей!</h2>
-<section class="profile-email">
+<section class="profile-myself">
     <label>
         <form id="form-email" action="${pageContext.request.contextPath}/controller?command=updateUser" method="post">
             <span>Ваша почта </span>

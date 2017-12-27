@@ -1,6 +1,6 @@
 package com.petrushin.exceptions;
 
-public class EntityDAOException extends AuctionBuisnessException {
+public class EntityDAOException extends AuctionBusinessException {
 
     public EntityDAOException() {
     }

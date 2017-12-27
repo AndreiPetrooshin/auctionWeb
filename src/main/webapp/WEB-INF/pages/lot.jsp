@@ -3,7 +3,7 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/normalize.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
@@ -16,41 +16,67 @@
 <%@include file="fragments/navigation.jspf" %>
 
 <main class="col-6 col-m-9 row">
-    <c:if test="${sessionScope.user.id == requestScope.lot.user.id}" >
+    <c:if test="${sessionScope.user.id == requestScope.lot.user.id}">
         <div id="fade" class="black-overlay"></div>
         <input type="button" value="Редактировать" onclick="openForm('redact-lot') ">
-        <section id="redact-lot"  class="dialog">
-            <form method="post" action="">
-                <label>
-                    <span>Тип:</span>
-                    <input type="text" name="type">
-                    <br>
-                </label>
-                <label>
-                    <span>Имя:</span>
-                    <input type="text" name="name">
-                    <br>
-                </label>
-                <label>
-                    <span>Описание:</span>
-                    <textarea rows="15" cols="40"  name="description"></textarea>
-                    <br>
-                </label>
-                <label>
-                    <span>Начальная цена:</span>
-                    <input type="number" name="startPrice">
-                    <br>
-                </label>
-                <label>
-                    <span>Состояние:</span>
-                    <select name="state">
-                        <option>trading</option>
-                        <option>stop</option>
-                    </select>
-                    <br>
-                </label>
-                <input type="button" value="Закрыть" class="close-btn" onclick=closeForm("redact-lot")>
-                <input type="submit" value="Сохранить" class="send-message">
+        <section id="redact-lot" class="dialog container clearfix">
+            <form method="post"
+                  action="${pageContext.request.contextPath}/controller?command=updateLot&id=${requestScope.lot.id}">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="ltype">Тип:</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="ltype" name="type">
+                            <option>луговые</option>
+                            <option>комнатные</option>
+                            <option>лесные</option>
+                            <option>садовые</option>
+                            <option>кактусы</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="lname">Имя:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="lname" type="text" name="name" value="${requestScope.lot.name}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label>Описание:</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea rows="7" cols="80" name="description">${requestScope.lot.description}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="lstart-price">Начальная цена:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="lstart-price" type="number" name="startPrice" value="${requestScope.lot.startPrice}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="lstate">Состояние:</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="lstate" name="state">
+                            <option value="trading">таргуется</option>
+                            <option value="sold">продано</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row col-6">
+                    <input type="button" value="Закрыть" onclick=closeForm("redact-lot")>
+                </div>
+                <div class="row col-6">
+                    <input type="submit" value="Сохранить">
+                </div>
             </form>
         </section>
     </c:if>
@@ -69,6 +95,7 @@
     <section class="lot-price col-12 col-m-12">
         <form action="${pageContext.request.contextPath}/controller?command=makeBet&lotId=${requestScope.lot.id}"
               method="post">
+            <c:if test="${requestScope.lot.user.id != sessionScope.user.id}">
             <section class="bet-from col-9 col-m-9">
                 <label>
                     <input type="number" step="0.01" name="bet" title="Введите вашу ставку">
@@ -79,6 +106,7 @@
                     <input class="button" type="submit">
                 </label>
             </section>
+            </c:if>
         </form>
     </section>
 
@@ -92,13 +120,8 @@
             </c:forEach>
         </ul>
     </section>
-
-
 </main>
-
 <%@include file="fragments/banner.jspf" %>
 <%@include file="fragments/footer.jspf" %>
-
-
 </body>
 </html>

@@ -2,13 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    border-radius: 5px;
 }
 
 body {
-background: rgba(226, 250, 255, 0.59);
-width: 100%;
+    background: rgba(226, 250, 255, 0.59);
+    width: 100%;
 }
-
 
 html {
 
@@ -22,6 +22,50 @@ header {
     background: url(../images/header_bg.png) no-repeat center;
     background-size: cover;
     color: #ffffff;
+}
+
+aside {
+    background-color: #33b5e5;
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    border: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+aside h2 {
+    padding: 20px;
+
+}
+
+section ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+section li {
+    padding: 8px;
+    margin-bottom: 7px;
+    background-color: #6b7286;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+footer {
+    background-color: #0099cc;
+    color: #ffffff;
+    position: static;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 150px;
+    padding: 15px;
+}
+
+main > a, main > a:visited, main > a:active {
+    color: #0c0d10;
+    text-decoration: none;
+    text-decoration: #33b5e5;
 }
 
 .menu ul {
@@ -43,21 +87,21 @@ header {
     text-decoration: #33b5e5;
 }
 
-main > a, main > a:visited, main > a:active{
-    color: #0c0d10;
-    text-decoration: none;
-    text-decoration: #33b5e5;
-}
-
-
-
 .menu li:hover {
     background-color: #0099cc;
+}
+
+span .error {
+    color: rgba(255, 10, 16, 0.91);
 }
 
 .right {
     float: right;
 }
+.left {
+    float: left;
+}
+
 
 .hide {
     visibility: hidden;
@@ -66,22 +110,79 @@ main > a, main > a:visited, main > a:active{
 .head {
     width: 100%;
 }
-
-.lot {
-    padding: 20px 0;
-}
-
 .row::after {
     content: "";
     clear: both;
     display: table;
+    padding: 5px;
+
 }
-/*For desktop */
 
 [class*="profile-"] {
     padding: 80px 0 0 0;
-    font-size: 1.5em;
 }
+
+[class*="profile-"] > label{
+    color: black;
+}
+
+
+input[type=text], select, textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+input[type=submit], input[type=button] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+}
+
+input[type=submit]:hover, input[type=button]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    height: auto;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.col-75 > label, .col-25 > label {
+    color: #525252;
+    padding: 0;
+}
+
+
+@media only screen and  (max-width: 1200px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+/*For desktop */
 
 [class*="col-"] {
     float: left;
@@ -92,37 +193,26 @@ main > a, main > a:visited, main > a:active{
 [class*="col-m"] {
     width: 100%;
 }
-.header {
-    background-color: #9933cc;
-    color: #ffffff;
-    padding: 15px;
-}
 .menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
+
 .menu li {
     padding: 8px;
     margin-bottom: 7px;
     background-color: #33b5e5;
     color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
+
 .menu li:hover {
     background-color: #0099cc;
 }
-aside {
-    background-color: #33b5e5;
-    color: #ffffff;
-    text-align: center;
-    font-size: 14px;
-    border: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
 
-.lot-price {
-    text-align: center;
+.lot {
+    padding: 20px;
 }
 
 .lot-price .bet-from {
@@ -138,90 +228,126 @@ aside {
     background: rgb(31, 219, 37); /* фон кнопки */
     padding: .7em 1.5em; /* отступ от текста */
     outline: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-.button:hover { background: rgb(232,95,76); } /* при наведении курсора мышки */
-.button:active { background: rgb(152,15,0); } /* при нажатии */
+.button:hover {
+    background: rgb(232, 95, 76);
+}
 
-
-
+.button:active {
+    background: rgb(152, 15, 0);
+}
 
 @media only screen and (min-width: 600px) {
     /* For tablets: */
-    .col-m-1 {width: 8.33%;}
-    .col-m-2 {width: 16.66%;}
-    .col-m-3 {width: 25%;}
-    .col-m-4 {width: 33.33%;}
-    .col-m-5 {width: 41.66%;}
-    .col-m-6 {width: 50%;}
-    .col-m-7 {width: 58.33%;}
-    .col-m-8 {width: 66.66%;}
-    .col-m-9 {width: 75%;}
-    .col-m-10 {width: 83.33%;}
-    .col-m-11 {width: 91.66%;}
-    .col-m-12 {width: 100%;}
+    .col-m-1 {
+        width: 8.33%;
+    }
+
+    .col-m-2 {
+        width: 16.66%;
+    }
+
+    .col-m-3 {
+        width: 25%;
+    }
+
+    .col-m-4 {
+        width: 33.33%;
+    }
+
+    .col-m-5 {
+        width: 41.66%;
+    }
+
+    .col-m-6 {
+        width: 50%;
+    }
+
+    .col-m-7 {
+        width: 58.33%;
+    }
+
+    .col-m-8 {
+        width: 66.66%;
+    }
+
+    .col-m-9 {
+        width: 75%;
+    }
+
+    .col-m-10 {
+        width: 83.33%;
+    }
+
+    .col-m-11 {
+        width: 91.66%;
+    }
+
+    .col-m-12 {
+        width: 100%;
+    }
 }
+
 @media only screen and (min-width: 1200px) {
     /* For desktop: */
-    .col-1 {width: 8.33%;}
-    .col-2 {width: 16.66%;}
-    .col-3 {width: 24.6%;}
-    .col-4 {width: 33.33%;}
-    .col-5 {width: 41.66%;}
-    .col-6 {width: 50%;}
-    .col-7 {width: 58.33%;}
-    .col-8 {width: 66.66%;}
-    .col-9 {width: 75%;}
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
+    .col-1 {
+        width: 8.33%;
+    }
+
+    .col-2 {
+        width: 16.66%;
+    }
+
+    .col-3 {
+        width: 24.6%;
+    }
+
+    .col-4 {
+        width: 33.33%;
+    }
+
+    .col-5 {
+        width: 41.66%;
+    }
+
+    .col-6 {
+        width: 50%;
+    }
+
+    .col-7 {
+        width: 58.33%;
+    }
+
+    .col-8 {
+        width: 66.66%;
+    }
+
+    .col-9 {
+        width: 75%;
+    }
+
+    .col-10 {
+        width: 83.33%;
+    }
+
+    .col-11 {
+        width: 91.66%;
+    }
+
+    .col-12 {
+        width: 100%;
+    }
 }
+
 
 .clearfix {
     overflow: auto;
     zoom: 1;
 }
 
-section ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-section li {
-    padding: 8px;
-    margin-bottom: 7px;
-    background-color: #6b7286;
-    color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.profile-lot, .profile-addresses {
-    padding: 8px;
-    text-align: center;
-    font-size: 1.4em;
-    margin-bottom: 7px;
-    background-color: #a0fddf;
-    color: #909090;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-
-aside h2 {
-    padding: 20px;
-}
-
-footer {
-    background-color: #0099cc;
-    color: #ffffff;
-    position: static;
-    text-align: center;
-    font-size: 14px;
-    margin-top: 150px;
-    padding: 15px;
-}
-
-.black-overlay{
+.black-overlay {
     display: none;
     position: absolute;
     top: 0%;
@@ -229,35 +355,40 @@ footer {
     width: 100%;
     height: 100%;
     background-color: black;
-    z-index:1001;
+    z-index: 1001;
     -moz-opacity: 0.7;
-    opacity:.70;
+    opacity: .70;
     filter: alpha(opacity=70);
 }
+
+.profile-lot, .profile-addresses {
+    padding: 0px;
+    font-size: 1.2em;
+    margin-bottom: 7px;
+    background-color: #1ad0d0;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
 /* устанавливаем рисунок основы,
   ** опрделяем размеры и положение на экране  */
 .dialog {
     display: none;
     position: relative;
     text-align: left;
-    color: #ffffff;
+    color: #181818;
     width: 600px;
-    height: 340px;
-    z-index:1002;
-    margin: 10% auto;
+    z-index: 1002;
+    margin: auto auto;
 }
 
 label {
     font-size: 1.4em;
     color: #ffffff;
+    padding: 12px 12px 12px 0;
 }
-
 
 /*!!!!!LOGIN!!!!!*/
-
-#login{
-    padding: 15% 0;
-}
 
 
 #login form input {
@@ -268,7 +399,7 @@ label {
 #login form input[type="text"], input[type="password"] {
     border: none;
     background-color: #d2e5f7;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     color: #3d4145;
     margin-bottom: 1em;
     width: 100%;

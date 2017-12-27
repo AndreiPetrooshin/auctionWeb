@@ -38,7 +38,7 @@ public class UserAddressesDaoImpl extends AbstractDao<UserAddresses> {
         return update(address, UserAddresses.UPDATE_ADDRESS);
     }
 
-    public void prepareStatement(UserAddresses address, PreparedStatement statement)
+    public void prepareStatementForUpdate(UserAddresses address, PreparedStatement statement)
             throws CreatorException {
         try {
             User user = address.getUser();
@@ -78,6 +78,12 @@ public class UserAddressesDaoImpl extends AbstractDao<UserAddresses> {
             throw new CreatorException(
                     "Error with init address statement " + e.getMessage(), e);
         }
+    }
+
+    @Override
+    protected void prepareStatementForInsert(UserAddresses userAddresses, PreparedStatement statement)
+            throws CreatorException {
+        prepareStatementForUpdate(userAddresses,statement);
     }
 
 

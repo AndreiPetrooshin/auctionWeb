@@ -58,7 +58,20 @@ public abstract class AbstractDao<T> implements GenericDao<T> {
 
     protected boolean save(T t, String query)
             throws EntityDAOException {
-        return transactionalOperation(t, query);
+        Connection connectionToRollBack = null;
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            connectionToRollBack = connection;
+            connection.setAutoCommit(false);
+            prepareStatementForInsert(t, statement);
+            int rowCountChanged = statement.executeUpdate();
+            connection.commit();
+            connection.setAutoCommit(true);
+            return rowCountChanged == 1;
+        } catch (ConnectionPoolException | CreatorException | SQLException e) {
+            rollback(connectionToRollBack);
+            throw new EntityDAOException(e.getMessage(), e);
+        }
 
     }
 
@@ -79,7 +92,20 @@ public abstract class AbstractDao<T> implements GenericDao<T> {
 
     protected boolean update(T t, String query)
             throws EntityDAOException {
-        return transactionalOperation(t, query);
+        Connection connectionToRollBack = null;
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            connectionToRollBack = connection;
+            connection.setAutoCommit(false);
+            prepareStatementForUpdate(t, statement);
+            int rowCountChanged = statement.executeUpdate();
+            connection.commit();
+            connection.setAutoCommit(true);
+            return rowCountChanged == 1;
+        } catch (ConnectionPoolException | CreatorException | SQLException e) {
+            rollback(connectionToRollBack);
+            throw new EntityDAOException(e.getMessage(), e);
+        }
     }
 
 
@@ -97,25 +123,10 @@ public abstract class AbstractDao<T> implements GenericDao<T> {
     }
 
 
-    private boolean transactionalOperation(T t, String query)
-            throws EntityDAOException {
-        Connection connectionToRollBack = null;
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            connectionToRollBack = connection;
-            connection.setAutoCommit(false);
-            prepareStatement(t, statement);
-            int rowCountChanged = statement.executeUpdate();
-            connection.commit();
-            connection.setAutoCommit(true);
-            return rowCountChanged == 1;
-        } catch (ConnectionPoolException | CreatorException | SQLException e) {
-            rollback(connectionToRollBack);
-            throw new EntityDAOException(e.getMessage(), e);
-        }
-    }
+    protected abstract void prepareStatementForUpdate(T t, PreparedStatement statement)
+            throws CreatorException;
 
-    public abstract void prepareStatement(T t, PreparedStatement statement)
+    protected abstract void prepareStatementForInsert(T t, PreparedStatement statement)
             throws CreatorException;
 
 }

@@ -45,7 +45,7 @@ public class UserBetDaoImpl extends AbstractDao<UserBet> {
 
 
     @Override
-    public void prepareStatement(UserBet userBet, PreparedStatement statement)
+    public void prepareStatementForUpdate(UserBet userBet, PreparedStatement statement)
             throws CreatorException {
         try {
             FlowerLot lot = userBet.getLot();
@@ -66,6 +66,12 @@ public class UserBetDaoImpl extends AbstractDao<UserBet> {
             throw new CreatorException(
                     "Error with init bet statement" + e.getMessage(), e);
         }
+    }
+
+    @Override
+    protected void prepareStatementForInsert(UserBet userBet, PreparedStatement statement)
+            throws CreatorException {
+        prepareStatementForUpdate(userBet,statement);
     }
 
 

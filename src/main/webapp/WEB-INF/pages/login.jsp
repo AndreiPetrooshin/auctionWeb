@@ -27,7 +27,7 @@
                        onFocus="if(this.value == 'Пароль') this.value = ''"
                        required>
             </label>
-            <input type="submit" name="submit" value="LOG_IN">
+            <input type="submit" name="submit" value="ВОЙТИ">
         </form>
         <p>Нет аккаунта? &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/registration">Регистрация</a><span
                 class="fontawesome-arrow-right"></span></p>

@@ -1,10 +1,10 @@
 package com.petrushin.model.dao.impl;
 
+import com.petrushin.exceptions.CreatorException;
+import com.petrushin.exceptions.EntityDAOException;
 import com.petrushin.model.creator.Creator;
 import com.petrushin.model.dao.AbstractDao;
 import com.petrushin.model.domain.UserRole;
-import com.petrushin.exceptions.CreatorException;
-import com.petrushin.exceptions.EntityDAOException;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class UserRoleDaoImpl extends AbstractDao<UserRole> {
     }
 
     @Override
-    public void prepareStatement(UserRole userRole, PreparedStatement statement)
+    public void prepareStatementForUpdate(UserRole userRole, PreparedStatement statement)
             throws CreatorException {
         try {
             String role = userRole.getRole();
@@ -49,6 +49,12 @@ public class UserRoleDaoImpl extends AbstractDao<UserRole> {
             throw new CreatorException(
                     "Error with init role statement" + e.getMessage(), e);
         }
+    }
+
+    @Override
+    protected void prepareStatementForInsert(UserRole userRole, PreparedStatement statement)
+            throws CreatorException {
+        prepareStatementForUpdate(userRole, statement);
     }
 
 }

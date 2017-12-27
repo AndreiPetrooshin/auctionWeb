@@ -19,10 +19,10 @@ public class ShowLotCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(ShowLotCommand.class);
 
-    private static final String ATTR_USER = "user";
     private static final String PARAM_ID = "id";
     private static final String ATTR_LOT = "lot";
     private static final String ATTR_BETS = "bets";
+
     private FlowerLotService flowerLotService;
     private UserBetService userBetService;
 
@@ -35,6 +35,11 @@ public class ShowLotCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String param = request.getParameter(PARAM_ID);
         Long id = Long.valueOf(param);
+        setLotInfo(request, id);
+        return Pages.LOT_PAGE;
+    }
+
+    private void setLotInfo(HttpServletRequest request, Long id) {
         try {
             FlowerLot lot = flowerLotService.findById(id);
             if (lot != null) {
@@ -45,6 +50,5 @@ public class ShowLotCommand implements Command {
         } catch (EntityDAOException e) {
             LOGGER.error("Error with find lot by id", e);
         }
-        return Pages.LOT_PAGE;
     }
 }

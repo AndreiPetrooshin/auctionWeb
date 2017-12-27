@@ -1,11 +1,11 @@
 package com.petrushin.model.dao.impl;
 
+import com.petrushin.exceptions.CreatorException;
+import com.petrushin.exceptions.EntityDAOException;
 import com.petrushin.model.creator.Creator;
 import com.petrushin.model.dao.AbstractDao;
 import com.petrushin.model.domain.User;
 import com.petrushin.model.domain.UserRole;
-import com.petrushin.exceptions.CreatorException;
-import com.petrushin.exceptions.EntityDAOException;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ public class UserDaoImpl extends AbstractDao<User> {
     }
 
     public User findById(Long id) throws EntityDAOException {
-            return getByPK(id, User.GET_BY_ID);
+        return getByPK(id, User.GET_BY_ID);
     }
 
     public boolean delete(Long id) throws EntityDAOException {
@@ -42,9 +42,7 @@ public class UserDaoImpl extends AbstractDao<User> {
     }
 
 
-
-
-    public void prepareStatement(User user, PreparedStatement statement)
+    public void prepareStatementForUpdate(User user, PreparedStatement statement)
             throws CreatorException {
         try {
             UserRole role = user.getRole();
@@ -66,6 +64,12 @@ public class UserDaoImpl extends AbstractDao<User> {
             throw new CreatorException(
                     "Error with init user statement " + e.getMessage(), e);
         }
+    }
+
+    @Override
+    protected void prepareStatementForInsert(User user, PreparedStatement statement)
+            throws CreatorException {
+        prepareStatementForUpdate(user, statement);
     }
 
 

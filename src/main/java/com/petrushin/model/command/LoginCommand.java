@@ -5,6 +5,8 @@ import com.petrushin.model.domain.User;
 import com.petrushin.exceptions.EntityDAOException;
 import com.petrushin.model.encode.MD5EncodingService;
 import com.petrushin.services.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 public class LoginCommand implements Command {
 
+    private static final Logger LOGGER = LogManager.getLogger(LoginCommand.class);
 
     private static final String PARAM_PASSWORD = "password";
     private static final String PARAM_USER = "user";
@@ -28,7 +31,7 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
-        String url = Pages.START_PAGE;
+        String url = null;
 
         if (session.getAttribute(PARAM_USER) == null) {
             String login = request.getParameter(PARAM_LOGIN);
@@ -38,10 +41,11 @@ public class LoginCommand implements Command {
             try {
                 ifUserExist = validate(session, login, md5Password);
             } catch (EntityDAOException e) {
+                LOGGER.error("Error with user validation", e);
                 request.setAttribute(PARAM_ERROR, "Something go wrong with DAO");
             }
             if(ifUserExist){
-                url = Pages.HOME_PAGE;
+                url = Pages.SHOW_LOTS_PAGE;
             } else {
                 request.setAttribute(PARAM_ERROR, "Password or login is incorrect");
                 url = Pages.LOGIN_PAGE;
@@ -59,7 +63,9 @@ public class LoginCommand implements Command {
             String bdPassword = bdUser.getPassword();
             ifLoginSame = bdLogin.equals(login);
             ifPasswordSame = bdPassword.equals(md5Password);
-            session.setAttribute(PARAM_USER, bdUser);
+            if(ifLoginSame && ifPasswordSame) {
+                session.setAttribute(PARAM_USER, bdUser);
+            }
         }
         return ifLoginSame && ifPasswordSame;
     }

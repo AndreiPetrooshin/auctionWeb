@@ -23,6 +23,12 @@
                 <input type="submit" name="send" value="Сохранить" class="send-message">
             </form>
         </div>
+        <div class="col-2">
+            <form action="${pageContext.request.contextPath}/controller?command=delete&element=card" method="post">
+                <input type="text" hidden name="id" value="${card.id}" title="hidden">
+                <input type="submit" value="&#9003;">
+            </form>
+        </div>
     </section>
 </c:forEach>
 

@@ -1,5 +1,6 @@
 package com.petrushin.controller;
 
+import com.petrushin.constants.Pages;
 import com.petrushin.model.command.Command;
 import com.petrushin.model.command.CommandFactory;
 
@@ -25,13 +26,6 @@ public class ServletFrontController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         processCommand(req, resp);
-
-
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
     }
 
     private void processCommand(HttpServletRequest req, HttpServletResponse resp)
@@ -42,8 +36,14 @@ public class ServletFrontController extends HttpServlet {
             if (service != null) {
                 try {
                     String link = service.execute(req, resp);
-                    RequestDispatcher dispatcher = req.getRequestDispatcher(link);
-                    dispatcher.forward(req, resp);
+                    RequestDispatcher dispatcher;
+                    if (link != null) {
+                        dispatcher = req.getRequestDispatcher(link);
+                        dispatcher.forward(req, resp);
+                    } else {
+                        dispatcher = req.getRequestDispatcher(Pages.HOME_PAGE);
+                        dispatcher.forward(req, resp);
+                    }
                 } catch (ServletException | IOException e) {
                     throw new ServletException(e.getMessage(), e);
                 }

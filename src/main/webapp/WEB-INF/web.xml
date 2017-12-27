@@ -26,17 +26,6 @@
         <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
-
-    <filter>
-        <filter-name>login</filter-name>
-        <filter-class>com.petrushin.model.filters.AuthorizationFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>login</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
     <filter>
         <filter-name>charsetEncode</filter-name>
         <filter-class>com.petrushin.model.filters.CharsetEncodingFilter</filter-class>
@@ -50,6 +39,17 @@
         <filter-name>charsetEncode</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>login</filter-name>
+        <filter-class>com.petrushin.model.filters.AuthorizationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>login</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
     <servlet>
         <servlet-name>login</servlet-name>

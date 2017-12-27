@@ -14,8 +14,8 @@ public class FlowerLot implements Serializable {
     public static final String ADD_LOT = "INSERT INTO flower_lot (user_id, fl_type, " +
             "fl_name, fl_description, fl_start_price, fl_id) VALUES(?,?,?,?,?,?)";
     public static final String DELETE_BY_ID = "DELETE FROM flower_lot WHERE fl_id=?";
-    public static final String UPDATE_FLOWER_LOT = "UPDATE flower_lot SET " +
-            "user_id=?";
+    public static final String UPDATE_FLOWER_LOT = "UPDATE flower_lot SET user_id=?, fl_type=?, " +
+            "fl_name=?, fl_description=?, fl_start_price=?, fl_state=? WHERE fl_id=?";
     private static final long serialVersionUID = 4L;
     public static String GET_BY_ID =
             "SELECT l.fl_id, l.fl_name, l.fl_description, l.fl_start_price," +

@@ -37,7 +37,7 @@ public class UserCardDaoImpl extends AbstractDao<UserCard> {
        return delete(id, UserCard.DELETE_USER_CARD);
     }
 
-    public void prepareStatement(UserCard card, PreparedStatement statement)
+    public void prepareStatementForUpdate(UserCard card, PreparedStatement statement)
             throws CreatorException {
         try {
             User user = card.getUser();
@@ -56,6 +56,12 @@ public class UserCardDaoImpl extends AbstractDao<UserCard> {
             throw new CreatorException(
                     "Error with init userCard statement " + e.getMessage(), e);
         }
+    }
+
+    @Override
+    protected void prepareStatementForInsert(UserCard userCard, PreparedStatement statement)
+            throws CreatorException {
+        prepareStatementForUpdate(userCard,statement);
     }
 
 }
