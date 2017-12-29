@@ -8,8 +8,6 @@
         <welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
 
-
-
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/error</location>
@@ -18,7 +16,7 @@
 
     <servlet>
         <servlet-name>main</servlet-name>
-        <servlet-class>com.petrushin.controller.ServletFrontController</servlet-class>
+        <servlet-class>com.petrushin.epam.auction.controller.ServletFrontController</servlet-class>
     </servlet>
     
     <servlet-mapping>
@@ -28,7 +26,7 @@
 
     <filter>
         <filter-name>charsetEncode</filter-name>
-        <filter-class>com.petrushin.model.filters.CharsetEncodingFilter</filter-class>
+        <filter-class>com.petrushin.epam.auction.model.filters.CharsetEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
@@ -42,11 +40,21 @@
 
     <filter>
         <filter-name>login</filter-name>
-        <filter-class>com.petrushin.model.filters.AuthorizationFilter</filter-class>
+        <filter-class>com.petrushin.epam.auction.model.filters.AuthorizationFilter</filter-class>
     </filter>
 
     <filter-mapping>
         <filter-name>login</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>HttpMethodFilter</filter-name>
+        <filter-class>com.petrushin.epam.auction.model.filters.HttpMethodFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>HttpMethodFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 

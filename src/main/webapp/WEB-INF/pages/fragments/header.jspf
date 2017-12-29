@@ -1,10 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="resources.locale.ui" var="lang" />
+<!DOCTYPE html>
+${sessionScope.lang}
 <header class="clearfix">
+
+
     <ul class="menu head">
         <li class="col-3 col-m-12 menu"><a
-                href="${pageContext.request.contextPath}controller?command=showLots">Главная</a></li>
+                href="${pageContext.request.contextPath}controller?command=showLots"><fmt:message key="header.main" bundle="${lang}" /></a></li>
         <li class="col-3 col-m-12 menu">Аукцион</li>
         <li class="col-3 col-m-12 menu">Категории</li>
         <c:choose>
@@ -20,5 +27,15 @@
             <li class="col-1 col-m-12 right menu"><a
                     href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
         </c:if>
+        <li class="col-1 col-m-12 right menu">
+            <div class="dropdown">
+                <div class="dropbtn">RU</div>
+                <div class="dropdown-content">
+                    <a href="#">RU</a>
+                    <a href="#">EN</a>
+                    <a href="#">BEL</a>
+                </div>
+            </div>
+        </li>
     </ul>
 </header>

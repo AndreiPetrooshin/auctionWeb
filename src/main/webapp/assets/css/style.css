@@ -433,3 +433,39 @@ label {
     font-size: 1.4em;
 }
 
+
+/*FOR LOCALE*/
+
+.dropbtn {
+    cursor: pointer;
+}
+
+
+.dropdown {
+    position: relative;
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+}
+
+.dropbtn
+{
+    background: url('http://icons.iconarchive.com/icons/custom-icon-design/flag-3/16/Russia-Flag-icon.png') no-repeat left center;
+    padding-left: 25px;
+}
+
+
+
+.dropdown-content a {
+    text-decoration: none;
+    background-color: #0099cc;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
