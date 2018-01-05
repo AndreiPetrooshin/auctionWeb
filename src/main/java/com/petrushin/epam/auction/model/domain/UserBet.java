@@ -2,6 +2,12 @@ package com.petrushin.epam.auction.model.domain;
 
 import java.math.BigDecimal;
 
+/**
+ * This class is a representation of the bets_m2m table from a database
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserBet implements Identified {
 
     private static final long serialVersionUID = 2L;
@@ -32,11 +38,11 @@ public class UserBet implements Identified {
             "UPDATE bets_m2m SET fl_id=?, user_id=?, user_bet=? WHERE bet_id=?";
     public static final String GET_BY_FL_ID =
             "SELECT b.bet_id, b.user_bet, l.fl_id, l.fl_description, l.fl_name, " +
-            "l.fl_start_price, l.fl_state, l.fl_type, u.user_id," +
-            " u.u_login, u.u_password, u.u_email, r.role_id, " +
-            "r.user_role FROM bets_m2m b JOIN user u, flower_lot l, " +
-            "user_role r WHERE b.fl_id=l.fl_id AND b.user_id=u.user_id" +
-            " AND u.role_id=r.role_id AND b.fl_id=? ORDER BY b.user_bet DESC";
+                    "l.fl_start_price, l.fl_state, l.fl_type, u.user_id," +
+                    " u.u_login, u.u_password, u.u_email, r.role_id, " +
+                    "r.user_role FROM bets_m2m b JOIN user u, flower_lot l, " +
+                    "user_role r WHERE b.fl_id=l.fl_id AND b.user_id=u.user_id" +
+                    " AND u.role_id=r.role_id AND b.fl_id=? ORDER BY b.user_bet DESC";
     public static final String GET_BY_USER_ID =
             "SELECT b.bet_id, b.user_bet, l.fl_id, l.fl_description, l.fl_name, " +
                     "l.fl_start_price, l.fl_state, l.fl_type, u.user_id," +

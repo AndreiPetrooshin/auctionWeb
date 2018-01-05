@@ -13,6 +13,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Dao class witch extends {@link AbstractDao} and implements methods for
+ * {@link UserBet} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserBetDaoImpl extends AbstractDao<UserBet> {
 
     public UserBetDaoImpl(Creator<UserBet> creator) {
@@ -43,7 +50,6 @@ public class UserBetDaoImpl extends AbstractDao<UserBet> {
     }
 
 
-
     @Override
     public void prepareStatementForUpdate(UserBet userBet, PreparedStatement statement)
             throws CreatorException {
@@ -71,7 +77,7 @@ public class UserBetDaoImpl extends AbstractDao<UserBet> {
     @Override
     protected void prepareStatementForInsert(UserBet userBet, PreparedStatement statement)
             throws CreatorException {
-        prepareStatementForUpdate(userBet,statement);
+        prepareStatementForUpdate(userBet, statement);
     }
 
 

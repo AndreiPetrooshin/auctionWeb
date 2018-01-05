@@ -1,5 +1,8 @@
 package com.petrushin.epam.auction.exceptions;
 
+/**
+ * Main exception for our Application.
+ */
 public class AuctionBusinessException extends Exception {
 
     public AuctionBusinessException() {

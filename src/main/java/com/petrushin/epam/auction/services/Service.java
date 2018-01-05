@@ -4,7 +4,7 @@ import com.petrushin.epam.auction.exceptions.EntityDAOException;
 
 import java.util.List;
 
-public interface Service <T> {
+public interface Service<T> {
 
     T findById(Long id) throws EntityDAOException;
 

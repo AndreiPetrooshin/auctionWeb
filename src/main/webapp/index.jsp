@@ -1,22 +1,26 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: draqo
-  Date: 10.12.2017
-  Time: 14:34
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="language" value="${not empty sessionScope.lang ? sessionScope.lang : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" scope="session" />
+<fmt:setBundle basename="locale.ui" var="lang" />
 
 <html>
 <head>
-    <title>$Title$</title>
+    <title>Hello</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index-style.css"/>
+    <script src="${pageContext.request.contextPath}/assets/script/script.js"></script>
 </head>
 <body>
-        <header>
-            <a href="${pageContext.request.contextPath}/login" >LOGIN</a>
-            <a href="${pageContext.request.contextPath}/registration">REGISTRATION</a>
-            <%@ include file="WEB-INF/pages/fragments/alreadyLogin.jsp" %>
-        </header>
+        <div class="hello">
+            <c:if test="${sessionScope.user eq null}">
+                <a class="start-button" type="button" href="${pageContext.request.contextPath}/login"><fmt:message key="start.login" bundle="${lang}"/></a>
+                <a href="/registration"> <p><fmt:message key="header.registration" bundle="${lang}"/></p></a>
+            </c:if>
+            <c:if test="${sessionScope.user != null}">
+                <a class="start-button" type="button"  href="${pageContext.request.contextPath}/home"><fmt:message key="start.enter" bundle="${lang}"/></a>
+            </c:if>
+        </div>
 </body>
 </html>

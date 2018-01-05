@@ -6,6 +6,13 @@ import com.petrushin.epam.auction.model.domain.UserRole;
 
 import java.util.List;
 
+/**
+ * Service class which do the main business logic
+ * with {@link UserRole} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserRoleService implements Service<UserRole> {
 
     private UserRoleDaoImpl userRoleDao;
@@ -17,7 +24,7 @@ public class UserRoleService implements Service<UserRole> {
     @Override
     public UserRole findById(Long id) throws EntityDAOException {
         return userRoleDao.findById(id);
-}
+    }
 
     @Override
     public List<UserRole> getAll() throws EntityDAOException {

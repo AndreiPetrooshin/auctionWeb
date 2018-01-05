@@ -4,12 +4,19 @@ import com.petrushin.epam.auction.exceptions.CreatorException;
 import com.petrushin.epam.auction.model.creator.AbstractCreator;
 import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.domain.User;
-import com.petrushin.epam.auction.model.domain.UserAddresses;
+import com.petrushin.epam.auction.model.domain.UserAddress;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserAddressesCreator extends AbstractCreator<UserAddresses> {
+/**
+ * Extends the {@link AbstractCreator} class
+ * and creates the UserAddress entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
+public class UserAddressCreator extends AbstractCreator<UserAddress> {
 
 
     private static final String PARAM_SHIP_ADDR_ID = "ship_addr_id";
@@ -25,12 +32,12 @@ public class UserAddressesCreator extends AbstractCreator<UserAddresses> {
 
     private Creator<User> userCreator;
 
-    public UserAddressesCreator(Creator<User> userCreator) {
+    public UserAddressCreator(Creator<User> userCreator) {
         this.userCreator = userCreator;
     }
 
     @Override
-    public UserAddresses createEntity(ResultSet resultSet) throws CreatorException {
+    public UserAddress createEntity(ResultSet resultSet) throws CreatorException {
         try {
             Long shipAddrId = resultSet.getLong(PARAM_SHIP_ADDR_ID);
             User user = userCreator.createEntity(resultSet);
@@ -43,7 +50,7 @@ public class UserAddressesCreator extends AbstractCreator<UserAddresses> {
             String phone = resultSet.getString(PARAM_SA_PHONE);
             String postalCode = resultSet.getString(PARAM_SA_POSTAL_CODE);
             boolean isActive = resultSet.getBoolean(PARAM_SA_IS_ACTIVE);
-            return new UserAddresses(
+            return new UserAddress(
                     shipAddrId, user, fName, sName, lName, country,
                     city, street, phone, postalCode, isActive);
         } catch (SQLException | CreatorException e) {

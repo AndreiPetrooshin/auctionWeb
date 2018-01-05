@@ -1,6 +1,11 @@
 package com.petrushin.epam.auction.model.domain;
 
-
+/**
+ * This class is a representation of the user_cards table from a database
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserCard implements Identified {
 
     public static final String GET_BY_ID =

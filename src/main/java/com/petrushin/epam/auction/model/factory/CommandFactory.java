@@ -6,7 +6,12 @@ import com.petrushin.epam.auction.services.*;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Factory class witch returns needed command by String
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public final class CommandFactory {
 
     private static final String COMMAND_DELETE = "delete";
@@ -19,7 +24,8 @@ public final class CommandFactory {
     private static final String COMMAND_PROFILE = "profile";
     private static final String COMMAND_UPDATE_LOT = "updateLot";
     private static final String COMMAND_SAVE = "save";
-    public static final String COMMAND_LOCALE = "locale";
+    private static final String COMMAND_LOCALE = "locale";
+    private static final String COMMAND_ADMIN = "admin";
 
     private ServiceFactory serviceFactory;
     private Map<String, Command> map;
@@ -58,13 +64,15 @@ public final class CommandFactory {
 
         map.put(COMMAND_PROFILE, new ProfileCommand(cardService, lotService, addressesService));
 
-        map.put(COMMAND_UPDATE_LOT, new UpdateCommand(lotService));
+        map.put(COMMAND_UPDATE_LOT, new UpdateLotCommand(lotService, userService));
 
         map.put(COMMAND_DELETE, new DeleteCommand(lotService, cardService));
 
-        map.put(COMMAND_SAVE, new SaveCommand(lotService, cardService));
+        map.put(COMMAND_SAVE, new SaveCommand(lotService, cardService, addressesService));
 
         map.put(COMMAND_LOCALE, new LocaleCommand());
+
+        map.put(COMMAND_ADMIN, new AdminCommand(lotService));
 
         return map;
     }

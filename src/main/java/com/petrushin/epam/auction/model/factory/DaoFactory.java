@@ -2,12 +2,18 @@ package com.petrushin.epam.auction.model.factory;
 
 import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.creator.impl.*;
-import com.petrushin.epam.auction.model.dao.impl.*;
 import com.petrushin.epam.auction.model.dao.GenericDao;
+import com.petrushin.epam.auction.model.dao.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory class witch returns needed Dao class by Class
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class DaoFactory {
 
     private CreatorFactory creatorFactory;
@@ -25,13 +31,11 @@ public class DaoFactory {
     private Map<Class, GenericDao> createMap() {
         Map<Class, GenericDao> map = new HashMap<>();
 
-        CreatorFactory factory =  creatorFactory;
-
         Creator lotCreator = creatorFactory.getCreator(FlowerLotCreator.class);
         map.put(FlowerLotDaoImpl.class, new FlowerLotDaoImpl(lotCreator));
 
-        Creator addressesCreator = creatorFactory.getCreator(UserAddressesCreator.class);
-        map.put(UserAddressesDaoImpl.class, new UserAddressesDaoImpl(addressesCreator));
+        Creator addressesCreator = creatorFactory.getCreator(UserAddressCreator.class);
+        map.put(UserAddressDaoImpl.class, new UserAddressDaoImpl(addressesCreator));
 
         Creator betCreator = creatorFactory.getCreator(UserBetCreator.class);
         map.put(UserBetDaoImpl.class, new UserBetDaoImpl(betCreator));

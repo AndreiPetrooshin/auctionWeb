@@ -11,11 +11,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Dao class witch extends {@link AbstractDao} and implements methods for
+ * {@link User} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserDaoImpl extends AbstractDao<User> {
 
-
-    private static final String PARAM_U_LOGIN = "u_login";
-    private static final String PARAM_U_EMAIL = "u_email";
 
     public UserDaoImpl(Creator<User> creator) {
         super(creator);

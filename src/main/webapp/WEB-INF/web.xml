@@ -39,16 +39,6 @@
     </filter-mapping>
 
     <filter>
-        <filter-name>login</filter-name>
-        <filter-class>com.petrushin.epam.auction.model.filters.AuthorizationFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>login</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter>
         <filter-name>HttpMethodFilter</filter-name>
         <filter-class>com.petrushin.epam.auction.model.filters.HttpMethodFilter</filter-class>
     </filter>
@@ -127,4 +117,12 @@
         <url-pattern>/lot</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <jsp-file>/WEB-INF/pages/admin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
 </web-app>

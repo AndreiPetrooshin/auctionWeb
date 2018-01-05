@@ -4,6 +4,12 @@ package com.petrushin.epam.auction.model.encode;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Class for encode password to MD5 representation
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class MD5EncodingService {
 
     private static final String MD_5 = "MD5";

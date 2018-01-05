@@ -4,14 +4,21 @@ import com.petrushin.epam.auction.exceptions.CreatorException;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.dao.AbstractDao;
-import com.petrushin.epam.auction.model.domain.User;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
+import com.petrushin.epam.auction.model.domain.User;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Dao class witch extends {@link AbstractDao} and implements methods for
+ * {@link FlowerLot} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class FlowerLotDaoImpl extends AbstractDao<FlowerLot> {
 
 
@@ -59,7 +66,7 @@ public class FlowerLotDaoImpl extends AbstractDao<FlowerLot> {
             statement.setBigDecimal(5, startPrice);
 
             String state = lot.getState();
-            statement.setString(6,state);
+            statement.setString(6, state);
 
             Long lotId = lot.getId();
             statement.setLong(7, lotId);

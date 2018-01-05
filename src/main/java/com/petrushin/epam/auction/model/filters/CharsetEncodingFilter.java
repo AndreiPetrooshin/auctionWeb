@@ -3,6 +3,13 @@ package com.petrushin.epam.auction.model.filters;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Filter to change character Encoding at
+ * request and response
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class CharsetEncodingFilter implements Filter {
 
     private static final String PARAM_ENCODING = "encoding";

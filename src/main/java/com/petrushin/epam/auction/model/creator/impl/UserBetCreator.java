@@ -1,16 +1,23 @@
 package com.petrushin.epam.auction.model.creator.impl;
 
 import com.petrushin.epam.auction.exceptions.CreatorException;
-import com.petrushin.epam.auction.model.creator.Creator;
-import com.petrushin.epam.auction.model.domain.User;
 import com.petrushin.epam.auction.model.creator.AbstractCreator;
+import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
+import com.petrushin.epam.auction.model.domain.User;
 import com.petrushin.epam.auction.model.domain.UserBet;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Extends the {@link AbstractCreator} class
+ * and creates the UserBet entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserBetCreator extends AbstractCreator<UserBet> {
 
     private static final String COLUMN_USER_BET = "user_bet";

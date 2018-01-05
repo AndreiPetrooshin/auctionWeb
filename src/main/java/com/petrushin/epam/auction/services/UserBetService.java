@@ -6,8 +6,17 @@ import com.petrushin.epam.auction.model.domain.FlowerLot;
 import com.petrushin.epam.auction.model.domain.User;
 import com.petrushin.epam.auction.model.domain.UserBet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+/**
+ * Service class which do the main business logic
+ * with {@link UserBet} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserBetService implements Service<UserBet> {
 
     private UserBetDaoImpl userBetDao;
@@ -19,10 +28,10 @@ public class UserBetService implements Service<UserBet> {
     public List<UserBet> getByLotId(Long id) throws EntityDAOException {
         List<UserBet> list = getAll();
         List<UserBet> result = new ArrayList<>();
-        for(UserBet userBet: list) {
+        for (UserBet userBet : list) {
             FlowerLot lot = userBet.getLot();
             Long userId = lot.getId();
-            if(Objects.equals(id, userId)){
+            if (Objects.equals(id, userId)) {
                 result.add(userBet);
             }
         }
@@ -33,10 +42,10 @@ public class UserBetService implements Service<UserBet> {
     public List<UserBet> getByUserId(Long id) throws EntityDAOException {
         List<UserBet> list = getAll();
         List<UserBet> result = new ArrayList<>();
-        for(UserBet userBet: list) {
+        for (UserBet userBet : list) {
             User user = userBet.getUser();
             Long userId = user.getId();
-            if(Objects.equals(id, userId)){
+            if (Objects.equals(id, userId)) {
                 result.add(userBet);
             }
         }

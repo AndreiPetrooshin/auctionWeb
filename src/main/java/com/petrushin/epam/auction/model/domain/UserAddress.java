@@ -1,9 +1,12 @@
 package com.petrushin.epam.auction.model.domain;
 
-
-public class UserAddresses implements Identified {
-
-    private static final long serialVersionUID = 6L;
+/**
+ * This class is a representation of the user_shipping_address table from a database
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
+public class UserAddress implements Identified {
 
     public static final String GET_BY_ID =
             "SELECT a.ship_addr_id, a.sa_first_name, a.sa_second_name, " +
@@ -13,7 +16,6 @@ public class UserAddresses implements Identified {
                     " FROM user_shipping_address a JOIN user u, user_role r " +
                     "WHERE a.user_id=u.user_id AND u.role_id=r.role_id" +
                     " AND a.ship_addr_id=?";
-
     public static final String GET_ALL =
             "SELECT a.ship_addr_id, a.sa_first_name, a.sa_second_name, " +
                     "a.sa_last_name, a.sa_country, a.sa_city, a.sa_street," +
@@ -21,22 +23,19 @@ public class UserAddresses implements Identified {
                     " u.u_login, u.u_password, u.u_email, r.role_id, r.user_role" +
                     " FROM user_shipping_address a JOIN user u, user_role r" +
                     " WHERE a.user_id=u.user_id AND u.role_id=r.role_id";
-
     public static final String ADD_ADDRESS =
             "INSERT INTO user_shipping_address (user_id, sa_first_name," +
                     " sa_second_name, sa_last_name, sa_country, sa_city," +
                     " sa_street, sa_phone, sa_postal_code, sa_is_active, " +
                     "ship_addr_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-
     public static final String DELETE_BY_ID =
             "DELETE FROM user_shipping_address WHERE ship_addr_id=?";
-
     public static final String UPDATE_ADDRESS =
             "UPDATE user_shipping_address SET user_id=?, sa_first_name=?," +
                     " sa_second_name=?, sa_last_name=?, sa_country=?, " +
                     "sa_city=?, sa_street=?, sa_phone=?, sa_postal_code=?," +
                     " sa_is_active=? WHERE ship_addr_id=?";
-
+    private static final long serialVersionUID = 6L;
     private Long id;
     private User user;
     private String firstName;
@@ -47,13 +46,13 @@ public class UserAddresses implements Identified {
     private String street;
     private String phone;
     private String postalCode;
-    private boolean isActive;
+    private boolean active;
 
 
-    public UserAddresses(Long id, User user, String firstName,
-                         String secondName, String lastName,
-                         String country, String city, String street,
-                         String phone, String postalCode, boolean isActive) {
+    public UserAddress(Long id, User user, String firstName,
+                       String secondName, String lastName,
+                       String country, String city, String street,
+                       String phone, String postalCode, boolean active) {
         this.id = id;
         this.user = user;
         this.firstName = firstName;
@@ -64,7 +63,7 @@ public class UserAddresses implements Identified {
         this.street = street;
         this.phone = phone;
         this.postalCode = postalCode;
-        this.isActive = isActive;
+        this.active = active;
     }
 
     public Long getId() {
@@ -148,11 +147,11 @@ public class UserAddresses implements Identified {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        this.active = active;
     }
 
     @Override
@@ -164,9 +163,9 @@ public class UserAddresses implements Identified {
             return false;
         }
 
-        UserAddresses address = (UserAddresses) o;
+        UserAddress address = (UserAddress) o;
 
-        if (isActive != address.isActive) {
+        if (active != address.active) {
             return false;
         }
         if (id != null ? !id.equals(address.id)
@@ -221,13 +220,13 @@ public class UserAddresses implements Identified {
         result = 31 * result + (street != null ? street.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
-        result = 31 * result + (isActive ? 1 : 0);
+        result = 31 * result + (active ? 1 : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "UserAddresses{" +
+        return "UserAddress{" +
                 "id=" + id +
                 ", user=" + user +
                 ", firstName='" + firstName + '\'' +
@@ -238,7 +237,7 @@ public class UserAddresses implements Identified {
                 ", street='" + street + '\'' +
                 ", phone='" + phone + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", isActive=" + isActive +
+                ", active=" + active +
                 '}';
     }
 

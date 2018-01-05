@@ -1,12 +1,19 @@
 package com.petrushin.epam.auction.model.creator.impl;
 
 import com.petrushin.epam.auction.exceptions.CreatorException;
-import com.petrushin.epam.auction.model.domain.UserRole;
 import com.petrushin.epam.auction.model.creator.AbstractCreator;
+import com.petrushin.epam.auction.model.domain.UserRole;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Extends the {@link AbstractCreator} class
+ * and creates the UserRole entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserRoleCreator extends AbstractCreator<UserRole> {
 
     private static final String COLUMN_ROLE_ID = "role_id";

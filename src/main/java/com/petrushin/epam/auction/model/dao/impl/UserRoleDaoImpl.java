@@ -1,15 +1,22 @@
 package com.petrushin.epam.auction.model.dao.impl;
 
+import com.petrushin.epam.auction.exceptions.CreatorException;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.dao.AbstractDao;
 import com.petrushin.epam.auction.model.domain.UserRole;
-import com.petrushin.epam.auction.exceptions.CreatorException;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Dao class witch extends {@link AbstractDao} and implements methods for
+ * {@link UserRole} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserRoleDaoImpl extends AbstractDao<UserRole> {
 
     public UserRoleDaoImpl(Creator<UserRole> creator) {

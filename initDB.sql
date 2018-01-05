@@ -11,25 +11,25 @@ INSERT INTO `flowers_auction_bd`.`user_role` (`role_id`, `user_role`) VALUES (2,
 
 -- users initialization
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (1, '1', 'admin', MD5('admin'), 'admin@mail.ru');
+VALUES (1, '1', 'admin', MD5('Qwe123123'), 'admin@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (2, '2', 'dima', MD5('123123'), 'dima@mail.ru');
+VALUES (2, '2', 'dima', MD5('Qwe123123'), 'dima@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (3, '2', 'senia', MD5('323213'), 'senia@mail.ru');
+VALUES (3, '2', 'senia', MD5('Qwe123123'), 'senia@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (4, '2', 'stephan', MD5('42414ad'), 'stephan@mail.ru');
+VALUES (4, '2', 'stephan', MD5('Qwe123123'), 'stephan@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (5, '2', 'kolia', MD5('qwertqwerty'), 'kolia@mail.ru');
+VALUES (5, '2', 'kolia', MD5('Qwe123123'), 'kolia@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (6, '2', 'stas11', MD5('qwerty'), 'stas11@mail.ru');
+VALUES (6, '2', 'stas11', MD5('Qwe123123'), 'stas11@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (7, '2', 'Zarina', MD5('qwerty123'), 'zarina@mail.ru');
+VALUES (7, '2', 'Zarina', MD5('Qwe123123'), 'zarina@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (8, '2', 'Ksenia', MD5('11111111'), 'kesenia@mail.ru');
+VALUES (8, '2', 'Ksenia', MD5('Qwe123123'), 'kesenia@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (9, '2', 'Vika', MD5('22222222'), 'vika@mail.ru');
+VALUES (9, '2', 'Vika', MD5('Qwe123123'), 'vika@mail.ru');
 INSERT INTO `flowers_auction_bd`.`user` (`user_id`, `role_id`, `u_login`, `u_password`, `u_email`)
-VALUES (10, '2', 'Lida', MD5('123123'), 'lida@mail.ru');
+VALUES (10, '2', 'Lida', MD5('Qwe123123'), 'lida@mail.ru');
 
 -- users cards initialization 
 INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number, card_name)

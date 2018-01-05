@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements the {@link Creator} interface
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public abstract class AbstractCreator<T> implements Creator<T> {
 
 

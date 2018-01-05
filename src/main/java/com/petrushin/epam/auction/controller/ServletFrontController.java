@@ -1,8 +1,8 @@
 package com.petrushin.epam.auction.controller;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.model.factory.CommandFactory;
 import com.petrushin.epam.auction.model.command.Command;
+import com.petrushin.epam.auction.model.factory.CommandFactory;
 import com.petrushin.epam.auction.model.factory.CreatorFactory;
 import com.petrushin.epam.auction.model.factory.DaoFactory;
 import com.petrushin.epam.auction.model.factory.ServiceFactory;
@@ -19,8 +19,13 @@ import java.io.IOException;
 public class ServletFrontController extends HttpServlet {
 
     private static final String COMMAND = "command";
+    private static final String ATTR_REDIRECT = "redirect";
+
     private static final Logger LOGGER = LogManager.getLogger(ServletFrontController.class);
 
+    /**
+     * Injection of all needed dependencies to {@link CommandFactory}
+     */
     private static CreatorFactory creatorFactory = new CreatorFactory();
     private static DaoFactory daoFactory = new DaoFactory(creatorFactory);
     private static ServiceFactory serviceFactory = new ServiceFactory(daoFactory);
@@ -39,11 +44,15 @@ public class ServletFrontController extends HttpServlet {
         processCommand(req, resp);
     }
 
+    /**
+     * This method process command from url request (Example: localhost/command=????)
+     * by extracting the required command {@link Command} from the factory by command name
+     */
     private void processCommand(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException {
 
         String command = req.getParameter(COMMAND);
-        if (!command.isEmpty()) {
+        if (command == null || !command.isEmpty()) {
             Command service = commandFactory.getCommand(command);
             if (service != null) {
                 String page = service.execute(req, resp);
@@ -51,18 +60,20 @@ public class ServletFrontController extends HttpServlet {
                     forwardToPage(req, resp, page);
                 } else {
                     forwardToPage(req, resp, Pages.HOME_PAGE);
-
                 }
             }
         }
     }
 
+    /**
+     * Forwarding to current page
+     */
     private void forwardToPage(HttpServletRequest req, HttpServletResponse resp, String page) {
         RequestDispatcher dispatcher;
         dispatcher = req.getRequestDispatcher(page);
-        boolean isRedirect = (boolean) req.getAttribute("redirect");
+        boolean isRedirect = (boolean) req.getAttribute(ATTR_REDIRECT);
         try {
-            if(isRedirect){
+            if (isRedirect) {
                 resp.sendRedirect(page);
             } else {
                 dispatcher.forward(req, resp);
@@ -71,7 +82,7 @@ public class ServletFrontController extends HttpServlet {
             LOGGER.error("Error with forward page to:" + page, e);
             dispatcher = req.getRequestDispatcher(Pages.ERROR_PAGE);
             try {
-                dispatcher.forward(req,resp);
+                dispatcher.forward(req, resp);
             } catch (ServletException | IOException e1) {
                 LOGGER.error("Error with forwarding", e);
             }

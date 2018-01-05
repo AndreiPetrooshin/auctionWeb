@@ -7,6 +7,13 @@ import com.petrushin.epam.auction.model.domain.UserCard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service class which do the main business logic
+ * with {@link UserCard} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserCardService implements Service<UserCard> {
 
     private UserCardDaoImpl userCardDao;
@@ -23,9 +30,9 @@ public class UserCardService implements Service<UserCard> {
     public List<UserCard> getByUserId(Long id) throws EntityDAOException {
         List<UserCard> cards = getAll();
         List<UserCard> result = new ArrayList<>();
-        for(UserCard card: cards) {
+        for (UserCard card : cards) {
             Long cardId = card.getUser().getId();
-            if(id.equals(cardId)) {
+            if (id.equals(cardId)) {
                 result.add(card);
             }
         }

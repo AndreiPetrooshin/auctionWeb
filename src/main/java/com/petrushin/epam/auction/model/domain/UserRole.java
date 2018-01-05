@@ -1,6 +1,11 @@
 package com.petrushin.epam.auction.model.domain;
 
-
+/**
+ * This class is a representation of the user_role table from a database
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserRole implements Identified {
 
     private static final long serialVersionUID = 5L;

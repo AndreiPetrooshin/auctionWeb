@@ -13,4 +13,5 @@ public final class Pages {
     public static final String SHOW_LOTS_PAGE = "/controller?command=showLots";
     public static final String SHOW_LOT_INFO_PAGE = "/controller?command=showLot&id=";
     public static final String LOT_PAGE = "lot";
+    public static final String ADMIN_PAGE = "admin";
 }

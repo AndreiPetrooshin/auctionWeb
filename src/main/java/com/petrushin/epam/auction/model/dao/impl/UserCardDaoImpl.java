@@ -11,6 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Dao class witch extends {@link AbstractDao} and implements methods for
+ * {@link UserCard} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class UserCardDaoImpl extends AbstractDao<UserCard> {
 
     public UserCardDaoImpl(Creator<UserCard> creator) {
@@ -34,7 +41,7 @@ public class UserCardDaoImpl extends AbstractDao<UserCard> {
     }
 
     public boolean delete(Long id) throws EntityDAOException {
-       return delete(id, UserCard.DELETE_USER_CARD);
+        return delete(id, UserCard.DELETE_USER_CARD);
     }
 
     public void prepareStatementForUpdate(UserCard card, PreparedStatement statement)
@@ -61,7 +68,7 @@ public class UserCardDaoImpl extends AbstractDao<UserCard> {
     @Override
     protected void prepareStatementForInsert(UserCard userCard, PreparedStatement statement)
             throws CreatorException {
-        prepareStatementForUpdate(userCard,statement);
+        prepareStatementForUpdate(userCard, statement);
     }
 
 }

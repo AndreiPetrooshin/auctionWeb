@@ -2,40 +2,121 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${sessionScope.lang}" />
-<fmt:setBundle basename="resources.locale.ui" var="lang" />
+<c:set var="language"
+       value="${not empty sessionScope.lang ? sessionScope.lang : not empty language ? language : pageContext.request.locale}"
+       scope="session"/>
+<fmt:setLocale value="${language}" scope="session"/>
+<fmt:setBundle basename="locale.ui" var="lang"/>
 <!DOCTYPE html>
-${sessionScope.lang}
-<header class="clearfix">
+<script src="${pageContext.request.contextPath}/assets/script/script.js"></script>
+<header class="clearfix" style="overflow: hidden">
 
 
     <ul class="menu head">
-        <li class="col-3 col-m-12 menu"><a
-                href="${pageContext.request.contextPath}controller?command=showLots"><fmt:message key="header.main" bundle="${lang}" /></a></li>
-        <li class="col-3 col-m-12 menu">Аукцион</li>
-        <li class="col-3 col-m-12 menu">Категории</li>
+        <li class="col-1 hide"></li>
+        <li class="col-5 col-m-12 menu"><a
+                href="${pageContext.request.contextPath}controller?command=showLots"><fmt:message key="header.main" bundle="${lang}"/></a>
+        </li>
         <c:choose>
             <c:when test="${sessionScope.user != null}">
-                <li class="col-1 col-m-12 right menu"><a
+                <li class="col-2 col-m-12 right menu"><a
                         href="${pageContext.request.contextPath}/profile">${sessionScope.user.login}</a></li>
             </c:when>
             <c:otherwise>
-                <li class="col-1 col-m-12 right menu"><a href="${pageContext.request.contextPath}/login">Login</a></li>
+                <li class="col-1 col-m-12 right menu"><a href="#" onclick="openForm('login_form')"><fmt:message
+                        key="header.login" bundle="${lang}"/></a></li>
+                <li class="col-2 col-m-12 right menu"><a href="#" onclick="openForm('registration')"><fmt:message
+                        key="header.registration" bundle="${lang}"/></a></li>
             </c:otherwise>
         </c:choose>
         <c:if test="${sessionScope.user != null}">
             <li class="col-1 col-m-12 right menu"><a
-                    href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
+                    href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message key="header.logout"
+                                                                                                     bundle="${lang}"/></a>
+            </li>
+        </c:if>
+        <c:if test="${sessionScope.user.role.role eq 'admin'}">
+            <li class="col-1 col-m-12 right menu"><a
+                    href="${pageContext.request.contextPath}/controller?command=admin">Admin</a></li>
         </c:if>
         <li class="col-1 col-m-12 right menu">
             <div class="dropdown">
-                <div class="dropbtn">RU</div>
+                <div class="dropbtn">
+                    <c:choose>
+                        <c:when test="${language == 'ru'}">
+                            RUS
+                        </c:when>
+                        <c:when test="${language == 'en'}">
+                            ENG
+                        </c:when>
+                        <c:when test="${language == 'es'}">
+                            ESP
+                        </c:when>
+                        <c:otherwise>
+                            ${language}
+                        </c:otherwise>
+                    </c:choose>
+                </div>
                 <div class="dropdown-content">
-                    <a href="#">RU</a>
-                    <a href="#">EN</a>
-                    <a href="#">BEL</a>
+                    <a href="${pageContext.request.contextPath}/controller?command=locale&lang=ru">RU</a>
+                    <a href="${pageContext.request.contextPath}/controller?command=locale&lang=en">EN</a>
+                    <a href="${pageContext.request.contextPath}/controller?command=locale&lang=es">ESP</a>
                 </div>
             </div>
         </li>
     </ul>
 </header>
+
+<!--FORM FOR REGISTRATION-->
+<div id="registration" class="dialog login-form">
+    <div class="col-12 col-m-12">
+        <h1 class="col-6"><fmt:message key="header.registration" bundle="${lang}"/></h1>
+        <a href="#" class="close-btn col-6 right" style="color: black" onclick=closeForm('registration')>X</a>
+    </div>
+    <form id="registration-form" method="post"
+          action="${pageContext.request.contextPath}/controller?command=registration">
+        <label for="login"><fmt:message key="form.login" bundle="${lang}"/></label>
+        <input id="login" type="text" name="login" title='<fmt:message key="form.login.title" bundle="${lang}"/>'
+               required pattern="^[a-zA-Z]{1}[a-zA-Z0-9_]{3,}">
+
+        <label for="password"><fmt:message key="form.password" bundle="${lang}"/></label>
+        <input id="password" type="password" name="password"
+               title='<fmt:message key="form.password.title" bundle="${lang}"/>'
+               required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*]{4,}">
+
+
+        <label for="password_repeat"><fmt:message key="form.password.repeat" bundle="${lang}"/></label>
+        <input id='password_repeat' type="password" name="password_repeat" required
+               title='<fmt:message key="form.password.repeat.title" bundle="${lang}"/>'
+               pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*]{6,}" onkeyup=checkPasswords()>
+
+        <label for="email"><fmt:message key="form.email" bundle="${lang}"/> </label>
+        <input id="email" type="text" name="email"
+               title='<fmt:message key="form.email.title" bundle="${lang}"/>' required
+               pattern="^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$">
+
+        <input id="submit_registration" type="submit" disabled
+               value='<fmt:message key="form.button.enter" bundle="${lang}"/>' class="send-message">
+    </form>
+</div>
+
+
+<!--FORM FOR LOGIN-->
+<div id="login_form" class="dialog login-form">
+    <div class="col-12 col-m-12">
+        <h1 class="col-6"><fmt:message key="header.login" bundle="${lang}"/></h1>
+        <a href="#" class="close-btn col-6 right" style="color: black" onclick=closeForm('login_form')>X</a>
+    </div>
+    <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
+        <label for="login_login"><fmt:message key="form.login" bundle="${lang}"/></label>
+        <input id="login_login" type="text" name="login" title='<fmt:message key="form.login.title" bundle="${lang}"/>'
+               required pattern="^[a-zA-Z]{1}[a-zA-Z0-9_]{3,}">
+
+        <label for="login_password"><fmt:message key="form.password" bundle="${lang}"/></label>
+        <input id="login_password" type="password" name="password"
+               title='<fmt:message key="form.password.title" bundle="${lang}"/>'
+               required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*]{4,}">
+        <input id="submit_login" type="submit" value='<fmt:message key="form.button.enter" bundle="${lang}"/>'
+               class="send-message">
+    </form>
+</div>

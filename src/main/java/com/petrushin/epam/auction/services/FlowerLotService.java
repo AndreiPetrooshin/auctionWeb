@@ -9,6 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Service class which do the main business logic
+ * with {@link FlowerLot} entity
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class FlowerLotService implements Service<FlowerLot> {
 
     private FlowerLotDaoImpl flowerLotDao;
@@ -21,9 +28,9 @@ public class FlowerLotService implements Service<FlowerLot> {
     public List<FlowerLot> getByState(String state) throws EntityDAOException {
         List<FlowerLot> lots = getAll();
         List<FlowerLot> result = new ArrayList<>();
-        for (FlowerLot lot : lots){
+        for (FlowerLot lot : lots) {
             String lotState = lot.getState();
-            if(state.equalsIgnoreCase(lotState)){
+            if (state.equalsIgnoreCase(lotState)) {
                 result.add(lot);
             }
         }
@@ -33,9 +40,9 @@ public class FlowerLotService implements Service<FlowerLot> {
     public List<FlowerLot> getByType(String type) throws EntityDAOException {
         List<FlowerLot> lots = getAll();
         List<FlowerLot> result = new ArrayList<>();
-        for(FlowerLot lot: lots){
+        for (FlowerLot lot : lots) {
             String lotType = lot.getType();
-            if(type.equalsIgnoreCase(lotType)){
+            if (type.equalsIgnoreCase(lotType)) {
                 result.add(lot);
             }
         }
@@ -45,11 +52,11 @@ public class FlowerLotService implements Service<FlowerLot> {
     public List<FlowerLot> getByTypeAndState(String type, String state) throws EntityDAOException {
         List<FlowerLot> lots = getAll();
         List<FlowerLot> result = new ArrayList<>();
-        for(FlowerLot lot: lots){
+        for (FlowerLot lot : lots) {
             String lotType = lot.getType();
             String lotState = lot.getState();
-            if(type.equalsIgnoreCase(lotType)
-                    && state.equalsIgnoreCase(lotState)){
+            if (type.equalsIgnoreCase(lotType)
+                    && state.equalsIgnoreCase(lotState)) {
                 result.add(lot);
             }
         }
@@ -59,9 +66,9 @@ public class FlowerLotService implements Service<FlowerLot> {
     public List<FlowerLot> getByUserId(Long id) throws EntityDAOException {
         List<FlowerLot> lots = getAll();
         List<FlowerLot> result = new ArrayList<>();
-        for(FlowerLot lot: lots) {
+        for (FlowerLot lot : lots) {
             Long userId = lot.getUser().getId();
-            if(Objects.equals(userId, id)) {
+            if (Objects.equals(userId, id)) {
                 result.add(lot);
             }
         }

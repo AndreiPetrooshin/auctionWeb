@@ -6,6 +6,12 @@ import com.petrushin.epam.auction.model.creator.impl.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory class witch returns needed Creator class by Class
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class CreatorFactory {
 
     private Map<Class, Creator> map = createMap();
@@ -20,7 +26,7 @@ public class CreatorFactory {
 
         map.put(FlowerLotCreator.class, new FlowerLotCreator(new UserCreator()));
 
-        map.put(UserAddressesCreator.class, new UserAddressesCreator(new UserCreator()));
+        map.put(UserAddressCreator.class, new UserAddressCreator(new UserCreator()));
 
         FlowerLotCreator lotCreator = new FlowerLotCreator(new UserCreator());
         map.put(UserBetCreator.class, new UserBetCreator(new UserCreator(), lotCreator));

@@ -5,9 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/normalize.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <script src="../../assets/script/script.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/normalize.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    <script src="${pageContext.request.contextPath}/assets/script/script.js"></script>
     <title>LOT</title>
 </head>
 
@@ -18,27 +18,27 @@
 <main class="col-6 col-m-9 row">
     <c:if test="${sessionScope.user.id == requestScope.lot.user.id}">
         <div id="fade" class="black-overlay"></div>
-        <input type="button" value="Редактировать" onclick="openForm('redact-lot') ">
+        <input type="button" value='<fmt:message key="form.button.redact" bundle="${lang}"/>' onclick="openForm('redact-lot') ">
         <section id="redact-lot" class="dialog container clearfix">
             <form method="post"
                   action="${pageContext.request.contextPath}/controller?command=updateLot&id=${requestScope.lot.id}">
                 <div class="row">
                     <div class="col-25">
-                        <label for="ltype">Тип:</label>
+                        <label for="ltype"><fmt:message key="form.lot.type" bundle="${lang}"/>:</label>
                     </div>
                     <div class="col-75">
                         <select id="ltype" name="type">
-                            <option>луговые</option>
-                            <option>комнатные</option>
-                            <option>лесные</option>
-                            <option>садовые</option>
-                            <option>кактусы</option>
+                            <option><fmt:message key="form.lot.meadow" bundle="${lang}"/></option>
+                            <option><fmt:message key="form.lot.indoor" bundle="${lang}"/></option>
+                            <option><fmt:message key="form.lot.forest" bundle="${lang}"/></option>
+                            <option><fmt:message key="form.lot.garden" bundle="${lang}"/></option>
+                            <option><fmt:message key="form.lot.cactus" bundle="${lang}"/></option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label for="lname">Имя:</label>
+                        <label for="lname"><fmt:message key="form.lot.name" bundle="${lang}"/>:</label>
                     </div>
                     <div class="col-75">
                         <input id="lname" type="text" name="name" value="${requestScope.lot.name}">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label>Описание:</label>
+                        <label><fmt:message key="form.lot.description" bundle="${lang}"/>:</label>
                     </div>
                     <div class="col-75">
                         <textarea rows="7" cols="80" name="description">${requestScope.lot.description}</textarea>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label for="lstart-price">Начальная цена:</label>
+                        <label for="lstart-price"><fmt:message key="form.lot.start.price" bundle="${lang}"/>:</label>
                     </div>
                     <div class="col-75">
                         <input id="lstart-price" type="number" name="startPrice" value="${requestScope.lot.startPrice}">
@@ -62,20 +62,20 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label for="lstate">Состояние:</label>
+                        <label for="lstate"><fmt:message key="form.lot.state" bundle="${lang}"/>:</label>
                     </div>
                     <div class="col-75">
                         <select id="lstate" name="state">
-                            <option value="trading">таргуется</option>
-                            <option value="sold">продано</option>
+                            <option selected value="${requestScope.lot.state}">${requestScope.lot.state}</option>
+                            <option value="sold"><fmt:message key="form.lot.state.sold" bundle="${lang}"/></option>
                         </select>
                     </div>
                 </div>
                 <div class="row col-6">
-                    <input type="button" value="Закрыть" onclick=closeForm("redact-lot")>
+                    <input type="button" value='<fmt:message key="form.button.close" bundle="${lang}"/>' onclick=closeForm("redact-lot")>
                 </div>
                 <div class="row col-6">
-                    <input type="submit" value="Сохранить">
+                    <input type="submit" value='<fmt:message key="form.button.save" bundle="${lang}"/>'>
                 </div>
             </form>
         </section>
@@ -84,13 +84,10 @@
         <h1> ${requestScope.lot.name} </h1>
     </section>
     <section class="col-12 col-m-12">
-        <h1> ФОТОГРАФИЯ </h1>
-    </section>
-    <section class="col-12 col-m-12">
         <p>${requestScope.lot.description}</p>
     </section>
     <section class="lot-price col-12 col-m-12">
-        <p> START PRICE: ${requestScope .lot.startPrice}</p>
+        <p> <fmt:message key="form.lot.start.price" bundle="${lang}"/>: ${requestScope .lot.startPrice}</p>
     </section>
     <section class="lot-price col-12 col-m-12">
         <form action="${pageContext.request.contextPath}/controller?command=makeBet&lotId=${requestScope.lot.id}"

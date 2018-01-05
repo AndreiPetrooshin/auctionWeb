@@ -6,6 +6,12 @@ import com.petrushin.epam.auction.services.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory class witch returns needed Service class by Class
+ *
+ * @author Andrei Petrushin
+ * @version 1.0.0
+ */
 public class ServiceFactory {
 
     private DaoFactory daoFactory;
@@ -27,7 +33,7 @@ public class ServiceFactory {
         FlowerLotDaoImpl lotDao = (FlowerLotDaoImpl) daoFactory.getDao(FlowerLotDaoImpl.class);
         map.put(FlowerLotService.class, new FlowerLotService(lotDao));
 
-        UserAddressesDaoImpl addressesDao = (UserAddressesDaoImpl) daoFactory.getDao(UserAddressesDaoImpl.class);
+        UserAddressDaoImpl addressesDao = (UserAddressDaoImpl) daoFactory.getDao(UserAddressDaoImpl.class);
         map.put(UserAddressesService.class, new UserAddressesService(addressesDao));
 
         UserBetDaoImpl betDao = (UserBetDaoImpl) daoFactory.getDao(UserBetDaoImpl.class);

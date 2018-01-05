@@ -1,6 +1,6 @@
 package com.petrushin.epam.auction.exceptions;
 
-public class ConnectionPoolException extends AuctionBusinessException {
+public class ConnectionPoolException extends RuntimeException {
 
     public ConnectionPoolException() {
     }

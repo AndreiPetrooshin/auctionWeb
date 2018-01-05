@@ -1,7 +1,13 @@
-package com.petrushin.epam.auction.model.validator;
+package com.petrushin.epam.auction.util;
 
 import java.util.regex.Pattern;
 
+/**
+ * Util class witch helps validate parameters.
+ *
+ * @author Andrei Petruhin
+ * @version 1.0.0
+ */
 public class ValidatorUtil {
 
     public static boolean validateEmail(String email) {
