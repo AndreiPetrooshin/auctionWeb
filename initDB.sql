@@ -66,54 +66,40 @@ INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number) VALUES
 
 -- user_shipping_address initialization
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
 VALUES
-  (1, 1, 'Андрей', 'Владимирович', 'Петрушин', 'Belarus', 'Zhodino', 'Lenina 17\1 kv 39', 375295559297, '220015', 1);
+  (1, 1, 'Андрей', 'Владимирович', 'Петрушин', 'Belarus', 'Zhodino', 'Lenina 17\1 kv 39', 375295559297, '220015');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES (2, 1, 'Дмитрий', 'Иванович', 'Батура', 'Belarus', 'Minsk', 'Molodezhnaya d 20', 375298855451, '220015', 0);
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
+VALUES (2, 2, 'Дмитрий', 'Иванович', 'Батура', 'Belarus', 'Minsk', 'Molodezhnaya d 20', 375298855451, '220015');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES (3, 2, 'Сеня', 'Викторович', 'Белякович', 'Russia', 'Moscow', 'Lenina 11 kv 2', 375296429296, '101000', 1);
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
+VALUES (3, 3, 'Сеня', 'Викторович', 'Белякович', 'Russia', 'Moscow', 'Lenina 11 kv 2', 375296429296, '101000');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
 VALUES
-  (4, 3, 'Степан', 'Сергеевич', 'Иванов', 'Russia', 'Dzerzhinsk', '50 let oktiabria d 20 kv 15', 375296684296, '102355',
-      1);
+  (4, 4, 'Степан', 'Сергеевич', 'Иванов', 'Russia', 'Dzerzhinsk', '50 let oktiabria d 20 kv 15', 375296684296, '102355');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
 VALUES
-  (5, 4, 'Николай', 'Дмитрьевич', 'Саренков', 'Belarus', 'Zhodino', 'Solnechnaya 20 kv 10', 375296661236, '222160', 1);
+  (5, 5, 'Николай', 'Дмитрьевич', 'Саренков', 'Belarus', 'Zhodino', 'Solnechnaya 20 kv 10', 375296661236, '222160');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
 VALUES
-  (6, 4, 'Станислва', 'Аркадьевна', 'Жмых', 'Belarus', 'Zhodino', 'per. Raduzhnii d 20', 375297419296, '222161', 0);
+  (6, 6, 'Станислва', 'Аркадьевна', 'Жмых', 'Belarus', 'Zhodino', 'per. Raduzhnii d 20', 375297419296, '222161');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
 VALUES
-  (7, 5, 'Дмитрий', 'Иванович', 'Батура', 'Belarus', 'Smolevichi', 'Sovetskaia 20 kb 16', 375296674396, '222201', 0);
+  (7, 7, 'Дмитрий', 'Иванович', 'Батура', 'Belarus', 'Smolevichi', 'Sovetskaia 20 kb 16', 375296674396, '222201');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES (8, 6, 'Зиноида', '', '', 'Belarus', 'Zhodino', 'Sovetsaia 11 kv 13', 375296123296, '222120', 0);
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
+VALUES (8, 8, 'Зиноида', '', '', 'Belarus', 'Zhodino', 'Sovetsaia 11 kv 13', 375296123296, '222120');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES (9, 7, 'Ксения', 'Викторовна', 'Жук', 'Belarus', 'Minsk', 'Rocosovskogo d20 kv 5', 375297431296, '222120', 1);
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
+VALUES (9, 9, 'Ксения', 'Викторовна', 'Жук', 'Belarus', 'Minsk', 'Rocosovskogo d20 kv 5', 375297431296, '222120');
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES (10, 8, 'Виктония', 'Владимировна', 'Клюева', 'Belarus', 'Smolevich', '8 Марта д.12', 375296631696, '222201', 1);
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES
-  (11, 9, 'Антонина', 'Андреевна', 'Плюшкина', 'Belarus', 'Vitebsk', '8 Марта д.14 кв 15', 375292319296, '221332', 1);
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES (12, 10, 'Ксения', 'Андреевна', 'Иванова', 'Belarus', 'Grodno', 'пер. Солнечный 12', 375292369296, '210007', 1);
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES (13, 3, 'Дмитрий', 'Олегович', 'Змитрюк', 'Belarus', 'Molodechno', 'Lenina 6\1 kv 3', 375262131296, '222303', 0);
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code, sa_is_active)
-VALUES (14, 7, 'Евгения', 'Сергеевна', 'Балабуева', 'Belarus', 'Minsk', 'Советская 11 кв20', 375296188296, '220015', 0);
+                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
+VALUES (10, 10, 'Виктония', 'Владимировна', 'Клюева', 'Belarus', 'Smolevich', '8 Марта д.12', 375296631696, '222201');
 
 -- flower lots initialization
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
@@ -148,7 +134,6 @@ INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_
 VALUES (15, 10, 'кактусы', 'Эспотоя', 'Отдаю в хорошие руки', 14, 'trading');
 
 -- User bets !
-INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (0, 2, 3, 14);
 INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (1, 2, 2, 16);
 INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (2, 2, 6, 20);
 INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (3, 4, 2, 50);
@@ -174,6 +159,4 @@ INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUE
 INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (23, 14, 7, 32);
 INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (24, 14, 6, 33);
 INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (25, 15, 5, 35);
-
-
 

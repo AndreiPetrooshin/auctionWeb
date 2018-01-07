@@ -1,6 +1,5 @@
 package com.petrushin.epam.auction.model.dao.impl;
 
-import com.petrushin.epam.auction.exceptions.CreatorException;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.dao.AbstractDao;
@@ -47,7 +46,7 @@ public class FlowerLotDaoImpl extends AbstractDao<FlowerLot> {
     }
 
     public void prepareStatementForUpdate(FlowerLot lot, PreparedStatement statement)
-            throws CreatorException {
+            throws EntityDAOException {
         try {
             User user = lot.getUser();
             Long userId = user.getId();
@@ -71,14 +70,14 @@ public class FlowerLotDaoImpl extends AbstractDao<FlowerLot> {
             Long lotId = lot.getId();
             statement.setLong(7, lotId);
         } catch (SQLException e) {
-            throw new CreatorException(
+            throw new EntityDAOException(
                     "Error with init  FlowerLot statement" + e.getMessage(), e);
         }
     }
 
     @Override
     protected void prepareStatementForInsert(FlowerLot lot, PreparedStatement statement)
-            throws CreatorException {
+            throws EntityDAOException {
         try {
             User user = lot.getUser();
             Long userId = user.getId();
@@ -99,7 +98,7 @@ public class FlowerLotDaoImpl extends AbstractDao<FlowerLot> {
             Long lotId = lot.getId();
             statement.setLong(6, lotId);
         } catch (SQLException e) {
-            throw new CreatorException(
+            throw new EntityDAOException(
                     "Error with init  FlowerLot statement" + e.getMessage(), e);
         }
     }

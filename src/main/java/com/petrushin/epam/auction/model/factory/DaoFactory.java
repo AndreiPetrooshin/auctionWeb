@@ -49,6 +49,9 @@ public class DaoFactory {
         Creator roleCreator = creatorFactory.getCreator(UserRoleCreator.class);
         map.put(UserRoleDaoImpl.class, new UserRoleDaoImpl(roleCreator));
 
+        Creator paymentCreator = creatorFactory.getCreator(PaymentCreator.class);
+        map.put(PaymentDaoImpl.class, new PaymentDaoImpl(paymentCreator));
+
         return map;
     }
 

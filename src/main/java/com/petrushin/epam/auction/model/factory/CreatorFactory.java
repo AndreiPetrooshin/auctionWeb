@@ -37,6 +37,8 @@ public class CreatorFactory {
 
         map.put(UserCreator.class, new UserCreator());
 
+        map.put(PaymentCreator.class, new PaymentCreator(new UserCreator(), lotCreator));
+
         return map;
     }
 

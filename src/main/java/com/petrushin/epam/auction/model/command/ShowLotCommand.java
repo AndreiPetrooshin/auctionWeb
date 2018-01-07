@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
 import com.petrushin.epam.auction.model.domain.UserBet;
 import com.petrushin.epam.auction.services.FlowerLotService;
@@ -61,7 +61,7 @@ public class ShowLotCommand implements Command {
                 request.setAttribute(ATTR_BETS, userBetList);
                 request.setAttribute(ATTR_LOT, lot);
             }
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             LOGGER.error("Error with find lot by id", e);
             request.setAttribute(ATTR_ERROR, true);
         }

@@ -26,6 +26,7 @@ public final class CommandFactory {
     private static final String COMMAND_SAVE = "save";
     private static final String COMMAND_LOCALE = "locale";
     private static final String COMMAND_ADMIN = "admin";
+    private static final String COMMAND_PAY = "pay";
 
     private ServiceFactory serviceFactory;
     private Map<String, Command> map;
@@ -48,6 +49,7 @@ public final class CommandFactory {
         UserCardService cardService = (UserCardService) serviceFactory.getService(UserCardService.class);
         UserRoleService roleService = (UserRoleService) serviceFactory.getService(UserRoleService.class);
         UserService userService = (UserService) serviceFactory.getService(UserService.class);
+        PaymentService paymentService = (PaymentService) serviceFactory.getService(PaymentService.class);
 
 
         map.put(COMMAND_LOGIN, new LoginCommand(userService));
@@ -62,17 +64,19 @@ public final class CommandFactory {
 
         map.put(COMMAND_MAKE_BET, new MakeBetCommand(betService, lotService));
 
-        map.put(COMMAND_PROFILE, new ProfileCommand(cardService, lotService, addressesService));
+        map.put(COMMAND_PROFILE, new ProfileCommand(cardService, lotService, addressesService, paymentService));
 
-        map.put(COMMAND_UPDATE_LOT, new UpdateLotCommand(lotService, userService));
+        map.put(COMMAND_UPDATE_LOT, new UpdateLotCommand(lotService, userService, paymentService, betService));
 
-        map.put(COMMAND_DELETE, new DeleteCommand(lotService, cardService));
+        map.put(COMMAND_DELETE, new DeleteCommand(lotService, cardService, addressesService));
 
         map.put(COMMAND_SAVE, new SaveCommand(lotService, cardService, addressesService));
 
         map.put(COMMAND_LOCALE, new LocaleCommand());
 
         map.put(COMMAND_ADMIN, new AdminCommand(lotService));
+
+        map.put(COMMAND_PAY, new PayCommand(paymentService));
 
         return map;
     }

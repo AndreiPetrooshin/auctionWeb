@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.services;
 
 
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.dao.impl.FlowerLotDaoImpl;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
 
@@ -25,7 +25,7 @@ public class FlowerLotService implements Service<FlowerLot> {
     }
 
 
-    public List<FlowerLot> getByState(String state) throws EntityDAOException {
+    public List<FlowerLot> getByState(String state) throws ServiceException {
         List<FlowerLot> lots = getAll();
         List<FlowerLot> result = new ArrayList<>();
         for (FlowerLot lot : lots) {
@@ -37,7 +37,7 @@ public class FlowerLotService implements Service<FlowerLot> {
         return result;
     }
 
-    public List<FlowerLot> getByType(String type) throws EntityDAOException {
+    public List<FlowerLot> getByType(String type) throws ServiceException {
         List<FlowerLot> lots = getAll();
         List<FlowerLot> result = new ArrayList<>();
         for (FlowerLot lot : lots) {
@@ -49,7 +49,7 @@ public class FlowerLotService implements Service<FlowerLot> {
         return result;
     }
 
-    public List<FlowerLot> getByTypeAndState(String type, String state) throws EntityDAOException {
+    public List<FlowerLot> getByTypeAndState(String type, String state) throws ServiceException {
         List<FlowerLot> lots = getAll();
         List<FlowerLot> result = new ArrayList<>();
         for (FlowerLot lot : lots) {
@@ -63,7 +63,7 @@ public class FlowerLotService implements Service<FlowerLot> {
         return result;
     }
 
-    public List<FlowerLot> getByUserId(Long id) throws EntityDAOException {
+    public List<FlowerLot> getByUserId(Long id) throws ServiceException {
         List<FlowerLot> lots = getAll();
         List<FlowerLot> result = new ArrayList<>();
         for (FlowerLot lot : lots) {
@@ -76,27 +76,27 @@ public class FlowerLotService implements Service<FlowerLot> {
     }
 
     @Override
-    public FlowerLot findById(Long id) throws EntityDAOException {
+    public FlowerLot findById(Long id) throws ServiceException {
         return flowerLotDao.findById(id);
     }
 
     @Override
-    public List<FlowerLot> getAll() throws EntityDAOException {
+    public List<FlowerLot> getAll() throws ServiceException {
         return flowerLotDao.getAll();
     }
 
     @Override
-    public boolean save(FlowerLot flowerLot) throws EntityDAOException {
+    public boolean save(FlowerLot flowerLot) throws ServiceException {
         return flowerLotDao.save(flowerLot);
     }
 
     @Override
-    public boolean delete(Long id) throws EntityDAOException {
+    public boolean delete(Long id) throws ServiceException {
         return flowerLotDao.delete(id);
     }
 
     @Override
-    public boolean update(FlowerLot flowerLot) throws EntityDAOException {
+    public boolean update(FlowerLot flowerLot) throws ServiceException {
         return flowerLotDao.update(flowerLot);
     }
 }

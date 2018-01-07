@@ -1,8 +1,9 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.services.FlowerLotService;
+import com.petrushin.epam.auction.services.UserAddressesService;
 import com.petrushin.epam.auction.services.UserCardService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,20 +21,25 @@ public class DeleteCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(DeleteCommand.class);
 
+    private static final String PARAM_ADDRESS = "address";
     private static final String PARAM_CARD = "card";
     private static final String PARAM_ELEMENT = "element";
     private static final String PARAM_LOT = "lot";
     private static final String PARAM_ID = "id";
     private static final String ATTR_DELETE_CARD_ERROR = "delete_card_error";
     private static final String ATTR_DELETE_LOT_ERROR = "delete_lot_error";
+    private static final String ATTR_DELETE_ADDR_ERROR = "delete_address_error";
 
 
     private FlowerLotService lotService;
     private UserCardService cardService;
+    private UserAddressesService addressesService;
 
-    public DeleteCommand(FlowerLotService lotService, UserCardService cardService) {
+    public DeleteCommand(FlowerLotService lotService,
+                         UserCardService cardService, UserAddressesService addressesService) {
         this.lotService = lotService;
         this.cardService = cardService;
+        this.addressesService = addressesService;
     }
 
     /**
@@ -53,6 +59,10 @@ public class DeleteCommand implements Command {
             }
             case PARAM_CARD: {
                 url = deleteCard(request);
+                break;
+            }
+            case PARAM_ADDRESS: {
+                url = deleteAddress(request);
             }
             default: {
                 break;
@@ -62,6 +72,25 @@ public class DeleteCommand implements Command {
             url = deleteLot(request);
         }
         return url;
+    }
+
+    /**
+     * This method deletes the user address from DB
+     *
+     * @return String with url to forwarding
+     */
+    private String deleteAddress(HttpServletRequest request) {
+        String idValue = request.getParameter(PARAM_ID);
+        if (!idValue.isEmpty()) {
+            Long id = Long.valueOf(idValue);
+            try {
+                addressesService.delete(id);
+            } catch (ServiceException e) {
+                LOGGER.error("Delete address operation error", e);
+                request.setAttribute(ATTR_DELETE_ADDR_ERROR, true);
+            }
+        }
+        return Pages.PROFILE_ABOUT_MYSELF_PAGE;
     }
 
     /**
@@ -75,7 +104,7 @@ public class DeleteCommand implements Command {
             Long id = Long.valueOf(idValue);
             try {
                 cardService.delete(id);
-            } catch (EntityDAOException e) {
+            } catch (ServiceException e) {
                 LOGGER.error("Delete card operation error", e);
                 request.setAttribute(ATTR_DELETE_CARD_ERROR, true);
             }
@@ -94,7 +123,7 @@ public class DeleteCommand implements Command {
             Long id = Long.valueOf(idValue);
             try {
                 lotService.delete(id);
-            } catch (EntityDAOException e) {
+            } catch (ServiceException e) {
                 LOGGER.error("Delete lot operation error", e);
                 request.setAttribute(ATTR_DELETE_LOT_ERROR, true);
             }

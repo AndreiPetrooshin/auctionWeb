@@ -2,27 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<c:forEach items="${requestScope.addresses}" var="address">
+<c:if test="${requestScope.address != null}">
     <div class="col-4">
     <section class="row profile-addresses">
-        <div class="row">${address.firstName}</div>
-        <div class="row">${address.secondName}</div>
-        <div class="row">${address.lastName}</div>
-        <div class="row">${address.country}</div>
-        <div class="row">${address.city}</div>
-        <div class="row">${address.street}</div>
-        <div class="row">${address.phone}</div>
-        <div class="row">${address.postalCode}</div>
-        <div class="row"><fmt:message key="form.address.active" bundle="${lang}" />:
-            <c:choose >
-                <c:when test="${address.active != true}">
-                    <input type="checkbox" checked disabled />
-                </c:when>
-                <c:otherwise>
-                    <input type="checkbox" disabled/>
-                </c:otherwise>
-            </c:choose>
+        <div class="row">${requestScope.address.firstName}</div>
+        <div class="row">${requestScope.address.secondName}</div>
+        <div class="row">${requestScope.address.lastName}</div>
+        <div class="row">${requestScope.address.country}</div>
+        <div class="row">${requestScope.address.city}</div>
+        <div class="row">${requestScope.address.street}</div>
+        <div class="row">${requestScope.address.phone}</div>
+        <div class="row">${requestScope.address.postalCode}</div>
+        <div class="row">
+            <form action="${pageContext.request.contextPath}/controller?command=delete&element=address" method="post">
+                <input type="text" hidden name="id" value="${requestScope.address.id}" title="hidden">
+                <input type="submit" class="delete-button" value=Х >
+            </form>
         </div>
     </section>
     </div>
-</c:forEach>
+</c:if>

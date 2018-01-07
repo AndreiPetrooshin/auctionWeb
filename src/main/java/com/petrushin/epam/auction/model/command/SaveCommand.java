@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
 import com.petrushin.epam.auction.model.domain.User;
 import com.petrushin.epam.auction.model.domain.UserAddress;
@@ -104,14 +104,12 @@ public class SaveCommand implements Command {
         String street = request.getParameter(PARAM_STREET);
         String phone = request.getParameter(PARAM_PHONE);
         String postalCode = request.getParameter(PARAM_POSTAL_CODE);
-        String active = request.getParameter(PARAM_ACTIVE);
-        boolean isActive = Boolean.parseBoolean(active);
         UserAddress address = new UserAddress(0L, user,
                 firstName, secondName, lastName, country,
-                city, street, phone, postalCode, isActive);
+                city, street, phone, postalCode);
         try {
             addressesService.save(address);
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             LOGGER.error("Error with saving address", e);
             request.setAttribute(ATTR_ERROR, "Error with address saving, sorry");
         }
@@ -128,7 +126,7 @@ public class SaveCommand implements Command {
         UserCard card = new UserCard(0L, user, cardNumber, cardName);
         try {
             cardService.save(card);
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             request.setAttribute(ATTR_ERROR, true);
             LOGGER.error("Error with saving card", e);
         }
@@ -152,7 +150,7 @@ public class SaveCommand implements Command {
         FlowerLot lot = new FlowerLot(0L, user, type, name, description, startPrice, LOT_STATE);
         try {
             lotService.save(lot);
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             request.setAttribute(ATTR_ERROR, true);
             LOGGER.error("Error with saving lot", e);
         }

@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
 import com.petrushin.epam.auction.services.FlowerLotService;
 import org.apache.logging.log4j.LogManager;
@@ -29,8 +29,8 @@ public class AdminCommand implements Command {
         try {
             List<FlowerLot> lots = lotService.getAll();
             request.setAttribute(ATTR_LOTS, lots);
-            url =  Pages.ADMIN_PAGE;
-        } catch (EntityDAOException e) {
+            url = Pages.ADMIN_PAGE;
+        } catch (ServiceException e) {
             LOGGER.error("Error with getting all lots", e);
             request.setAttribute(ATTR_ERROR, true);
         }

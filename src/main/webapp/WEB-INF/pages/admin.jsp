@@ -44,8 +44,10 @@
 
         <section id="redact-lot+${lot.id}" class="dialog container clearfix">
             <form method="post"
-                  action="${pageContext.request.contextPath}/controller?command=updateLot&id=${lot.id}">
+                  action="${pageContext.request.contextPath}/controller?command=updateLot">
                 <input type="hidden" name="userId" value="${lot.user.id}"/>
+                <input type="hidden" name="lotId" value="${lot.id}">
+
                 <div class="row">
                     <div class="col-25">
                         <label for="ltype"><fmt:message key="form.lot.type" bundle="${lang}"/>:</label>

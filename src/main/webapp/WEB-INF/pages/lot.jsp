@@ -21,8 +21,9 @@
         <input type="button" value='<fmt:message key="form.button.redact" bundle="${lang}"/>' onclick="openForm('redact-lot') ">
         <section id="redact-lot" class="dialog container clearfix">
             <form method="post"
-                  action="${pageContext.request.contextPath}/controller?command=updateLot&id=${requestScope.lot.id}">
+                  action="${pageContext.request.contextPath}/controller?command=updateLot">
                 <div class="row">
+                    <input type="hidden" name="lotId" value="${requestScope.lot.id}">
                     <div class="col-25">
                         <label for="ltype"><fmt:message key="form.lot.type" bundle="${lang}"/>:</label>
                     </div>

@@ -61,6 +61,29 @@ public class ConnectionPool {
     }
 
     /**
+     * Returns available connection.
+     */
+    public Connection getConnection() {
+        connectionLock.lock();
+        Connection connection = null;
+        if (availableConnections.size() > 0) {
+            connection = availableConnections.get(FIRST_CONNECTION);
+            availableConnections.remove(FIRST_CONNECTION);
+        }
+        connectionLock.unlock();
+        return connection;
+    }
+
+    /**
+     * Returns connection back to connection pool.
+     */
+    public void returnConnection(Connection connection) {
+        connectionLock.lock();
+        availableConnections.add(connection);
+        connectionLock.unlock();
+    }
+
+    /**
      * Creates new connection for connection pool.
      */
     private static Connection createNewConnectionForPool() {
@@ -93,26 +116,5 @@ public class ConnectionPool {
         return availableConnections.size() >= MAX_POOL_SIZE;
     }
 
-    /**
-     * Returns available connection.
-     */
-    public Connection getConnection() {
-        connectionLock.lock();
-        Connection connection = null;
-        if (availableConnections.size() > 0) {
-            connection = availableConnections.get(FIRST_CONNECTION);
-            availableConnections.remove(FIRST_CONNECTION);
-        }
-        connectionLock.unlock();
-        return connection;
-    }
 
-    /**
-     * Returns connection back to connection pool.
-     */
-    public void returnConnection(Connection connection) {
-        connectionLock.lock();
-        availableConnections.add(connection);
-        connectionLock.unlock();
-    }
 }

@@ -1,6 +1,5 @@
 package com.petrushin.epam.auction.model.dao.impl;
 
-import com.petrushin.epam.auction.exceptions.CreatorException;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.dao.AbstractDao;
@@ -52,7 +51,7 @@ public class UserBetDaoImpl extends AbstractDao<UserBet> {
 
     @Override
     public void prepareStatementForUpdate(UserBet userBet, PreparedStatement statement)
-            throws CreatorException {
+            throws EntityDAOException {
         try {
             FlowerLot lot = userBet.getLot();
             Long lotId = lot.getId();
@@ -69,14 +68,14 @@ public class UserBetDaoImpl extends AbstractDao<UserBet> {
             statement.setLong(4, id);
 
         } catch (SQLException e) {
-            throw new CreatorException(
+            throw new EntityDAOException(
                     "Error with init bet statement" + e.getMessage(), e);
         }
     }
 
     @Override
     protected void prepareStatementForInsert(UserBet userBet, PreparedStatement statement)
-            throws CreatorException {
+            throws EntityDAOException {
         prepareStatementForUpdate(userBet, statement);
     }
 

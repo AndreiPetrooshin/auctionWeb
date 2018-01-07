@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
 import com.petrushin.epam.auction.model.domain.User;
 import com.petrushin.epam.auction.model.domain.UserBet;
@@ -54,7 +54,7 @@ public class MakeBetCommand implements Command {
         if (bet != null && !bet.isEmpty() && user != null) {
             try {
                 makeBet(lotId, user, bet);
-            } catch (EntityDAOException e) {
+            } catch (ServiceException e) {
                 LOGGER.error("Error with saving user bet", e);
                 request.setAttribute(ATTR_ERROR, true);
             }
@@ -65,7 +65,7 @@ public class MakeBetCommand implements Command {
     /**
      * Makes user bet to lot.
      */
-    private void makeBet(Long lotId, User user, String bet) throws EntityDAOException {
+    private void makeBet(Long lotId, User user, String bet) throws ServiceException {
         Double betToLong = Double.parseDouble(bet);
         BigDecimal betValue = BigDecimal.valueOf(betToLong);
 

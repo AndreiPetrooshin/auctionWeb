@@ -11,7 +11,7 @@ public class UserAddress implements Identified {
     public static final String GET_BY_ID =
             "SELECT a.ship_addr_id, a.sa_first_name, a.sa_second_name, " +
                     "a.sa_last_name, a.sa_country, a.sa_city, a.sa_street," +
-                    " a.sa_phone, a.sa_postal_code, a.sa_is_active, u.user_id," +
+                    " a.sa_phone, a.sa_postal_code, u.user_id," +
                     " u.u_login, u.u_password, u.u_email, r.role_id, r.user_role" +
                     " FROM user_shipping_address a JOIN user u, user_role r " +
                     "WHERE a.user_id=u.user_id AND u.role_id=r.role_id" +
@@ -19,22 +19,22 @@ public class UserAddress implements Identified {
     public static final String GET_ALL =
             "SELECT a.ship_addr_id, a.sa_first_name, a.sa_second_name, " +
                     "a.sa_last_name, a.sa_country, a.sa_city, a.sa_street," +
-                    " a.sa_phone, a.sa_postal_code, a.sa_is_active, u.user_id," +
+                    " a.sa_phone, a.sa_postal_code, u.user_id," +
                     " u.u_login, u.u_password, u.u_email, r.role_id, r.user_role" +
                     " FROM user_shipping_address a JOIN user u, user_role r" +
                     " WHERE a.user_id=u.user_id AND u.role_id=r.role_id";
     public static final String ADD_ADDRESS =
             "INSERT INTO user_shipping_address (user_id, sa_first_name," +
                     " sa_second_name, sa_last_name, sa_country, sa_city," +
-                    " sa_street, sa_phone, sa_postal_code, sa_is_active, " +
-                    "ship_addr_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                    " sa_street, sa_phone, sa_postal_code," +
+                    "ship_addr_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
     public static final String DELETE_BY_ID =
             "DELETE FROM user_shipping_address WHERE ship_addr_id=?";
     public static final String UPDATE_ADDRESS =
             "UPDATE user_shipping_address SET user_id=?, sa_first_name=?," +
                     " sa_second_name=?, sa_last_name=?, sa_country=?, " +
                     "sa_city=?, sa_street=?, sa_phone=?, sa_postal_code=?," +
-                    " sa_is_active=? WHERE ship_addr_id=?";
+                    " WHERE ship_addr_id=?";
     private static final long serialVersionUID = 6L;
     private Long id;
     private User user;
@@ -46,13 +46,12 @@ public class UserAddress implements Identified {
     private String street;
     private String phone;
     private String postalCode;
-    private boolean active;
 
 
     public UserAddress(Long id, User user, String firstName,
                        String secondName, String lastName,
                        String country, String city, String street,
-                       String phone, String postalCode, boolean active) {
+                       String phone, String postalCode) {
         this.id = id;
         this.user = user;
         this.firstName = firstName;
@@ -63,7 +62,7 @@ public class UserAddress implements Identified {
         this.street = street;
         this.phone = phone;
         this.postalCode = postalCode;
-        this.active = active;
+
     }
 
     public Long getId() {
@@ -146,13 +145,6 @@ public class UserAddress implements Identified {
         this.postalCode = postalCode;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -165,9 +157,6 @@ public class UserAddress implements Identified {
 
         UserAddress address = (UserAddress) o;
 
-        if (active != address.active) {
-            return false;
-        }
         if (id != null ? !id.equals(address.id)
                 : address.id != null) {
             return false;
@@ -220,7 +209,6 @@ public class UserAddress implements Identified {
         result = 31 * result + (street != null ? street.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
-        result = 31 * result + (active ? 1 : 0);
         return result;
     }
 
@@ -237,7 +225,6 @@ public class UserAddress implements Identified {
                 ", street='" + street + '\'' +
                 ", phone='" + phone + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", active=" + active +
                 '}';
     }
 

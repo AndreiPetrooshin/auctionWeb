@@ -1,10 +1,14 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
+import com.petrushin.epam.auction.model.domain.Payment;
 import com.petrushin.epam.auction.model.domain.User;
+import com.petrushin.epam.auction.model.domain.UserBet;
 import com.petrushin.epam.auction.services.FlowerLotService;
+import com.petrushin.epam.auction.services.PaymentService;
+import com.petrushin.epam.auction.services.UserBetService;
 import com.petrushin.epam.auction.services.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,19 +31,26 @@ public class UpdateLotCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(UpdateLotCommand.class);
     private static final String ATTR_USER = "user";
     private static final String ATTR_ERROR = "error";
-    private static final String PARAM_LOT_ID = "id";
+    private static final String PARAM_LOT_ID = "lotId";
     private static final String PARAM_TYPE = "type";
     private static final String PARAM_NAME = "name";
     private static final String PARAM_DESCRIPTION = "description";
     private static final String PARAM_START_PRICE = "startPrice";
     private static final String PARAM_STATE = "state";
+    private static final String STATE_SOLD = "sold";
+
     private FlowerLotService lotService;
     private UserService userService;
+    private PaymentService paymentService;
+    private UserBetService betService;
 
 
-    public UpdateLotCommand(FlowerLotService lotService, UserService userService) {
+    public UpdateLotCommand(FlowerLotService lotService, UserService userService,
+                            PaymentService paymentService, UserBetService betService) {
         this.lotService = lotService;
         this.userService = userService;
+        this.paymentService = paymentService;
+        this.betService = betService;
     }
 
     /**
@@ -49,10 +60,10 @@ public class UpdateLotCommand implements Command {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        FlowerLot lot = createLot(request);
         try {
+            FlowerLot lot = createLot(request);
             lotService.update(lot);
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             LOGGER.error("Error with lot updating");
             request.setAttribute(ATTR_ERROR, true);
         }
@@ -64,7 +75,7 @@ public class UpdateLotCommand implements Command {
      *
      * @return {@link FlowerLot}
      */
-    private FlowerLot createLot(HttpServletRequest request) {
+    private FlowerLot createLot(HttpServletRequest request) throws ServiceException {
         String lotIdValue = request.getParameter(PARAM_LOT_ID);
         Long lotId = null;
         if (lotIdValue != null) {
@@ -80,9 +91,24 @@ public class UpdateLotCommand implements Command {
             lostStartPrice = BigDecimal.valueOf(valueOf);
         }
         String lotState = request.getParameter(PARAM_STATE);
-        User user = getUserFromRequest(request);
 
-        return new FlowerLot(lotId, user, lotType, lotName, lotDescription, lostStartPrice, lotState);
+        User user = getUserFromRequest(request);
+        FlowerLot flowerLot = new FlowerLot(lotId, user, lotType, lotName, lotDescription, lostStartPrice, lotState);
+        if (lotState.equals(STATE_SOLD)) {
+            createPaymentForWinner(flowerLot);
+        }
+        return flowerLot;
+    }
+
+
+    private void createPaymentForWinner(FlowerLot flowerLot) throws ServiceException {
+        Long id = flowerLot.getId();
+        UserBet userBet = betService.getLastBetToLot(id);
+        BigDecimal lastBet = userBet.getBet();
+        User user = userBet.getUser();
+        Payment payment = new Payment(0L, flowerLot, user, lastBet, false);
+        paymentService.save(payment);
+
     }
 
     private User getUserFromRequest(HttpServletRequest request) {
@@ -92,7 +118,7 @@ public class UpdateLotCommand implements Command {
             Long userId = Long.valueOf(userIdValue);
             try {
                 user = userService.findById(userId);
-            } catch (EntityDAOException e) {
+            } catch (ServiceException e) {
                 LOGGER.error("Error with finding user by id", e);
                 request.setAttribute(ATTR_ERROR, true);
             }

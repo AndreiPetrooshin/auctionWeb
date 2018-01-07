@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * @author Andrei Petruhin
  * @version 1.0.0
  */
-public class ValidatorUtil {
+public final class ValidatorUtil {
 
     public static boolean validateEmail(String email) {
         return Pattern.matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$", email);

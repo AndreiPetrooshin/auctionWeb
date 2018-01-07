@@ -28,7 +28,6 @@ public class UserAddressCreator extends AbstractCreator<UserAddress> {
     private static final String PARAM_SA_STREET = "sa_street";
     private static final String PARAM_SA_PHONE = "sa_phone";
     private static final String PARAM_SA_POSTAL_CODE = "sa_postal_code";
-    private static final String PARAM_SA_IS_ACTIVE = "sa_is_active";
 
     private Creator<User> userCreator;
 
@@ -49,10 +48,9 @@ public class UserAddressCreator extends AbstractCreator<UserAddress> {
             String street = resultSet.getString(PARAM_SA_STREET);
             String phone = resultSet.getString(PARAM_SA_PHONE);
             String postalCode = resultSet.getString(PARAM_SA_POSTAL_CODE);
-            boolean isActive = resultSet.getBoolean(PARAM_SA_IS_ACTIVE);
             return new UserAddress(
                     shipAddrId, user, fName, sName, lName, country,
-                    city, street, phone, postalCode, isActive);
+                    city, street, phone, postalCode);
         } catch (SQLException | CreatorException e) {
             throw new CreatorException(
                     "Error with create address entity" + e.getMessage(), e);

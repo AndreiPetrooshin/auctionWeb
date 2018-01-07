@@ -148,7 +148,6 @@ input[type=submit], input[type=button] {
     background-color: #4CAF50;
     color: white;
     padding: 15px 15px;
-    margin: 15px 20px 0px 0px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -434,7 +433,7 @@ form .delete-button {
     float: right;
 }
 
-.profile-lot, .profile-addresses, .profile-cards {
+.profile-lot, .profile-addresses, .profile-cards .profile-winnings {
     padding: 0px;
     margin-bottom: 7px;
     background-color: #1ad0d0;

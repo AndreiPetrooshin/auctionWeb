@@ -1,12 +1,10 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.model.domain.FlowerLot;
-import com.petrushin.epam.auction.model.domain.User;
-import com.petrushin.epam.auction.model.domain.UserAddress;
-import com.petrushin.epam.auction.model.domain.UserCard;
+import com.petrushin.epam.auction.exceptions.ServiceException;
+import com.petrushin.epam.auction.model.domain.*;
 import com.petrushin.epam.auction.services.FlowerLotService;
+import com.petrushin.epam.auction.services.PaymentService;
 import com.petrushin.epam.auction.services.UserAddressesService;
 import com.petrushin.epam.auction.services.UserCardService;
 import org.apache.logging.log4j.LogManager;
@@ -33,25 +31,30 @@ public class ProfileCommand implements Command {
     private static final String PARAM_CARDS = "cards";
     private static final String PARAM_ABOUT = "about";
     private static final String PARAM_MYSELF = "myself";
-    private static final String PARAM_ADDRESSES = "addresses";
+    private static final String PARAM_ADDRESSES = "address";
     private static final String ATTR_USER = "user";
     private static final String ATTR_ERROR = "error";
     private static final String ATTR_MYSELF = "about_myself";
     private static final String ATTR_ABOUT_LOTS = "about_lots";
     private static final String ATTR_ABOUT_CARDS = "about_cards";
     private static final String ATTR_ABOUT_ADDRESSES = "about_addresses";
+    private static final String PARAM_WINNINGS = "winnings";
+    private static final String ATTR_ABOUT_WINS = "about_wins";
+    private static final String ATTR_WINS = "winnings";
+    private static final String ATTR_CARDS = "cards";
 
     private UserCardService cardService;
     private FlowerLotService lotService;
     private UserAddressesService addressesService;
+    private PaymentService paymentService;
 
-    public ProfileCommand(UserCardService cardService,
-                          FlowerLotService lotService, UserAddressesService addressesService) {
+    public ProfileCommand(UserCardService cardService, FlowerLotService lotService,
+                          UserAddressesService addressesService, PaymentService paymentService) {
         this.cardService = cardService;
         this.lotService = lotService;
         this.addressesService = addressesService;
+        this.paymentService = paymentService;
     }
-
 
     /**
      * Handles the 'about' element from request and shows the
@@ -83,10 +86,37 @@ public class ProfileCommand implements Command {
                 url = processParamAddresses(request, session);
                 break;
             }
+            case PARAM_WINNINGS: {
+                url = processParamWins(request, session);
+                break;
+            }
             default:
                 break;
         }
         return url;
+    }
+
+    /**
+     * Processing the wins parameter and setting attribute
+     * to request with user wins
+     */
+    private String processParamWins(HttpServletRequest request, HttpSession session) {
+        User user = (User) session.getAttribute(ATTR_USER);
+        if (user == null) {
+            return Pages.START_PAGE;
+        }
+        Long id = user.getId();
+        try {
+            List<Payment> winnings = paymentService.getByUserId(id);
+            List<UserCard> cards = cardService.getByUserId(id);
+            request.setAttribute(ATTR_CARDS, cards);
+            request.setAttribute(ATTR_WINS, winnings);
+            request.setAttribute(ATTR_ABOUT_WINS, true);
+        } catch (ServiceException e) {
+            LOGGER.error("Error with getting User's wins by user id", e);
+            request.setAttribute(ATTR_ERROR, true);
+        }
+        return Pages.PROFILE_PAGE;
     }
 
     /**
@@ -100,10 +130,10 @@ public class ProfileCommand implements Command {
         }
         Long id = user.getId();
         try {
-            List<UserAddress> addresses = addressesService.getByUserId(id);
-            request.setAttribute(PARAM_ADDRESSES, addresses);
+            UserAddress address = addressesService.getByUserId(id);
+            request.setAttribute(PARAM_ADDRESSES, address);
             request.setAttribute(ATTR_ABOUT_ADDRESSES, true);
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             LOGGER.error("Error with getting User Addresses by user id", e);
             request.setAttribute(ATTR_ERROR, true);
         }
@@ -127,7 +157,7 @@ public class ProfileCommand implements Command {
             request.setAttribute(PARAM_LOTS, lots);
             request.setAttribute(ATTR_ABOUT_LOTS, true);
             url = Pages.PROFILE_PAGE;
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             LOGGER.error("Error with getting User Lots by user id", e);
         }
         return url;
@@ -157,7 +187,7 @@ public class ProfileCommand implements Command {
             request.setAttribute(ATTR_ABOUT_CARDS, true);
             request.setAttribute(PARAM_CARDS, cards);
 
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             LOGGER.error("Error with getting Payment cards by user id", e);
         }
         return Pages.PROFILE_PAGE;

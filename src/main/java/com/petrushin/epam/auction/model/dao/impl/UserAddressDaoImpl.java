@@ -1,6 +1,5 @@
 package com.petrushin.epam.auction.model.dao.impl;
 
-import com.petrushin.epam.auction.exceptions.CreatorException;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.dao.AbstractDao;
@@ -46,7 +45,7 @@ public class UserAddressDaoImpl extends AbstractDao<UserAddress> {
     }
 
     public void prepareStatementForUpdate(UserAddress address, PreparedStatement statement)
-            throws CreatorException {
+            throws EntityDAOException {
         try {
             User user = address.getUser();
             Long userId = user.getId();
@@ -76,20 +75,17 @@ public class UserAddressDaoImpl extends AbstractDao<UserAddress> {
             String postalCode = address.getPostalCode();
             statement.setString(9, postalCode);
 
-            boolean isActive = address.isActive();
-            statement.setBoolean(10, isActive);
-
             Long addrId = address.getId();
-            statement.setLong(11, addrId);
+            statement.setLong(10, addrId);
         } catch (SQLException e) {
-            throw new CreatorException(
+            throw new EntityDAOException(
                     "Error with init address statement " + e.getMessage(), e);
         }
     }
 
     @Override
     protected void prepareStatementForInsert(UserAddress userAddress, PreparedStatement statement)
-            throws CreatorException {
+            throws EntityDAOException {
         prepareStatementForUpdate(userAddress, statement);
     }
 

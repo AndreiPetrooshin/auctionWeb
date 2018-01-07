@@ -1,6 +1,6 @@
 package com.petrushin.epam.auction.services;
 
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.dao.impl.UserDaoImpl;
 import com.petrushin.epam.auction.model.domain.User;
 
@@ -21,7 +21,7 @@ public class UserService implements Service<User> {
         this.userDao = userDao;
     }
 
-    public User getByLogin(String login) throws EntityDAOException {
+    public User getByLogin(String login) throws ServiceException {
         List<User> users = getAll();
         User user = null;
         for (User currUser : users) {
@@ -34,7 +34,7 @@ public class UserService implements Service<User> {
     }
 
 
-    public boolean ifLoginExist(String login) throws EntityDAOException {
+    public boolean ifLoginExist(String login) throws ServiceException {
         List<User> users = getAll();
         for (User currUser : users) {
             String currLogin = currUser.getLogin();
@@ -46,8 +46,7 @@ public class UserService implements Service<User> {
     }
 
 
-    public boolean ifEmailExist(String email)
-            throws EntityDAOException {
+    public boolean ifEmailExist(String email) throws ServiceException {
         List<User> users = getAll();
         for (User currUser : users) {
             String currEmail = currUser.getEmail();
@@ -59,27 +58,27 @@ public class UserService implements Service<User> {
     }
 
     @Override
-    public User findById(Long id) throws EntityDAOException {
+    public User findById(Long id) throws ServiceException {
         return userDao.findById(id);
     }
 
     @Override
-    public List<User> getAll() throws EntityDAOException {
+    public List<User> getAll() throws ServiceException {
         return userDao.getAll();
     }
 
     @Override
-    public boolean save(User user) throws EntityDAOException {
+    public boolean save(User user) throws ServiceException {
         return userDao.save(user);
     }
 
     @Override
-    public boolean delete(Long id) throws EntityDAOException {
+    public boolean delete(Long id) throws ServiceException {
         return userDao.delete(id);
     }
 
     @Override
-    public boolean update(User user) throws EntityDAOException {
+    public boolean update(User user) throws ServiceException {
         return userDao.update(user);
     }
 }

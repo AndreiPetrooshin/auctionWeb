@@ -48,6 +48,9 @@ public class ServiceFactory {
         UserDaoImpl userDao = (UserDaoImpl) daoFactory.getDao(UserDaoImpl.class);
         map.put(UserService.class, new UserService(userDao));
 
+        PaymentDaoImpl paymentDao = (PaymentDaoImpl) daoFactory.getDao(PaymentDaoImpl.class);
+        map.put(PaymentService.class, new PaymentService(paymentDao));
+
         return map;
     }
 

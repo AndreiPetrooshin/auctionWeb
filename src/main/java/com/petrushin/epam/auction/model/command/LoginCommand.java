@@ -2,6 +2,7 @@ package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.domain.User;
 import com.petrushin.epam.auction.model.encode.MD5EncodingService;
 import com.petrushin.epam.auction.services.UserService;
@@ -52,7 +53,7 @@ public class LoginCommand implements Command {
             boolean ifUserExist = false;
             try {
                 ifUserExist = validate(session, login, md5Password);
-            } catch (EntityDAOException e) {
+            } catch (ServiceException e) {
                 LOGGER.error("Error with user validation", e);
                 request.setAttribute(ATTR_ERROR, true);
             }
@@ -74,7 +75,7 @@ public class LoginCommand implements Command {
      * @throws EntityDAOException when something go wrong with DAO
      */
     private boolean validate(HttpSession session, String login, String md5Password)
-            throws EntityDAOException {
+            throws ServiceException {
         User bdUser = userService.getByLogin(login);
         boolean ifLoginSame = false;
         boolean ifPasswordSame = false;

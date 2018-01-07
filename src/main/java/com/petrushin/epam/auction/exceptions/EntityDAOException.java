@@ -1,6 +1,6 @@
 package com.petrushin.epam.auction.exceptions;
 
-public class EntityDAOException extends AuctionBusinessException {
+public class EntityDAOException extends ServiceException {
 
     public EntityDAOException() {
     }

@@ -74,7 +74,7 @@ public abstract class AbstractDao<T extends Identified> implements GenericDao<T>
             connection.setAutoCommit(true);
             ConnectionPool.getInstance().returnConnection(connection);
             return rowCountChanged == 1;
-        } catch (CreatorException | SQLException e) {
+        } catch (SQLException e) {
             rollback(connection);
             throw new EntityDAOException(e.getMessage(), e);
         }
@@ -108,7 +108,7 @@ public abstract class AbstractDao<T extends Identified> implements GenericDao<T>
             connection.setAutoCommit(true);
             ConnectionPool.getInstance().returnConnection(connection);
             return rowCountChanged == 1;
-        } catch (CreatorException | SQLException e) {
+        } catch (SQLException e) {
             rollback(connection);
             throw new EntityDAOException(e.getMessage(), e);
         }
@@ -137,12 +137,12 @@ public abstract class AbstractDao<T extends Identified> implements GenericDao<T>
      * Prepares statement for update to current entity
      */
     protected abstract void prepareStatementForUpdate(T t, PreparedStatement statement)
-            throws CreatorException;
+            throws EntityDAOException;
 
     /**
      * Prepares statement for insert to current entity
      */
     protected abstract void prepareStatementForInsert(T t, PreparedStatement statement)
-            throws CreatorException;
+            throws EntityDAOException;
 
 }

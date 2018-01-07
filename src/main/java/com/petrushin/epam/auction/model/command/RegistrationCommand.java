@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.domain.User;
 import com.petrushin.epam.auction.model.domain.UserRole;
 import com.petrushin.epam.auction.services.UserService;
@@ -56,7 +56,7 @@ public class RegistrationCommand implements Command {
             } else {
                 url = Pages.REGISTRATION_PAGE;
             }
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             url = Pages.ERROR_PAGE;
         }
         return url;
@@ -66,7 +66,7 @@ public class RegistrationCommand implements Command {
      * Validate login, password, email
      */
     private boolean validate(HttpSession session, String login, String password, String email)
-            throws EntityDAOException {
+            throws ServiceException {
         boolean isLoginCorrect = ValidatorUtil.validateLogin(login);
         if (!isLoginCorrect) {
             session.setAttribute(ATTR_INCORRECT_LOGIN, true);
@@ -90,7 +90,7 @@ public class RegistrationCommand implements Command {
      * @return true if user was created and false if not
      */
     private boolean createUser(HttpSession session, String login, String password, String email)
-            throws EntityDAOException {
+            throws ServiceException {
         boolean ifLoginExist = userService.ifLoginExist(login);
         boolean ifEmailExist = userService.ifEmailExist(email);
         if (!ifLoginExist && !ifEmailExist) {

@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.model.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
 import com.petrushin.epam.auction.services.FlowerLotService;
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +52,7 @@ public class ShowLotsCommand implements Command {
                 lotList = flowerLotService.getByTypeAndState(type, PARAM_TRADING);
             }
             request.setAttribute(ATTR_LOT_LIST, lotList);
-        } catch (EntityDAOException e) {
+        } catch (ServiceException e) {
             LOGGER.error("Error with showing lots", e);
             request.setAttribute(ATTR_ERROR, true);
         }

@@ -1,6 +1,6 @@
 package com.petrushin.epam.auction.services;
 
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.exceptions.ServiceException;
 import com.petrushin.epam.auction.model.dao.impl.UserBetDaoImpl;
 import com.petrushin.epam.auction.model.domain.FlowerLot;
 import com.petrushin.epam.auction.model.domain.User;
@@ -19,13 +19,14 @@ import java.util.Objects;
  */
 public class UserBetService implements Service<UserBet> {
 
+    private static final int BIGGEST_BET = 0;
     private UserBetDaoImpl userBetDao;
 
     public UserBetService(UserBetDaoImpl userBetDao) {
         this.userBetDao = userBetDao;
     }
 
-    public List<UserBet> getByLotId(Long id) throws EntityDAOException {
+    public List<UserBet> getByLotId(Long id) throws ServiceException {
         List<UserBet> list = getAll();
         List<UserBet> result = new ArrayList<>();
         for (UserBet userBet : list) {
@@ -39,7 +40,7 @@ public class UserBetService implements Service<UserBet> {
         return result;
     }
 
-    public List<UserBet> getByUserId(Long id) throws EntityDAOException {
+    public List<UserBet> getByUserId(Long id) throws ServiceException {
         List<UserBet> list = getAll();
         List<UserBet> result = new ArrayList<>();
         for (UserBet userBet : list) {
@@ -53,29 +54,38 @@ public class UserBetService implements Service<UserBet> {
         return result;
     }
 
+    public UserBet getLastBetToLot(Long lotId) throws ServiceException {
+        List<UserBet> bets = getByLotId(lotId);
+        sortByBet(bets);
+        UserBet userBet = null;
+        if (!bets.isEmpty()) {
+            userBet = bets.get(BIGGEST_BET);
+        }
+        return userBet;
+    }
 
     @Override
-    public UserBet findById(Long id) throws EntityDAOException {
+    public UserBet findById(Long id) throws ServiceException {
         return userBetDao.findById(id);
     }
 
     @Override
-    public List<UserBet> getAll() throws EntityDAOException {
+    public List<UserBet> getAll() throws ServiceException {
         return userBetDao.getAll();
     }
 
     @Override
-    public boolean save(UserBet userBet) throws EntityDAOException {
+    public boolean save(UserBet userBet) throws ServiceException {
         return userBetDao.save(userBet);
     }
 
     @Override
-    public boolean delete(Long id) throws EntityDAOException {
+    public boolean delete(Long id) throws ServiceException {
         return userBetDao.delete(id);
     }
 
     @Override
-    public boolean update(UserBet userBet) throws EntityDAOException {
+    public boolean update(UserBet userBet) throws ServiceException {
         return userBetDao.update(userBet);
     }
 

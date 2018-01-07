@@ -1,6 +1,5 @@
 package com.petrushin.epam.auction.model.dao.impl;
 
-import com.petrushin.epam.auction.exceptions.CreatorException;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.model.creator.Creator;
 import com.petrushin.epam.auction.model.dao.AbstractDao;
@@ -45,7 +44,7 @@ public class UserCardDaoImpl extends AbstractDao<UserCard> {
     }
 
     public void prepareStatementForUpdate(UserCard card, PreparedStatement statement)
-            throws CreatorException {
+            throws EntityDAOException {
         try {
             User user = card.getUser();
             Long userId = user.getId();
@@ -60,14 +59,14 @@ public class UserCardDaoImpl extends AbstractDao<UserCard> {
             Long cardId = card.getId();
             statement.setLong(4, cardId);
         } catch (SQLException e) {
-            throw new CreatorException(
+            throw new EntityDAOException(
                     "Error with init userCard statement " + e.getMessage(), e);
         }
     }
 
     @Override
     protected void prepareStatementForInsert(UserCard userCard, PreparedStatement statement)
-            throws CreatorException {
+            throws EntityDAOException {
         prepareStatementForUpdate(userCard, statement);
     }
 
