@@ -16,6 +16,7 @@ public class MD5EncodingService {
     private static final int HEX_MAX = 0xff;
     private static final char ZERO_CHAR = '0';
 
+
     public static String encode(String password) {
 
         if (password == null) {
@@ -40,6 +41,4 @@ public class MD5EncodingService {
         }
         return hexString.toString();
     }
-
-
 }

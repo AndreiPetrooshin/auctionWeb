@@ -25,13 +25,18 @@ public class PayCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-
-        String idValue = request.getParameter(PARAM_WIN_ID);
-        Long id = Long.valueOf(idValue);
         try {
+            String idValue = request.getParameter(PARAM_WIN_ID);
+            Long id = null;
+            if (idValue != null && !idValue.isEmpty()) {
+                id = Long.valueOf(idValue);
+            }
+
             Payment payment = paymentService.findById(id);
-            payment.setPaid(true);
-            paymentService.update(payment);
+            if (payment != null) {
+                payment.setPaid(true);
+                paymentService.update(payment);
+            }
         } catch (ServiceException e) {
             LOGGER.error("Payment error", e);
             request.setAttribute(ATTR_ERROR, true);

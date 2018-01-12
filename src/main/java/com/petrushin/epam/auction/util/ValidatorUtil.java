@@ -11,14 +11,14 @@ import java.util.regex.Pattern;
 public final class ValidatorUtil {
 
     public static boolean validateEmail(String email) {
-        return Pattern.matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$", email);
+        return Pattern.matches("^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$", email);
     }
 
     public static boolean validateLogin(String login) {
-        return login != null && Pattern.matches("[a-zA-Z][a-zA-Z0-9]{5,30}", login);
+        return login != null && Pattern.matches("^[a-zA-Z]{1}[a-zA-Z0-9_]{3,}", login);
     }
 
     public static boolean validatePassword(String password) {
-        return password != null && Pattern.matches("[a-zA-Z0-9]{5,30}", password);
+        return password != null && Pattern.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*]{6,}", password);
     }
 }

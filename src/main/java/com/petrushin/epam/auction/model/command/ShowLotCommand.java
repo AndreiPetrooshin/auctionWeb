@@ -44,9 +44,11 @@ public class ShowLotCommand implements Command {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String param = request.getParameter(PARAM_ID);
-        Long id = Long.valueOf(param);
-        setLotInfo(request, id);
+        String idValue = request.getParameter(PARAM_ID);
+        if(idValue!=null && !idValue.isEmpty()){
+            Long id = Long.valueOf(idValue);
+            setLotInfo(request, id);
+        }
         return Pages.LOT_PAGE;
     }
 
