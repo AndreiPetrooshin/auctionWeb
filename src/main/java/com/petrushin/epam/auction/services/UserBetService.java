@@ -1,10 +1,10 @@
 package com.petrushin.epam.auction.services;
 
-import com.petrushin.epam.auction.exceptions.ServiceException;
-import com.petrushin.epam.auction.model.dao.impl.UserBetDaoImpl;
-import com.petrushin.epam.auction.model.domain.FlowerLot;
-import com.petrushin.epam.auction.model.domain.User;
-import com.petrushin.epam.auction.model.domain.UserBet;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.services.dao.impl.UserBetDao;
+import com.petrushin.epam.auction.services.domain.FlowerLot;
+import com.petrushin.epam.auction.services.domain.User;
+import com.petrushin.epam.auction.services.domain.UserBet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,41 +20,17 @@ import java.util.Objects;
 public class UserBetService implements Service<UserBet> {
 
     private static final int BIGGEST_BET = 0;
-    private UserBetDaoImpl userBetDao;
+    private UserBetDao userBetDao;
 
-    public UserBetService(UserBetDaoImpl userBetDao) {
+    public UserBetService(UserBetDao userBetDao) {
         this.userBetDao = userBetDao;
     }
 
-    public List<UserBet> getByLotId(Long id) throws ServiceException {
-        List<UserBet> list = getAll();
-        List<UserBet> result = new ArrayList<>();
-        for (UserBet userBet : list) {
-            FlowerLot lot = userBet.getLot();
-            Long userId = lot.getId();
-            if (Objects.equals(id, userId)) {
-                result.add(userBet);
-            }
-        }
-        sortByBet(result);
-        return result;
+    public List<UserBet> getByLotId(Long id) throws EntityDAOException {
+        return userBetDao.getByLotId(id);
     }
 
-    public List<UserBet> getByUserId(Long id) throws ServiceException {
-        List<UserBet> list = getAll();
-        List<UserBet> result = new ArrayList<>();
-        for (UserBet userBet : list) {
-            User user = userBet.getUser();
-            Long userId = user.getId();
-            if (Objects.equals(id, userId)) {
-                result.add(userBet);
-            }
-        }
-        sortByBet(result);
-        return result;
-    }
-
-    public UserBet getLastBetToLot(Long lotId) throws ServiceException {
+    public UserBet getLastBetToLot(Long lotId) throws EntityDAOException {
         List<UserBet> bets = getByLotId(lotId);
         sortByBet(bets);
         UserBet userBet = null;
@@ -65,27 +41,27 @@ public class UserBetService implements Service<UserBet> {
     }
 
     @Override
-    public UserBet findById(Long id) throws ServiceException {
+    public UserBet findById(Long id) throws EntityDAOException {
         return userBetDao.findById(id);
     }
 
     @Override
-    public List<UserBet> getAll() throws ServiceException {
+    public List<UserBet> getAll() throws EntityDAOException {
         return userBetDao.getAll();
     }
 
     @Override
-    public boolean save(UserBet userBet) throws ServiceException {
+    public boolean save(UserBet userBet) throws EntityDAOException {
         return userBetDao.save(userBet);
     }
 
     @Override
-    public boolean delete(Long id) throws ServiceException {
+    public boolean delete(Long id) throws EntityDAOException {
         return userBetDao.delete(id);
     }
 
     @Override
-    public boolean update(UserBet userBet) throws ServiceException {
+    public boolean update(UserBet userBet) throws EntityDAOException {
         return userBetDao.update(userBet);
     }
 

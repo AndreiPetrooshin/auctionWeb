@@ -46,6 +46,9 @@
                         <c:when test="${language == 'ru'}">
                             RUS
                         </c:when>
+                        <c:when test="${language == 'ru_RU'}">
+                            RUS
+                        </c:when>
                         <c:when test="${language == 'en'}">
                             ENG
                         </c:when>

@@ -1,11 +1,11 @@
 package com.petrushin.epam.auction.controller;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.model.command.Command;
-import com.petrushin.epam.auction.model.factory.CommandFactory;
-import com.petrushin.epam.auction.model.factory.CreatorFactory;
-import com.petrushin.epam.auction.model.factory.DaoFactory;
-import com.petrushin.epam.auction.model.factory.ServiceFactory;
+import com.petrushin.epam.auction.services.command.Command;
+import com.petrushin.epam.auction.services.factory.CommandFactory;
+import com.petrushin.epam.auction.services.factory.CreatorFactory;
+import com.petrushin.epam.auction.services.factory.DaoFactory;
+import com.petrushin.epam.auction.services.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

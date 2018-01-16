@@ -1,9 +1,9 @@
 package com.petrushin.epam.auction.services;
 
-import com.petrushin.epam.auction.exceptions.ServiceException;
-import com.petrushin.epam.auction.model.dao.impl.PaymentDaoImpl;
-import com.petrushin.epam.auction.model.domain.Payment;
-import com.petrushin.epam.auction.model.domain.User;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
+import com.petrushin.epam.auction.services.dao.impl.PaymentDao;
+import com.petrushin.epam.auction.services.domain.Payment;
+import com.petrushin.epam.auction.services.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,47 +18,38 @@ import java.util.Objects;
  */
 public class PaymentService implements Service<Payment> {
 
-    private PaymentDaoImpl paymentDao;
+    private PaymentDao paymentDao;
 
-    public PaymentService(PaymentDaoImpl paymentDao) {
+    public PaymentService(PaymentDao paymentDao) {
         this.paymentDao = paymentDao;
     }
 
     @Override
-    public Payment findById(Long id) throws ServiceException {
+    public Payment findById(Long id) throws EntityDAOException {
         return paymentDao.findById(id);
     }
 
-    public List<Payment> getByUserId(Long id) throws ServiceException {
-        List<Payment> payments = getAll();
-        List<Payment> result = new ArrayList<>();
-        for (Payment payment : payments) {
-            User user = payment.getUser();
-            Long userId = user.getId();
-            if (Objects.equals(userId, id)) {
-                result.add(payment);
-            }
-        }
-        return result;
+    public List<Payment> getByUserId(Long id) throws EntityDAOException {
+        return paymentDao.getByUserId(id);
     }
 
     @Override
-    public List<Payment> getAll() throws ServiceException {
+    public List<Payment> getAll() throws EntityDAOException {
         return paymentDao.getAll();
     }
 
     @Override
-    public boolean save(Payment payment) throws ServiceException {
+    public boolean save(Payment payment) throws EntityDAOException {
         return paymentDao.save(payment);
     }
 
     @Override
-    public boolean delete(Long id) throws ServiceException {
+    public boolean delete(Long id) throws EntityDAOException {
         return paymentDao.delete(id);
     }
 
     @Override
-    public boolean update(Payment payment) throws ServiceException {
+    public boolean update(Payment payment) throws EntityDAOException {
         return paymentDao.update(payment);
     }
 }
