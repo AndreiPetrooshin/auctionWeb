@@ -15,9 +15,11 @@
 <%@include file="fragments/header.jspf" %>
 <div class="col-1"></div>
 <div class="col-8">
+    <c:if test="${requestScope.errorAdmin}" >
+        <h1 class="error"><fmt:message key="error" bundle="${lang}"/> </h1>
+    </c:if>
     <c:forEach items="${requestScope.lots}" var="lot">
         <section class="row">
-
             <section class="row admin-lots">
                 <a href="${pageContext.request.contextPath}/controller?command=showLot&id=${lot.id}">
                     <div class="col-2">${lot.type}</div>

@@ -1,13 +1,10 @@
 package com.petrushin.epam.auction.services;
 
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.services.dao.impl.PaymentDao;
-import com.petrushin.epam.auction.services.domain.Payment;
-import com.petrushin.epam.auction.services.domain.User;
+import com.petrushin.epam.auction.dao.impl.PaymentDao;
+import com.petrushin.epam.auction.domain.Payment;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Service class which do the main business logic
@@ -31,6 +28,10 @@ public class PaymentService implements Service<Payment> {
 
     public List<Payment> getByUserId(Long id) throws EntityDAOException {
         return paymentDao.getByUserId(id);
+    }
+
+    public Payment getByLotId(Long id) throws EntityDAOException {
+        return paymentDao.getByLotId(id);
     }
 
     @Override

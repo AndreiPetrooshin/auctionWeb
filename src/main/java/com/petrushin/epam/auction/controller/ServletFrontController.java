@@ -1,11 +1,11 @@
 package com.petrushin.epam.auction.controller;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.services.command.Command;
-import com.petrushin.epam.auction.services.factory.CommandFactory;
-import com.petrushin.epam.auction.services.factory.CreatorFactory;
-import com.petrushin.epam.auction.services.factory.DaoFactory;
-import com.petrushin.epam.auction.services.factory.ServiceFactory;
+import com.petrushin.epam.auction.controller.command.Command;
+import com.petrushin.epam.auction.factory.CommandFactory;
+import com.petrushin.epam.auction.factory.CreatorFactory;
+import com.petrushin.epam.auction.factory.DaoFactory;
+import com.petrushin.epam.auction.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,10 +18,8 @@ import java.io.IOException;
 
 public class ServletFrontController extends HttpServlet {
 
-    private static final String COMMAND = "command";
-    private static final String ATTR_REDIRECT = "redirect";
 
-    private static final Logger LOGGER = LogManager.getLogger(ServletFrontController.class);
+    private static final String COMMAND = "command";
 
     /**
      * Injection of all needed dependencies to {@link CommandFactory}
@@ -34,58 +32,36 @@ public class ServletFrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        processCommand(req, resp);
+        String page = processCommand(req, resp);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(page);
+        requestDispatcher.forward(req, resp);
     }
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        processCommand(req, resp);
+        String page = processCommand(req, resp);
+        resp.sendRedirect(page);
     }
 
     /**
      * This method process command from url request (Example: localhost/command=????)
      * by extracting the required command {@link Command} from the factory by command name
      */
-    private void processCommand(HttpServletRequest req, HttpServletResponse resp)
+    private String processCommand(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException {
-
         String command = req.getParameter(COMMAND);
         if (command == null || !command.isEmpty()) {
             Command service = commandFactory.getCommand(command);
             if (service != null) {
                 String page = service.execute(req, resp);
                 if (page != null) {
-                    forwardToPage(req, resp, page);
-                } else {
-                    forwardToPage(req, resp, Pages.HOME_PAGE);
+                    return page;
                 }
             }
         }
+        return Pages.HOME_PAGE;
     }
 
-    /**
-     * Forwarding to current page
-     */
-    private void forwardToPage(HttpServletRequest req, HttpServletResponse resp, String page) {
-        RequestDispatcher dispatcher;
-        dispatcher = req.getRequestDispatcher(page);
-        boolean isRedirect = (boolean) req.getAttribute(ATTR_REDIRECT);
-        try {
-            if (isRedirect) {
-                resp.sendRedirect(page);
-            } else {
-                dispatcher.forward(req, resp);
-            }
-        } catch (ServletException | IOException e) {
-            LOGGER.error("Error with forward page to:" + page, e);
-            dispatcher = req.getRequestDispatcher(Pages.ERROR_PAGE);
-            try {
-                dispatcher.forward(req, resp);
-            } catch (ServletException | IOException e1) {
-                LOGGER.error("Error with forwarding", e);
-            }
-        }
-    }
 }

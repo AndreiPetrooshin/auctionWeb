@@ -1,14 +1,10 @@
 package com.petrushin.epam.auction.services;
 
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.services.dao.impl.UserBetDao;
-import com.petrushin.epam.auction.services.domain.FlowerLot;
-import com.petrushin.epam.auction.services.domain.User;
-import com.petrushin.epam.auction.services.domain.UserBet;
+import com.petrushin.epam.auction.dao.impl.UserBetDao;
+import com.petrushin.epam.auction.domain.UserBet;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Service class which do the main business logic

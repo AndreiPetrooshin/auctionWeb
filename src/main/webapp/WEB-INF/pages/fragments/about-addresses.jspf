@@ -3,6 +3,9 @@
 
 
 <c:if test="${requestScope.address != null}">
+    <c:if test="${sessionScope.delete_address_error}">
+        <h1 class="error"><fmt:message key="error.delete.address" bundle="${lang}"/> </h1>
+    </c:if>
     <div class="col-4">
     <section class="row profile-addresses">
         <div class="row">${requestScope.address.firstName}</div>

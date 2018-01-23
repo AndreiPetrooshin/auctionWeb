@@ -24,6 +24,9 @@
         <li><a href="${pageContext.request.contextPath}/controller?command=profile&about=address">
             <fmt:message key="profile.about.addresses" bundle="${lang}"/>
         </a></li>
+        <li><a href="${pageContext.request.contextPath}/controller?command=profile&about=cards">
+            <fmt:message key="profile.about.payments" bundle="${lang}"/>
+        </a></li>
         <li><a href="${pageContext.request.contextPath}/controller?command=profile&about=winnings">
             <fmt:message key="profile.about.winnings" bundle="${lang}"/>
         </a></li>
@@ -231,12 +234,12 @@
                     <div class="col-4">Your bet is: ${win.price}</div>
                     <c:if test="${win.paid == true}">
                         <div class="col-2" >
-                            <p>Оплачено</p>
+                            <p><fmt:message key="form.button.paid" bundle="${lang}" /></p>
                         </div>
                     </c:if>
                     <c:if test="${win.paid != true}">
                         <div class="col-2" onclick=openForm("pay_lot${win.id}")>
-                            <input type="button" class="button" value="Оплатить"/>
+                            <input type="button" class="button" value="<fmt:message key="form.button.pay" bundle="${lang}" />"/>
                         </div>
                     </c:if>
                     <div id="pay_lot${win.id}" class="dialog container">
@@ -244,7 +247,7 @@
                         <form method="post" action="${pageContext.request.contextPath}/controller?command=pay">
                             <div class="row">
                                 <div class="col-25">
-                                    <label for="select-card">Выберите карточку:</label>
+                                    <label for="select-card"><fmt:message key="form.choose.payment" bundle="${lang}"/>:</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="hidden" name="winId" value="${win.id}">
@@ -258,7 +261,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label for="lot-price">Цена за лот</label>
+                                    <label for="lot-price"><fmt:message key="form.price.for.lot" bundle="${lang}"/>:</label>
                                 </div>
                                 <div class="col-75">
                                     <input id="lot-price" type="number" name="price" value="${win.price}" disabled>

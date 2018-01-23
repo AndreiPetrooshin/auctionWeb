@@ -1,21 +1,37 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:if test="${sessionScope.delete_lot_error}">
+    <h1 class="error"><fmt:message key="error.delete.lot" bundle="${lang}"/></h1>
+</c:if>
 
 <c:forEach items="${requestScope.lots}" var="lot">
     <section class="row">
         <a href="${pageContext.request.contextPath}/controller?command=showLot&id=${lot.id}">
             <section class="row profile-lot">
-                <div class="col-3">${lot.type}</div>
-                <div class="col-3">${lot.name}</div>
-                <div class="col-3"><fmt:message key="form.lot.start.price" bundle="${lang}" />: ${lot.startPrice}</div>
+                <div class="col-2">${lot.type}</div>
+                <div class="col-2">${lot.name}</div>
+                <div class="col-3"><fmt:message key="form.lot.start.price" bundle="${lang}"/>: ${lot.startPrice}</div>
                 <div class="col-2">${lot.state}</div>
                 <div class="col-1">
-                    <form action="${pageContext.request.contextPath}/controller?command=delete&element=lot" method="post">
+                    <form action="${pageContext.request.contextPath}/controller?command=delete&element=lot"
+                          method="post">
                         <input type="text" hidden name="id" value="${lot.id}" title="hidden">
                         <input type="submit" class="delete-button" value="X">
                     </form>
                 </div>
+                <c:forEach items="${requestScope.payments}" var="payment">
+                    <c:if test="${payment.lot.id == lot.id && payment.paid}">
+                        <a href="${pageContext.request.contextPath}/controller?command=winnerAddress&userId=${payment.user.id}">
+                            <input type="button" style="margin-top: 15px"
+                                   value='<fmt:message key="form.button.send" bundle="${lang}"/>'/>
+                        </a>
+                    </c:if>
+                    <c:if test="${payment.lot.id == lot.id && !payment.paid}">
+                        <input disabled type="button" style="margin-top: 15px; background-color: #8c8b8a"
+                               value='<fmt:message key="form.button.send" bundle="${lang}"/>'/>
+                    </c:if>
+                </c:forEach>
             </section>
         </a>
     </section>

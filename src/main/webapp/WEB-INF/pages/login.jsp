@@ -2,9 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="language" value="${not empty sessionScope.lang ? sessionScope.lang : not empty language ? language : pageContext.request.locale}" scope="session" />
-<fmt:setLocale value="${language}" scope="session" />
-<fmt:setBundle basename="locale.ui" var="lang" />
+<c:set var="language"
+       value="${not empty sessionScope.lang ? sessionScope.lang : not empty language ? language : pageContext.request.locale}"
+       scope="session"/>
+<fmt:setLocale value="${language}" scope="session"/>
+<fmt:setBundle basename="locale.ui" var="lang"/>
 <html>
 <head>
     <title>Title</title>
@@ -15,15 +17,17 @@
 <body>
 
 <c:if test="${sessionScope.user eq null}">
-    <c:if test="${requestScope.error != null}">
-        <span class="error">${requestScope.error}</span>
-        <hr>
-    </c:if>
+
     <div class="col-4"></div>
+
     <div id="login_form" class="login-form col-4 col-m-12">
-        <div class="col-12 col-m-12">
-            <h1 class="col-6"><fmt:message key="header.login" bundle="${lang}"/></h1>
-        </div>
+
+        <h1><fmt:message key="header.login" bundle="${lang}"/></h1>
+        <br>
+
+        <c:if test="${sessionScope.errorLogin}">
+                <label for="login_login" class="error"><fmt:message key="error.login" bundle="${lang}"/></label>
+        </c:if>
         <form action="${pageContext.request.contextPath}/controller?command=login" method="post">
             <label for="login_login"><fmt:message key="form.login" bundle="${lang}"/></label>
             <input id="login_login" type="text" name="login"

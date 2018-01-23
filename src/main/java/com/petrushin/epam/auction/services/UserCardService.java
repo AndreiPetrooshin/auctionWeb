@@ -1,10 +1,9 @@
 package com.petrushin.epam.auction.services;
 
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.services.dao.impl.UserCardDao;
-import com.petrushin.epam.auction.services.domain.UserCard;
+import com.petrushin.epam.auction.dao.impl.UserCardDao;
+import com.petrushin.epam.auction.domain.UserCard;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

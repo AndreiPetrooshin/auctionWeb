@@ -1,12 +1,10 @@
 package com.petrushin.epam.auction.services;
 
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.services.dao.impl.UserAddressDao;
-import com.petrushin.epam.auction.services.domain.User;
-import com.petrushin.epam.auction.services.domain.UserAddress;
+import com.petrushin.epam.auction.dao.impl.UserAddressDao;
+import com.petrushin.epam.auction.domain.UserAddress;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Service class which do the main business logic

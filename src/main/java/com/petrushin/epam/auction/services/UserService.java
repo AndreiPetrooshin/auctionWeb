@@ -1,8 +1,8 @@
 package com.petrushin.epam.auction.services;
 
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.services.dao.impl.UserDao;
-import com.petrushin.epam.auction.services.domain.User;
+import com.petrushin.epam.auction.dao.impl.UserDao;
+import com.petrushin.epam.auction.domain.User;
 
 import java.util.List;
 

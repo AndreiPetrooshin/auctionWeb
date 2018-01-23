@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/normalize.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-    <script src="${pageContext.request.contextPath}/assets/script/script.js"></script>
     <title>LOT</title>
 </head>
 
@@ -18,7 +17,8 @@
 <main class="col-6 col-m-9 row">
     <c:if test="${sessionScope.user.id == requestScope.lot.user.id}">
         <div id="fade" class="black-overlay"></div>
-        <input type="button" value='<fmt:message key="form.button.redact" bundle="${lang}"/>' onclick="openForm('redact-lot') ">
+        <input type="button" value='<fmt:message key="form.button.redact" bundle="${lang}"/>'
+               onclick="openForm('redact-lot') ">
         <section id="redact-lot" class="dialog container clearfix">
             <form method="post"
                   action="${pageContext.request.contextPath}/controller?command=updateLot">
@@ -73,7 +73,8 @@
                     </div>
                 </div>
                 <div class="row col-6">
-                    <input type="button" value='<fmt:message key="form.button.close" bundle="${lang}"/>' onclick=closeForm("redact-lot")>
+                    <input type="button" value='<fmt:message key="form.button.close" bundle="${lang}"/>'
+                           onclick=closeForm("redact-lot")>
                 </div>
                 <div class="row col-6">
                     <input type="submit" value='<fmt:message key="form.button.save" bundle="${lang}"/>'>
@@ -88,22 +89,22 @@
         <p>${requestScope.lot.description}</p>
     </section>
     <section class="lot-price col-12 col-m-12">
-        <p> <fmt:message key="form.lot.start.price" bundle="${lang}"/>: ${requestScope .lot.startPrice}</p>
+        <p><fmt:message key="form.lot.start.price" bundle="${lang}"/>: ${requestScope .lot.startPrice}</p>
     </section>
     <section class="lot-price col-12 col-m-12">
         <form action="${pageContext.request.contextPath}/controller?command=makeBet&lotId=${requestScope.lot.id}"
               method="post">
             <c:if test="${requestScope.lot.user.id != sessionScope.user.id}">
-            <section class="bet-from col-9 col-m-9">
-                <label>
-                    <input type="number" step="0.01" name="bet" title="Введите вашу ставку">
-                </label>
-            </section>
-            <section class="col-3 col-m-3">
-                <label>
-                    <input class="button" type="submit">
-                </label>
-            </section>
+                <c:if test="${sessionScope.errorBet}">
+                    <span class="error"><fmt:message key="error.bet" bundle="${lang}"/></span>
+                </c:if>
+                <section class="bet-from col-12 col-m-9">
+                    <label style="color:black" for="make-bet"><fmt:message key="form.bet.title" bundle="${lang}"/></label>
+                    <input id="make-bet" type="number" step="0.01" name="bet" title="Введите вашу ставку">
+                </section>
+                <section class="col-3 col-m-3">
+                    <input class="button" type="submit" value="<fmt:message key="make.bet" bundle="${lang}"/>">
+                </section>
             </c:if>
         </form>
     </section>

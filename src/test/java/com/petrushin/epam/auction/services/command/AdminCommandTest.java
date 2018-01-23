@@ -1,6 +1,7 @@
 package com.petrushin.epam.auction.services.command;
 
 import com.petrushin.epam.auction.constants.Pages;
+import com.petrushin.epam.auction.controller.command.AdminCommand;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.services.FlowerLotService;
 import org.junit.Test;

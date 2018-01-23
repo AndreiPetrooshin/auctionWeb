@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/tags/customTag.tld" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -15,21 +17,7 @@
 
 <div id="fade" class="black-overlay"></div>
 <main class="col-6 col-m-9">
-    <c:forEach items="${requestScope.lotList}" var="lot">
-        <a href="${pageContext.request.contextPath}/controller?command=showLot&id=${lot.id}">
-            <section class="lot row main-lots">
-                <div class="col-2">
-                        ${lot.name}
-                </div>
-                <div class="col-8">
-                        ${lot.description}
-                </div>
-                <div class="col-2">
-                    <fmt:message key="lots.price" bundle="${lang}"/>: ${lot.startPrice}
-                </div>
-            </section>
-        </a>
-    </c:forEach>
+    <ct:showLotList lotList="${requestScope.lotList}"/>
 </main>
 
 <%@include file="fragments/banner.jspf" %>

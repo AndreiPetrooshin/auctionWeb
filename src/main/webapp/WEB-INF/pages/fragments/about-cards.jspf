@@ -1,29 +1,46 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${sessionScope.delete_card_error}">
+    <h1 class="error"><fmt:message key="error.delete.card" bundle="${lang}"/></h1>
+</c:if>
+
 <c:forEach items="${requestScope.cards}" var="card">
-    <section class="row profile-cards">
-        <div class="col-2 col-">${card.id}</div>
-        <div class="col-2">${card.cardName}</div>
-        <div class="col-3">${card.cardNumber}</div>
+    <section class="row col-10 col-m-12 profile-cards">
+        <div class="col-2 col-m-12">${card.id}</div>
+        <div class="col-2  col-m-12">${card.cardName}</div>
+        <div class="col-3  col-m-12">${card.cardNumber}</div>
         <div class="col-3 col-m-12 " onclick=openForm("card_id")>&#9998;</div>
-        <div id="card_id" class="dialog">
-            <h1><fmt:message key="form.card.redact" bundle="${lang}" /></h1>
+        <div id="card_id" class="dialog container clearfix">
+            <h1><fmt:message key="form.card.redact" bundle="${lang}"/></h1>
             <form method="post" action="">
-                <label>
-                    <span>Название карточки</span>
-                    <input type="text" name="cardName">
-                    <br>
-                </label>
-                <label>
-                    <span>Номер карточки</span>
-                    <input type="number" name="cardNumber">
-                    <br>
-                </label>
-                <input type="button" value="<fmt:message key="form.button.close" bundle="${lang}" />" class="close-btn" onclick=closeForm("card_id")>
-                <input type="submit" name="send" value="<fmt:message key="form.button.save" bundle="${lang}" />" class="send-message">
+                <div class="row" >
+                  <div class="col-25">
+                      <label for="card-name">Название карточки</label>
+                  </div>
+                    <div class="col-75">
+                        <input id="card-name" type="text" name="cardName">
+                    </div>
+                </div>
+               <div class="row">
+                   <div class="col-25">
+                       <label for="card-number">Номер карточки</label>
+                   </div>
+                   <div class="col-75">
+                       <input id="card-number" type="number" name="cardNumber">
+                   </div>
+               </div>
+                <div class="row col-6">
+                    <input type="button" value="<fmt:message key="form.button.close" bundle="${lang}" />"
+                           class="close-btn" onclick=closeForm("card_id")>
+                </div>
+                <div class="row col-6">
+                    <input type="submit" name="send" value="<fmt:message key="form.button.save" bundle="${lang}" />"
+                           class="send-message">
+                </div>
             </form>
         </div>
-        <div class="col-2 col-m-2">
+        <div class="col-2 col-m-12">
             <form action="${pageContext.request.contextPath}/controller?command=delete&element=card" method="post">
                 <input type="text" hidden name="id" value="${card.id}" title="hidden">
                 <input type="submit" class="delete-button" value="X">

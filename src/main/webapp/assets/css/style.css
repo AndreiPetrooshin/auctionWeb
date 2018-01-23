@@ -99,8 +99,8 @@ a {
     background-color: #0099cc;
 }
 
-span .error {
-    color: rgba(255, 10, 16, 0.91);
+.error {
+    color: rgba(255, 10, 16, 0.91) !important;
 }
 
 .right {
@@ -433,7 +433,7 @@ form .delete-button {
     float: right;
 }
 
-.profile-lot, .profile-addresses, .profile-cards .profile-winnings {
+.profile-lot, .profile-addresses, .profile-cards, .profile-winnings {
     padding: 0px;
     margin-bottom: 7px;
     background-color: #1ad0d0;

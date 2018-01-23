@@ -14,8 +14,8 @@
 
     <ul class="menu head">
         <li class="col-1 hide"></li>
-        <li class="col-5 col-m-12 menu"><a
-                href="${pageContext.request.contextPath}controller?command=showLots"><fmt:message key="header.main" bundle="${lang}"/></a>
+        <li class="col-5 col-m-12 menu">
+            <a href="${pageContext.request.contextPath}/controller?command=showLots"><fmt:message key="header.main" bundle="${lang}"/></a>
         </li>
         <c:choose>
             <c:when test="${sessionScope.user != null}">
@@ -29,16 +29,6 @@
                         key="header.registration" bundle="${lang}"/></a></li>
             </c:otherwise>
         </c:choose>
-        <c:if test="${sessionScope.user != null}">
-            <li class="col-1 col-m-12 right menu"><a
-                    href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message key="header.logout"
-                                                                                                     bundle="${lang}"/></a>
-            </li>
-        </c:if>
-        <c:if test="${sessionScope.user.role.role eq 'admin'}">
-            <li class="col-1 col-m-12 right menu"><a
-                    href="${pageContext.request.contextPath}/controller?command=admin">Admin</a></li>
-        </c:if>
         <li class="col-1 col-m-12 right menu">
             <div class="dropdown">
                 <div class="dropbtn">
@@ -67,6 +57,17 @@
                 </div>
             </div>
         </li>
+        <c:if test="${sessionScope.user != null}">
+            <li class="col-1 col-m-12 right menu"><a
+                    href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message key="header.logout"
+                                                                                                     bundle="${lang}"/></a>
+            </li>
+        </c:if>
+        <c:if test="${sessionScope.user.role.role eq 'admin'}">
+            <li class="col-1 col-m-12 right menu"><a
+                    href="${pageContext.request.contextPath}/controller?command=admin">Admin</a></li>
+        </c:if>
+
     </ul>
 </header>
 

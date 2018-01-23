@@ -1,8 +1,9 @@
 package com.petrushin.epam.auction.services.command;
 
 import com.petrushin.epam.auction.constants.Pages;
+import com.petrushin.epam.auction.controller.command.PayCommand;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.services.domain.Payment;
+import com.petrushin.epam.auction.domain.Payment;
 import com.petrushin.epam.auction.services.PaymentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -126,8 +126,8 @@
     </column>
     <column id="37" parent="16" name="fl_state">
       <Position>7</Position>
-      <Comment>Састояние лота, которое устанавливает администратор, первоначальное состояние всегда new! </Comment>
-      <DataType>enum(&apos;new&apos;, &apos;trading&apos;, &apos;rejected&apos;, &apos;sold&apos;)|0</DataType>
+      <Comment>Састояние лота, которое устанавливает администратор, первоначальное состояние всегда new!</Comment>
+      <DataType>enum(&apos;new&apos;, &apos;trading&apos;, &apos;rejected&apos;, &apos;sold&apos;, &apos;shipped&apos;)|0</DataType>
       <DefaultExpression>&apos;new&apos;</DefaultExpression>
     </column>
     <index id="38" parent="16" name="fk_flower_lot_user1_idx">

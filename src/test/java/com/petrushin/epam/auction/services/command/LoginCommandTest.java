@@ -1,6 +1,7 @@
 package com.petrushin.epam.auction.services.command;
 
 import com.petrushin.epam.auction.constants.Pages;
+import com.petrushin.epam.auction.controller.command.LoginCommand;
 import com.petrushin.epam.auction.services.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -16,7 +16,7 @@
         <div class="hello">
             <c:if test="${sessionScope.user eq null}">
                 <a class="start-button" type="button" href="${pageContext.request.contextPath}/login"><fmt:message key="start.login" bundle="${lang}"/></a>
-                <a href="/registration"> <p><fmt:message key="header.registration" bundle="${lang}"/></p></a>
+                <a href="${pageContext.request.contextPath}/registration"> <p><fmt:message key="header.registration" bundle="${lang}"/></p></a>
             </c:if>
             <c:if test="${sessionScope.user != null}">
                 <a class="start-button" type="button"  href="${pageContext.request.contextPath}/home"><fmt:message key="start.enter" bundle="${lang}"/></a>
