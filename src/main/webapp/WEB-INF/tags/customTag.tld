@@ -7,7 +7,7 @@
     <uri>/WEB-INF/tags/customTag.tld</uri>
     <tag>
         <name>showLotList</name>
-        <tag-class>com.petrushin.epam.auction.tag.ShowListTag</tag-class>
+        <tag-class>com.petrushin.epam.auction.web.tag.ShowListTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>lotList</name>

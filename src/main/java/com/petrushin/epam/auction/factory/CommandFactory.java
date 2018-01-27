@@ -1,6 +1,7 @@
 package com.petrushin.epam.auction.factory;
 
-import com.petrushin.epam.auction.controller.command.*;
+import com.petrushin.epam.auction.command.*;
+import com.petrushin.epam.auction.command.*;
 import com.petrushin.epam.auction.services.*;
 import java.util.HashMap;
 import java.util.Map;
