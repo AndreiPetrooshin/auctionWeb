@@ -34,4 +34,14 @@ public class AdminAuthenticationFilter implements Filter {
             response.sendRedirect(Pages.START_PAGE);
         }
     }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
 }

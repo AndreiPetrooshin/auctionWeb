@@ -27,4 +27,14 @@ public class UserAuthenticationFilter implements Filter {
             filterChain.doFilter(request, response);
         }
     }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
 }
