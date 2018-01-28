@@ -3,27 +3,27 @@
 <nav class="col-3 col-m-3 menu">
     <ul>
         <li>
-            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=луговые">
+            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=meadow">
                 <fmt:message key="nav.flowers.meadow" bundle="${lang}" />
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=комнатные">
+            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=indoor">
                 <fmt:message key="nav.flowers.indoor" bundle="${lang}" />
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=лесные">
+            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=forest">
                 <fmt:message key="nav.flowers.forest" bundle="${lang}" />
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=садовые">
+            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=garden">
                 <fmt:message key="nav.flowers.garden" bundle="${lang}" />
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=кактусы">
+            <a href="${pageContext.request.contextPath}/controller?command=showLots&type=cactus">
                 <fmt:message key="nav.flowers.cactus" bundle="${lang}" />
             </a>
         </li>

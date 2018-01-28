@@ -29,11 +29,11 @@
                     </div>
                     <div class="col-75">
                         <select id="ltype" name="type">
-                            <option><fmt:message key="form.lot.meadow" bundle="${lang}"/></option>
-                            <option><fmt:message key="form.lot.indoor" bundle="${lang}"/></option>
-                            <option><fmt:message key="form.lot.forest" bundle="${lang}"/></option>
-                            <option><fmt:message key="form.lot.garden" bundle="${lang}"/></option>
-                            <option><fmt:message key="form.lot.cactus" bundle="${lang}"/></option>
+                            <option value="meadow"><fmt:message key="form.lot.meadow" bundle="${lang}"/></option>
+                            <option value="indoor"><fmt:message key="form.lot.indoor" bundle="${lang}"/></option>
+                            <option value="forest"><fmt:message key="form.lot.forest" bundle="${lang}"/></option>
+                            <option value="garden"><fmt:message key="form.lot.garden" bundle="${lang}"/></option>
+                            <option value="cactus"><fmt:message key="form.lot.cactus" bundle="${lang}"/></option>
                         </select>
                     </div>
                 </div>

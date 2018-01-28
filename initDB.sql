@@ -103,35 +103,35 @@ VALUES (10, 10, 'Виктония', 'Владимировна', 'Клюева', 
 
 -- flower lots initialization
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (1, 2, 'луговые', 'Ирис', 'Отдаю в хорошие руки', 20.15, 'new');
+VALUES (1, 2, 'meadow', 'Ирис', 'Отдаю в хорошие руки', 20.15, 'new');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (2, 2, 'луговые', 'Алтей', 'Отдаю в хорошие руки', 11.15, 'trading');
+VALUES (2, 2, 'meadow', 'Алтей', 'Отдаю в хорошие руки', 11.15, 'trading');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (3, 3, 'луговые', 'Горец Птичий', 'Отдаю в хорошие руки', 50000, 'rejected');
+VALUES (3, 3, 'meadow', 'Горец Птичий', 'Отдаю в хорошие руки', 50000, 'rejected');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (4, 3, 'луговые', 'Донник', 'Отдаю в хорошие руки', 5, 'sold');
+VALUES (4, 3, 'meadow', 'Донник', 'Отдаю в хорошие руки', 5, 'sold');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (5, 4, 'комнатные', 'Агава', 'Отдаю в хорошие руки', 16, 'new');
+VALUES (5, 4, 'indoor', 'Агава', 'Отдаю в хорошие руки', 16, 'new');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (6, 4, 'комнатные', 'Ардизия', 'Отдаю в хорошие руки', 200, 'trading');
+VALUES (6, 4, 'indoor', 'Ардизия', 'Отдаю в хорошие руки', 200, 'trading');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (7, 4, 'комнатные', 'Алоэ', 'Отдаю в хорошие руки', 25, 'trading');
+VALUES (7, 4, 'indoor', 'Алоэ', 'Отдаю в хорошие руки', 25, 'trading');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (8, 5, 'лесные', 'Вербейник', 'Отдаю в хорошие руки', 20.43, 'trading');
+VALUES (8, 5, 'indoor', 'Вербейник', 'Отдаю в хорошие руки', 20.43, 'trading');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (9, 5, 'лесные', 'Адонис', 'Отдаю в хорошие руки', 19.99, 'trading');
+VALUES (9, 5, 'indoor', 'Адонис', 'Отдаю в хорошие руки', 19.99, 'trading');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (10, 6, 'лесные', 'Голубика', 'Отдаю в хорошие руки', 18, 'trading');
+VALUES (10, 6, 'forest', 'Голубика', 'Отдаю в хорошие руки', 18, 'trading');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (11, 6, 'садовые', 'Аспаргус', 'Отдаю в хорошие руки', 20, 'sold');
+VALUES (11, 6, 'garden', 'Аспаргус', 'Отдаю в хорошие руки', 20, 'sold');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (12, 7, 'садовые', 'Астра', 'Отдаю в хорошие руки', 3, 'sold');
+VALUES (12, 7, 'garden', 'Астра', 'Отдаю в хорошие руки', 3, 'sold');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (13, 8, 'садовые', 'Космея', 'Отдаю в хорошие руки', 10002, 'rejected');
+VALUES (13, 8, 'garden', 'Космея', 'Отдаю в хорошие руки', 10002, 'rejected');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (14, 9, 'кактусы', 'Астрофитум', 'Отдаю в хорошие руки', 15, 'trading');
+VALUES (14, 9, 'какcactusтусы', 'Астрофитум', 'Отдаю в хорошие руки', 15, 'trading');
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (15, 10, 'кактусы', 'Эспотоя', 'Отдаю в хорошие руки', 14, 'trading');
+VALUES (15, 10, 'cactus', 'Эспотоя', 'Отдаю в хорошие руки', 14, 'trading');
 
 -- User bets !
 INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (1, 2, 2, 16);
