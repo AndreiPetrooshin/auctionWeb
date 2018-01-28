@@ -11,6 +11,7 @@
         <packaging>war</packaging>
 
         <build>
+            <finalName>ROOT</finalName>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -19,6 +20,10 @@
                         <source>1.8</source>
                         <target>1.8</target>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.0.0</version>
                 </plugin>
             </plugins>
         </build>

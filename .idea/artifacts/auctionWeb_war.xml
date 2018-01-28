@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="auctionWeb:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="auctionWeb-1.0-SNAPSHOT.war">
+    <root id="archive" name="ROOT.war">
       <element id="artifact" artifact-name="auctionWeb:war exploded" />
     </root>
   </artifact>

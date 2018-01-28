@@ -119,16 +119,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>alreadyLogin</servlet-name>
-        <jsp-file>/WEB-INF/pages/fragments/alreadyLogin.jsp</jsp-file>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>alreadyLogin</servlet-name>
-        <url-pattern>/alreadyLogin</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>profile</servlet-name>
         <jsp-file>/WEB-INF/pages/profile.jsp</jsp-file>
     </servlet>
