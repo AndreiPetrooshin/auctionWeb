@@ -33,12 +33,12 @@ VALUES (10, '2', 'Lida', MD5('Qwe123123'), 'lida@mail.ru');
 
 -- users cards initialization 
 INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number, card_name)
-VALUES (1, 1, 3412642797438642, 'Карточка для оплат');
+VALUES (1, 1, 3412642797438642, 'for payments');
 INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number, card_name)
-VALUES (2, 2, 5785645622344342, 'Моя карта');
+VALUES (2, 2, 5785645622344342, 'my card');
 INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number) VALUES (3, 2, 6575675643553453);
 INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number, card_name)
-VALUES (4, 3, 1323553434233223, 'Карта 1');
+VALUES (4, 3, 1323553434233223, 'new card');
 INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number) VALUES (5, 4, 5445674564243243);
 INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number, card_name)
 VALUES (6, 4, 1231231231256666, 'Master card');
@@ -68,70 +68,34 @@ INSERT INTO flowers_auction_bd.user_cards (card_id, user_id, card_number) VALUES
 INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
                                                       sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
 VALUES
-  (1, 1, 'Андрей', 'Владимирович', 'Петрушин', 'Belarus', 'Zhodino', 'Lenina 17\1 kv 39', 375295559297, '220015');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES (2, 2, 'Дмитрий', 'Иванович', 'Батура', 'Belarus', 'Minsk', 'Molodezhnaya d 20', 375298855451, '220015');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES (3, 3, 'Сеня', 'Викторович', 'Белякович', 'Russia', 'Moscow', 'Lenina 11 kv 2', 375296429296, '101000');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES
-  (4, 4, 'Степан', 'Сергеевич', 'Иванов', 'Russia', 'Dzerzhinsk', '50 let oktiabria d 20 kv 15', 375296684296, '102355');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES
-  (5, 5, 'Николай', 'Дмитрьевич', 'Саренков', 'Belarus', 'Zhodino', 'Solnechnaya 20 kv 10', 375296661236, '222160');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES
-  (6, 6, 'Станислва', 'Аркадьевна', 'Жмых', 'Belarus', 'Zhodino', 'per. Raduzhnii d 20', 375297419296, '222161');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES
-  (7, 7, 'Дмитрий', 'Иванович', 'Батура', 'Belarus', 'Smolevichi', 'Sovetskaia 20 kb 16', 375296674396, '222201');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES (8, 8, 'Зиноида', '', '', 'Belarus', 'Zhodino', 'Sovetsaia 11 kv 13', 375296123296, '222120');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES (9, 9, 'Ксения', 'Викторовна', 'Жук', 'Belarus', 'Minsk', 'Rocosovskogo d20 kv 5', 375297431296, '222120');
-INSERT INTO flowers_auction_bd.user_shipping_address (ship_addr_id, user_id, sa_first_name, sa_second_name, sa_last_name,
-                                                      sa_country, sa_city, sa_street, sa_phone, sa_postal_code)
-VALUES (10, 10, 'Виктония', 'Владимировна', 'Клюева', 'Belarus', 'Smolevich', '8 Марта д.12', 375296631696, '222201');
+  (1, 1, 'Andrei', 'Vladimirovich', 'Petruhin', 'Belarus', 'Zhodino', 'Lenina 17\1 kv 39', 375295559297, '220015'),
+  (2, 2, 'Dmitrii', 'Ivanovich', 'Batura', 'Belarus', 'Minsk', 'Molodezhnaya d 20', 375298855451, '220015'),
+  (3, 3, 'Senia', 'Viktorovich', 'Beliakovich', 'Russia', 'Moscow', 'Lenina 11 kv 2', 375296429296, '101000'),
+  (4, 4, 'Stepan', 'Sergeevich', 'Ivanod', 'Russia', 'Dzerzhinsk', '50 let oktiabria d 20 kv 15', 375296684296, '102355'),
+  (5, 5, 'Nikolai', 'Dmitrievich', 'Sarenkov', 'Belarus', 'Zhodino', 'Solnechnaya 20 kv 10', 375296661236, '222160'),
+  (6, 6, 'Stanislav', 'Arkadievna', 'Zhmih', 'Belarus', 'Zhodino', 'per. Raduzhnii d 20', 375297419296, '222161'),
+  (7, 7, 'Dmitrii', 'Ivanovich', 'Batura', 'Belarus', 'Smolevichi', 'Sovetskaia 20 kb 16', 375296674396, '222201'),
+  (8, 8, 'Zinoida', '', '', 'Belarus', 'Zhodino', 'Sovetsaia 11 kv 13', 375296123296, '222120'),
+  (9, 9, 'Ksenia', 'Victorovna', 'Zhuk', 'Belarus', 'Minsk', 'Rocosovskogo d20 kv 5', 375297431296, '222120'),
+  (10, 10, 'Victoria', 'Vladimirovna', 'Klyeva', 'Belarus', 'Smolevich', '8 marta d12', 375296631696, '222201');
 
 -- flower lots initialization
 INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (1, 2, 'meadow', 'Ирис', 'Отдаю в хорошие руки', 20.15, 'new');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (2, 2, 'meadow', 'Алтей', 'Отдаю в хорошие руки', 11.15, 'trading');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (3, 3, 'meadow', 'Горец Птичий', 'Отдаю в хорошие руки', 50000, 'rejected');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (4, 3, 'meadow', 'Донник', 'Отдаю в хорошие руки', 5, 'sold');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (5, 4, 'indoor', 'Агава', 'Отдаю в хорошие руки', 16, 'new');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (6, 4, 'indoor', 'Ардизия', 'Отдаю в хорошие руки', 200, 'trading');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (7, 4, 'indoor', 'Алоэ', 'Отдаю в хорошие руки', 25, 'trading');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (8, 5, 'indoor', 'Вербейник', 'Отдаю в хорошие руки', 20.43, 'trading');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (9, 5, 'indoor', 'Адонис', 'Отдаю в хорошие руки', 19.99, 'trading');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (10, 6, 'forest', 'Голубика', 'Отдаю в хорошие руки', 18, 'trading');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (11, 6, 'garden', 'Аспаргус', 'Отдаю в хорошие руки', 20, 'sold');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (12, 7, 'garden', 'Астра', 'Отдаю в хорошие руки', 3, 'sold');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (13, 8, 'garden', 'Космея', 'Отдаю в хорошие руки', 10002, 'rejected');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (14, 9, 'какcactusтусы', 'Астрофитум', 'Отдаю в хорошие руки', 15, 'trading');
-INSERT INTO flowers_auction_bd.flower_lot (fl_id, user_id, fl_type, fl_name, fl_description, fl_start_price, fl_state)
-VALUES (15, 10, 'cactus', 'Эспотоя', 'Отдаю в хорошие руки', 14, 'trading');
+VALUES (1, 2, 'meadow', 'Iris', 'I give in good hands', 20.15, 'new'),
+   (2, 2, 'meadow', 'Altei', 'I give in good hands', 11.15, 'trading'),
+   (3, 3, 'meadow', 'Gorec Ptichii', 'I give in good hands', 50000, 'rejected'),
+   (4, 3, 'meadow', 'Donnik', 'I give in good hands', 5, 'sold'),
+   (5, 4, 'indoor', 'Agava', 'I give in good hands', 16, 'new'),
+   (6, 4, 'indoor', 'Ardizia', 'I give in good hands', 200, 'trading'),
+   (7, 4, 'indoor', 'Aloe', 'I give in good hands', 25, 'trading'),
+   (8, 5, 'indoor', 'Verbeinik', 'I give in good hands', 20.43, 'trading'),
+   (9, 5, 'indoor', 'Adonis', 'I give in good hands', 19.99, 'trading'),
+   (10, 6, 'forest', 'Golubika', 'I give in good hands', 18, 'trading'),
+   (11, 6, 'garden', 'Aspargus', 'I give in good hands', 20, 'sold'),
+   (12, 7, 'garden', 'Astra', 'I give in good hands', 3, 'sold'),
+   (13, 8, 'garden', 'Cosmea', 'I give in good hands', 10002, 'rejected'),
+   (14, 9, 'cactus', 'Astra', 'I give in good hands', 15, 'trading'),
+   (15, 10, 'cactus', 'Espotoia','I give in good hands', 14, 'trading');
 
 -- User bets !
 INSERT INTO flowers_auction_bd.bets_m2m (bet_id, fl_id, user_id, user_bet) VALUES (1, 2, 2, 16);
