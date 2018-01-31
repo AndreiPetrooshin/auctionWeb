@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<nav class="col-3 col-m-3 menu">
+<nav class="col-3 col-m-12 menu">
     <ul>
         <li>
             <a href="${pageContext.request.contextPath}/controller?command=showLots&type=meadow">

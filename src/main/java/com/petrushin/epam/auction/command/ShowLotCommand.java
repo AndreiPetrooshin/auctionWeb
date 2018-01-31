@@ -1,6 +1,8 @@
 package com.petrushin.epam.auction.command;
 
 import com.petrushin.epam.auction.constants.Pages;
+import com.petrushin.epam.auction.domain.dto.FlowerLotDto;
+import com.petrushin.epam.auction.domain.dto.UserBetDto;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.domain.FlowerLot;
 import com.petrushin.epam.auction.domain.UserBet;
@@ -11,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,12 +63,25 @@ public class ShowLotCommand implements Command {
             FlowerLot lot = flowerLotService.findById(id);
             if (lot != null) {
                 List<UserBet> userBetList = userBetService.getByLotId(id);
-                request.setAttribute(ATTR_BETS, userBetList);
-                request.setAttribute(ATTR_LOT, lot);
+                List<UserBetDto> dtoList = convertUserBetListToDtoList(userBetList);
+                request.setAttribute(ATTR_BETS, dtoList);
+                FlowerLotDto flowerLotDto = new FlowerLotDto(lot);
+                request.setAttribute(ATTR_LOT, flowerLotDto);
             }
         } catch (EntityDAOException e) {
             LOGGER.error("Error with find lot by id", e);
             request.setAttribute(ATTR_ERROR, true);
         }
+    }
+
+    /**
+     * Converts List of UserBets to UserBetDto List
+     * */
+    private List<UserBetDto> convertUserBetListToDtoList(List<UserBet> userBets){
+        List<UserBetDto> betDtoList = new ArrayList<>();
+        for (UserBet userBet : userBets) {
+            betDtoList.add(new UserBetDto(userBet));
+        }
+        return betDtoList;
     }
 }

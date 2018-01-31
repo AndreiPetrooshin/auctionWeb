@@ -2,6 +2,7 @@ package com.petrushin.epam.auction.command;
 
 import com.petrushin.epam.auction.constants.Pages;
 import com.petrushin.epam.auction.domain.UserAddress;
+import com.petrushin.epam.auction.domain.dto.UserAddressDto;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.services.UserAddressesService;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +33,8 @@ public class WinnerAddressCommand implements Command {
         }
         try {
             UserAddress userAddress = addressesService.getByUserId(userId);
-            request.setAttribute(ATTR_ADDRESS, userAddress);
+            UserAddressDto addressDto = new UserAddressDto(userAddress);
+            request.setAttribute(ATTR_ADDRESS, addressDto);
         } catch (EntityDAOException e) {
             LOGGER.error(e.getMessage(), e);
             request.setAttribute(WINNER_ADDRESS_ERROR, true);

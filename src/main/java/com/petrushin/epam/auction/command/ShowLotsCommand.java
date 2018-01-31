@@ -1,6 +1,7 @@
 package com.petrushin.epam.auction.command;
 
 import com.petrushin.epam.auction.constants.Pages;
+import com.petrushin.epam.auction.domain.dto.FlowerLotDto;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.domain.FlowerLot;
 import com.petrushin.epam.auction.services.FlowerLotService;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,12 +53,24 @@ public class ShowLotsCommand implements Command {
             } else {
                 lotList = flowerLotService.getByTypeAndState(type, PARAM_TRADING);
             }
-            request.setAttribute(ATTR_LOT_LIST, lotList);
+            List<FlowerLotDto> dtoList = convertLotListToDtoList(lotList);
+            request.setAttribute(ATTR_LOT_LIST, dtoList);
         } catch (EntityDAOException e) {
             LOGGER.error("Error with showing lots", e);
             request.setAttribute(ATTR_ERROR, true);
         }
 
         return Pages.HOME_PAGE;
+    }
+
+    /**
+     * Converts List of FlowerLots to FlowerLotsDto List
+     * */
+    private List<FlowerLotDto> convertLotListToDtoList(List<FlowerLot> lotList) {
+        List<FlowerLotDto> dtoList = new ArrayList<>();
+        for (FlowerLot lot: lotList) {
+            dtoList.add(new FlowerLotDto(lot));
+        }
+        return dtoList;
     }
 }

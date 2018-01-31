@@ -113,7 +113,7 @@
         <h2> Ставки: </h2>
         <ul>
             <c:forEach items="${requestScope.bets}" var="bet">
-                <li><c:out value="${bet.user.login}"/>
+                <li><c:out value="${bet.login}"/>
                     bet: <c:out value="${bet.bet}"/>
                 </li>
             </c:forEach>

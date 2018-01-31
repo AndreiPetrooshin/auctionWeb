@@ -1,6 +1,7 @@
 package com.petrushin.epam.auction.web.tag;
 
 import com.petrushin.epam.auction.domain.FlowerLot;
+import com.petrushin.epam.auction.domain.dto.FlowerLotDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,9 +22,9 @@ public class ShowListTag extends TagSupport {
 
     private static final Logger LOGGER = LogManager.getLogger(ShowListTag.class);
 
-    private List<FlowerLot> lotList;
+    private List<FlowerLotDto> lotList;
 
-    public void setlotList(List<FlowerLot> lots) {
+    public void setlotList(List<FlowerLotDto> lots) {
         lotList = lots;
     }
 
@@ -34,7 +35,7 @@ public class ShowListTag extends TagSupport {
             return SKIP_BODY;
         }
         JspWriter writer = pageContext.getOut();
-        for (FlowerLot lot : lotList) {
+        for (FlowerLotDto lot : lotList) {
             try {
                 writer.write("<a href=\"" + request.getContextPath() + "/controller?command=showLot&id=" + lot.getId() + "\">\n" +
                         "            <section class=\"lot row main-lots\">\n" +
