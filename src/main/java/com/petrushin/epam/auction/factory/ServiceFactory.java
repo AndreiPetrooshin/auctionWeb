@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.factory;
 
-import com.petrushin.epam.auction.services.*;
 import com.petrushin.epam.auction.dao.impl.*;
+import com.petrushin.epam.auction.services.*;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,5 @@
 package com.petrushin.epam.auction.command;
 
-import com.petrushin.epam.auction.command.Command;
-import com.petrushin.epam.auction.command.ProfileCommand;
 import com.petrushin.epam.auction.constants.Pages;
 import com.petrushin.epam.auction.domain.*;
 import com.petrushin.epam.auction.services.FlowerLotService;

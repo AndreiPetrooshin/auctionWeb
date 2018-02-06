@@ -1,9 +1,8 @@
 package com.petrushin.epam.auction.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.command.PayCommand;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.domain.Payment;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.services.PaymentService;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,11 +13,10 @@ import org.mockito.MockitoAnnotations;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class PayCommandTest {
 

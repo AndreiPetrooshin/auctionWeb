@@ -1,8 +1,8 @@
 package com.petrushin.epam.auction.dao.creator.impl;
 
 import com.petrushin.epam.auction.dao.creator.AbstractCreator;
-import com.petrushin.epam.auction.exceptions.CreatorException;
 import com.petrushin.epam.auction.domain.UserRole;
+import com.petrushin.epam.auction.exceptions.CreatorException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

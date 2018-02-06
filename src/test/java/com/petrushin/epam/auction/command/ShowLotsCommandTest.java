@@ -1,6 +1,5 @@
 package com.petrushin.epam.auction.command;
 
-import com.petrushin.epam.auction.command.ShowLotsCommand;
 import com.petrushin.epam.auction.domain.FlowerLot;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.services.FlowerLotService;
@@ -16,9 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ShowLotsCommandTest {
 

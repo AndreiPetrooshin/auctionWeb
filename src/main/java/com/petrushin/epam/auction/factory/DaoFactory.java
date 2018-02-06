@@ -1,8 +1,8 @@
 package com.petrushin.epam.auction.factory;
 
+import com.petrushin.epam.auction.dao.GenericDao;
 import com.petrushin.epam.auction.dao.creator.Creator;
 import com.petrushin.epam.auction.dao.creator.impl.*;
-import com.petrushin.epam.auction.dao.GenericDao;
 import com.petrushin.epam.auction.dao.impl.*;
 
 import java.util.HashMap;

@@ -1,11 +1,11 @@
 package com.petrushin.epam.auction.command;
 
 import com.petrushin.epam.auction.constants.Pages;
+import com.petrushin.epam.auction.domain.FlowerLot;
+import com.petrushin.epam.auction.domain.UserBet;
 import com.petrushin.epam.auction.domain.dto.FlowerLotDto;
 import com.petrushin.epam.auction.domain.dto.UserBetDto;
 import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.domain.FlowerLot;
-import com.petrushin.epam.auction.domain.UserBet;
 import com.petrushin.epam.auction.services.FlowerLotService;
 import com.petrushin.epam.auction.services.UserBetService;
 import org.apache.logging.log4j.LogManager;

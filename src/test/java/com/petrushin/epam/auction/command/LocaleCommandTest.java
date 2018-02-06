@@ -1,6 +1,5 @@
 package com.petrushin.epam.auction.command;
 
-import com.petrushin.epam.auction.command.LocaleCommand;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

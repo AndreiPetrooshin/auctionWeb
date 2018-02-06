@@ -1,8 +1,8 @@
 package com.petrushin.epam.auction.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.domain.FlowerLot;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.services.FlowerLotService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

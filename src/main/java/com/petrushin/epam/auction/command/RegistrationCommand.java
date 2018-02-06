@@ -1,9 +1,9 @@
 package com.petrushin.epam.auction.command;
 
 import com.petrushin.epam.auction.constants.Pages;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.domain.User;
 import com.petrushin.epam.auction.domain.UserRole;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.services.UserService;
 import com.petrushin.epam.auction.util.ValidatorUtil;
 

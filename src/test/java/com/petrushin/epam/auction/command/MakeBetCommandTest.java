@@ -1,7 +1,5 @@
 package com.petrushin.epam.auction.command;
 
-import com.petrushin.epam.auction.command.Command;
-import com.petrushin.epam.auction.command.MakeBetCommand;
 import com.petrushin.epam.auction.constants.Pages;
 import com.petrushin.epam.auction.domain.FlowerLot;
 import com.petrushin.epam.auction.domain.User;
@@ -18,10 +16,9 @@ import org.mockito.MockitoAnnotations;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

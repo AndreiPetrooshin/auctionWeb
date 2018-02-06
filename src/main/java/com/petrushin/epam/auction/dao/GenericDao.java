@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.dao;
 
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import com.petrushin.epam.auction.domain.Identified;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
 
 import java.sql.Connection;
 import java.util.List;

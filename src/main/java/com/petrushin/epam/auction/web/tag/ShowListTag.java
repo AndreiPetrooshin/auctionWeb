@@ -1,6 +1,5 @@
 package com.petrushin.epam.auction.web.tag;
 
-import com.petrushin.epam.auction.domain.FlowerLot;
 import com.petrushin.epam.auction.domain.dto.FlowerLotDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

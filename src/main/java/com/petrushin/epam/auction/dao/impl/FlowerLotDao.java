@@ -1,12 +1,12 @@
 package com.petrushin.epam.auction.dao.impl;
 
-import com.petrushin.epam.auction.exceptions.CreatorException;
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.dao.creator.Creator;
 import com.petrushin.epam.auction.dao.AbstractDao;
 import com.petrushin.epam.auction.dao.ConnectionPool;
+import com.petrushin.epam.auction.dao.creator.Creator;
 import com.petrushin.epam.auction.domain.FlowerLot;
 import com.petrushin.epam.auction.domain.User;
+import com.petrushin.epam.auction.exceptions.CreatorException;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

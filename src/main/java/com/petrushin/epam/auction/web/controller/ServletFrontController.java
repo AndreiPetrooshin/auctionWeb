@@ -1,7 +1,7 @@
 package com.petrushin.epam.auction.web.controller;
 
-import com.petrushin.epam.auction.constants.Pages;
 import com.petrushin.epam.auction.command.Command;
+import com.petrushin.epam.auction.constants.Pages;
 import com.petrushin.epam.auction.factory.CommandFactory;
 import com.petrushin.epam.auction.factory.CreatorFactory;
 import com.petrushin.epam.auction.factory.DaoFactory;

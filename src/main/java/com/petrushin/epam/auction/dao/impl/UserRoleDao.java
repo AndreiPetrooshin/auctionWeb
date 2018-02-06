@@ -1,9 +1,9 @@
 package com.petrushin.epam.auction.dao.impl;
 
-import com.petrushin.epam.auction.exceptions.EntityDAOException;
-import com.petrushin.epam.auction.dao.creator.Creator;
 import com.petrushin.epam.auction.dao.AbstractDao;
+import com.petrushin.epam.auction.dao.creator.Creator;
 import com.petrushin.epam.auction.domain.UserRole;
+import com.petrushin.epam.auction.exceptions.EntityDAOException;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
